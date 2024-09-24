@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E400838F"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MyRecipe"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="139dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="להתחברות"
+        android:textColor="@color/teal_700"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="393dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="להרשמה"
+        android:textColor="@color/teal_700"
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="393dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
