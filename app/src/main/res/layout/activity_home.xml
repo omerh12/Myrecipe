@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00838F"
+    tools:context=".Home">
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="322dp"
+        android:layout_height="307dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="369dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="129dp"
+        android:layout_height="59dp"
+        android:text="חיפוש"
+        android:textColor="#00838F"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="38dp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="287dp"
+        android:layout_height="75dp"
+        android:text="מתכונים מומלצים:"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="294dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="55dp"
+        android:layout_height="218dp"
+        tools:layout_editor_absoluteX="340dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

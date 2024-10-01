@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00838F"
+    tools:context=".Search1">
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="זמן הכנה:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="445dp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="העדפות:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="307dp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="סוג:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="173dp"
+        tools:layout_editor_absoluteY="307dp" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="קושי מתכון:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="307dp" />
+
+    <Switch
+        android:id="@+id/switch12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מלוח"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="347dp" />
+
+    <Switch
+        android:id="@+id/switch11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="קשה"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="304dp"
+        tools:layout_editor_absoluteY="401dp" />
+
+    <Switch
+        android:id="@+id/switch10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="בינוני"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="301dp"
+        tools:layout_editor_absoluteY="374dp" />
+
+    <Switch
+        android:id="@+id/switch7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="טבעוני"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="292dp"
+        tools:layout_editor_absoluteY="255dp" />
+
+    <Switch
+        android:id="@+id/switch8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="קל"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="318dp"
+        tools:layout_editor_absoluteY="347dp" />
+
+    <Switch
+        android:id="@+id/switch9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="בישול"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="374dp" />
+
+    <Switch
+        android:id="@+id/switch5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="בשרי"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="302dp"
+        tools:layout_editor_absoluteY="201dp" />
+
+    <Switch
+        android:id="@+id/switch4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ביצים"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="201dp" />
+
+    <Switch
+        android:id="@+id/switch16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ביצים"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="201dp" />
+
+    <Switch
+        android:id="@+id/switch17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ביצים"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="228dp" />
+
+    <Switch
+        android:id="@+id/switch18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ביצים"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="228dp" />
+
+    <Switch
+        android:id="@+id/switch19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ביצים"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="255dp" />
+
+    <Switch
+        android:id="@+id/switch6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="אפייה"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="347dp" />
+
+    <Switch
+        android:id="@+id/switch13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="עד חצי שעה"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="279dp"
+        tools:layout_editor_absoluteY="487dp" />
+
+    <Switch
+        android:id="@+id/switch14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="עד שעה"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="487dp" />
+
+    <Switch
+        android:id="@+id/switch15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="שעה או יותר"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="487dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="חיפוש"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="62dp" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ללא בישול"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="401dp" />
+
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מתוק"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="374dp" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="צמחוני"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="228dp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="148dp"
+        android:layout_height="75dp"
+        android:text="חיפוש"
+        android:textColor="@color/teal_700"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="131dp"
+        tools:layout_editor_absoluteY="563dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="העדפות:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="299dp"
+        tools:layout_editor_absoluteY="162dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="לפי מצרכים בבית:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="162dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="266dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="100dp"
+            android:layout_height="19dp"
+            android:background="@color/white"
+            android:hint="אחר:"
+            android:textColor="#00838F"
+            android:textColorHint="@color/teal_700" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="123dp">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="חיפוש:"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="108dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
