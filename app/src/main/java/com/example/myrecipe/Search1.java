@@ -17,17 +17,14 @@ public class Search1 extends AppCompatActivity {
         setContentView(R.layout.activity_search1);
     }
 
-            Button buttonGoToSecond = findViewById(R.id.buttonGoToSecond);
-            buttonGoToSecond.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Search1.this, matkon1.class);
-                    startActivity(intent);
-                }
-            });
-        }
-    }
-
+//            Button buttonGoToSecond = (Button) findViewById(R.id.buttonGoToSecond);
+//            buttonGoToSecond.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(Search1.this, matkon1.class);
+//                    startActivity(intent);
+//                }
+//            });
 
 
 }

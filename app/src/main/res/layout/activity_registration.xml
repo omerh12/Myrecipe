@@ -11,13 +11,17 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="103dp"
         android:text="הרשמה"
         android:textColor="@color/white"
-        android:textSize="60sp"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="151dp" />
+        android:textSize="66sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.237" />
 
     <EditText
         android:id="@+id/enter_password"
@@ -34,9 +38,9 @@
         android:layout_height="wrap_content"
         android:text="Password:"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="434dp" />
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="426dp" />
 
     <EditText
         android:id="@+id/enter_Email"
@@ -53,7 +57,7 @@
         android:layout_height="wrap_content"
         android:text="Email:"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="22sp"
         tools:layout_editor_absoluteX="34dp"
         tools:layout_editor_absoluteY="376dp" />
 
@@ -64,7 +68,7 @@
         android:background="#00838F"
         android:text="Name:"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="22sp"
         tools:layout_editor_absoluteX="34dp"
         tools:layout_editor_absoluteY="318dp" />
 
@@ -87,7 +91,7 @@
         tools:layout_editor_absoluteY="513dp" />
 
     <Button
-        android:id="@+id/go_back"
+        android:id="@+id/goback_Reg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="חזרה"
