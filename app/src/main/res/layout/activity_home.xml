@@ -8,37 +8,46 @@
     tools:context=".Home">
 
     <Button
-        android:id="@+id/button11"
-        android:layout_width="322dp"
-        android:layout_height="307dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="369dp" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="129dp"
-        android:layout_height="59dp"
+        android:id="@+id/Search"
+        android:layout_width="192dp"
+        android:layout_height="97dp"
         android:text="חיפוש"
         android:textColor="#00838F"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="38dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.938" />
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="287dp"
-        android:layout_height="75dp"
+        android:layout_width="300dp"
+        android:layout_height="37dp"
         android:text="מתכונים מומלצים:"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="294dp" />
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.855"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="55dp"
-        android:layout_height="218dp"
-        tools:layout_editor_absoluteX="340dp"
-        tools:layout_editor_absoluteY="16dp" />
+    <Button
+        android:id="@+id/Log_out"
+        android:layout_width="135dp"
+        android:layout_height="48dp"
+        android:text="התנתקות"
+        android:textColor="#009688"
+        android:textColorLink="#009688"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
