@@ -13,20 +13,22 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-    }
-            Button buttonGoToSecond = findViewById(R.id.buttonGoToSecond);
-            buttonGoToSecond.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Home.this, SignIn.class);
-                    startActivity(intent);
-                }
-            }
 
-    private void startActivity(Intent intent) {
-    });
-        }
+//        Button buttonGoToSecond = findViewById(R.id.buttonGoToSecond);
+//        buttonGoToSecond.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Home.this, SignIn.class);
+//                startActivity(intent);
+//            }
+//        }
+
+
     }
+
+
+
+
 
 
 }

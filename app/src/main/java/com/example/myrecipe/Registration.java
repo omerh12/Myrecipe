@@ -8,19 +8,23 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class Registration extends AppCompatActivity {
 
     // Initialize the EditText fields
-    private EditText enter_name = findViewById(R.id.enter_name);
-    private EditText enter_Email = findViewById(R.id.enter_Email);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registration);
+
+
+        EditText enter_name = (EditText) findViewById(R.id.enter_name);
+        EditText enter_Email = (EditText)  findViewById(R.id.enter_Email);
+        Button submit_reg;
 
         // Find the Submit button and set an OnClickListener
-        Button submit_reg;
+
         Button buttonSubmit = findViewById(R.id.submit_reg);
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Validate input
                 if (name.isEmpty() || email.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Please fill in both fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registration.this, "Please fill in both fields.", Toast.LENGTH_SHORT).show();
                 } else {
                     // Create an Intent to pass the data to SecondActivity
                     Intent intent = new Intent(Registration.this, Home.class);

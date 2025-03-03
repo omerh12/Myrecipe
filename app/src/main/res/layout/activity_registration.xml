@@ -16,8 +16,11 @@
         android:text="הרשמה"
         android:textColor="@color/white"
         android:textSize="60sp"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="151dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.203" />
 
     <EditText
         android:id="@+id/enter_password"
@@ -25,8 +28,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="128dp"
-        tools:layout_editor_absoluteY="426dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.521"
+        tools:layout_editor_absoluteX="128dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -35,8 +40,12 @@
         android:text="Password:"
         android:textColor="@color/white"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="434dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.585" />
 
     <EditText
         android:id="@+id/enter_Email"
@@ -44,8 +53,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="128dp"
-        tools:layout_editor_absoluteY="367dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.587" />
 
     <TextView
         android:id="@+id/textView6"
@@ -65,8 +78,12 @@
         android:text="Name:"
         android:textColor="@color/white"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="318dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.096"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446" />
 
     <EditText
         android:id="@+id/enter_name"
@@ -74,8 +91,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="128dp"
-        tools:layout_editor_absoluteY="309dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.448" />
 
     <Button
         android:id="@+id/submit_reg"
@@ -83,8 +104,11 @@
         android:layout_height="wrap_content"
         android:text="שמירה"
         android:textColor="#00838F"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="513dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.765" />
 
     <Button
         android:id="@+id/go_back"
