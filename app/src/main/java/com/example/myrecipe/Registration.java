@@ -8,10 +8,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Registration extends AppCompatActivity {
 
     // Initialize the EditText fields
-
+private EditText enter_name;
+private EditText enter_Email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +23,8 @@ public class Registration extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
 
-        EditText enter_name = (EditText) findViewById(R.id.enter_name);
-        EditText enter_Email = (EditText)  findViewById(R.id.enter_Email);
+        enter_name = (EditText) findViewById(R.id.enter_name);
+        enter_Email = (EditText)  findViewById(R.id.enter_Email);
         Button submit_reg;
 
         // Find the Submit button and set an OnClickListener
@@ -48,6 +52,7 @@ public class Registration extends AppCompatActivity {
                     // Start SecondActivity
                     startActivity(intent);
                 }
+
             }
         });
     }

@@ -13,7 +13,12 @@
           "package_name": "com.example.myrecipe"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "303674452579-a93jceerf8fvc6n5n49okol11j6c31df.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDCeqpn_qZEeCs2aiMSBJeRADpP3xnUXqY"
@@ -21,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303674452579-a93jceerf8fvc6n5n49okol11j6c31df.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

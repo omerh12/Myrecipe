@@ -89,6 +89,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.235" />
 
+    <Button
+        android:id="@+id/googleSignInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Sign in with Google"
+        app:layout_constraintTop_toBottomOf="@+id/goback_SI"
+        tools:layout_editor_absoluteX="98dp" />
+
     <EditText
         android:id="@+id/name_SI"
         android:layout_width="wrap_content"
