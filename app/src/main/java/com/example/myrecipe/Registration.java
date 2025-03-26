@@ -25,7 +25,6 @@ private EditText enter_Email;
 
         enter_name = (EditText) findViewById(R.id.enter_name);
         enter_Email = (EditText)  findViewById(R.id.enter_Email);
-        Button submit_reg;
 
         // Find the Submit button and set an OnClickListener
 

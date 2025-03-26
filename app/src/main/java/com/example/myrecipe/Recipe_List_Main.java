@@ -1,22 +1,29 @@
 package com.example.myrecipe;
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import java.util.ArrayList;
-import android.view.Menu;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
-import com.google.firebase.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseReference;
 
 public class Recipe_List_Main extends AppCompatActivity {
+
+
+
+
 
     ArrayList<Recipe> Recipe_List;
 
@@ -25,21 +32,59 @@ public class Recipe_List_Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list_main);
 
+        Button save_recipe=findViewById(R.id.save_recipe);
+        EditText recipe_name=findViewById(R.id.recipe_name);
+        EditText recipe_ingredients=findViewById(R.id.recipe_ingredients);
+        EditText recipe_instructions=findViewById(R.id.recipe_instructions);
+
         Recipe_List=new ArrayList<Recipe>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference RecipeRef=database.getReference("recipes");
 
-        RecipeRef.setValue("")
+        save_recipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the values entered by the user
+                String recipeName = recipe_name.getText().toString().trim();
+                String recipeIngredients = recipe_ingredients.getText().toString().trim();
+                String recipeInstructions = recipe_instructions.getText().toString().trim();
 
-     //   for(int i=0;i<6;i++){
+                // Check if any field is empty
+                if (recipeName.isEmpty() || recipeIngredients.isEmpty() || recipeInstructions.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Create a new recipe object
+                    Recipe newRecipe = new Recipe(recipeName, recipeIngredients, recipeInstructions);
 
-       //     Recipe rec=new Recipe ("ביצים, קמח, חלב, חמאה, שמן, מלח", "לערבב את כל המרכיבים ולשים בתנור");
-         //   Recipe_List.add(rec);
-           // DatabaseReference newrecRef= RecipeRef.push();
-            //newrecRef.setValue(rec);
+                    // Generate a unique ID for the new recipe
+                    String recipeId = RecipeRef.push().getKey();
+                    Recipe_List.add(newRecipe);
 
-       // }
-    }
+                    if (recipeId != null) {
+                        // Save the recipe to Firebase
+                        RecipeRef.child(recipeId).setValue(newRecipe)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            // Successfully saved
+                                            Toast.makeText(getApplicationContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            // Error occurred
+                                            Toast.makeText(getApplicationContext(), "Failed to save recipe", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+                }
+
+            }
+        });
+}
+
+    Intent intent = new Intent(Recipe_List_Main.this, Home.class);
+    startActivity(intent);
+
 
 
 }

@@ -76,32 +76,6 @@ public class SignIn extends AppCompatActivity {
                 }
         );
 
-//        Button buttonSubmit = findViewById(R.id.submit_reg);
-
-//        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Get the text entered in the name and email fields
-//                String name = enter_name.getText().toString();
-//                String email = enter_Email.getText().toString();
-//
-//                // Validate input
-//                if (name.isEmpty() || email.isEmpty()) {
-//                    Toast.makeText(SignIn.this, "Please fill in both fields.", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    // Create an Intent to pass the data to the SecondActivity
-//                    Intent intent = new Intent(SignIn.this, Home.class);
-//
-//                    // Put the name and email as extras in the intent
-//                    intent.putExtra("name", name);
-//                    intent.putExtra("email", email);
-//
-//                    // Start SecondActivity
-//                    startActivity(intent);
-//                }
-//            }
-//        });
-
         findViewById(R.id.googleSignInButton).setOnClickListener(v -> {
             signIn();
         });
