@@ -22,9 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 public class Recipe_List_Main extends AppCompatActivity {
 
 
-
-
-
     ArrayList<Recipe> Recipe_List;
 
     @Override
@@ -41,37 +38,41 @@ public class Recipe_List_Main extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference RecipeRef=database.getReference("recipes");
 
-        save_recipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the values entered by the user
-                String recipeName = recipe_name.getText().toString().trim();
-                String recipeIngredients = recipe_ingredients.getText().toString().trim();
-                String recipeInstructions = recipe_instructions.getText().toString().trim();
+                          save_recipe.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                             public void onClick(View v) {
+                                  // Get the values entered by the user
+                               String recipeName = recipe_name.getText().toString().trim();
+                                 String recipeIngredients = recipe_ingredients.getText().toString().trim();
+                                  String recipeInstructions = recipe_instructions.getText().toString().trim();
 
-                // Check if any field is empty
-                if (recipeName.isEmpty() || recipeIngredients.isEmpty() || recipeInstructions.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Create a new recipe object
-                    Recipe newRecipe = new Recipe(recipeName, recipeIngredients, recipeInstructions);
+                                     // Check if any field is empty
+                                   if (recipeName.isEmpty() || recipeIngredients.isEmpty() || recipeInstructions.isEmpty()) {
+                                       Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
 
-                    // Generate a unique ID for the new recipe
-                    String recipeId = RecipeRef.push().getKey();
-                    Recipe_List.add(newRecipe);
+                                   } else {
+                                     // Create a new recipe object
+                                       Recipe newRecipe = new Recipe(recipeName, recipeIngredients, recipeInstructions);
 
-                    if (recipeId != null) {
-                        // Save the recipe to Firebase
-                        RecipeRef.child(recipeId).setValue(newRecipe)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            // Successfully saved
-                                            Toast.makeText(getApplicationContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            // Error occurred
-                                            Toast.makeText(getApplicationContext(), "Failed to save recipe", Toast.LENGTH_SHORT).show();
+                                           // Generate a unique ID for the new recipe
+                                        String recipeId = RecipeRef.push().getKey();
+                                        Recipe_List.add(newRecipe);
+
+                                           if (recipeId != null) {
+                                             // Save the recipe to Firebase
+                                            RecipeRef.child(recipeId).setValue(newRecipe)
+                                          .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                 // Successfully saved
+                                                Toast.makeText(getApplicationContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(Recipe_List_Main.this, Home.class);
+                                                startActivity(intent);
+                                                 } else {
+                                                // Error occurred
+                                                Toast.makeText(getApplicationContext(), "Failed to save recipe", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -81,10 +82,5 @@ public class Recipe_List_Main extends AppCompatActivity {
             }
         });
 }
-
-    Intent intent = new Intent(Recipe_List_Main.this, Home.class);
-    startActivity(intent);
-
-
 
 }
