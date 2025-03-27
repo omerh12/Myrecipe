@@ -30,9 +30,9 @@ public class Recipe_List_Main extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_list_main);
 
         Button save_recipe=findViewById(R.id.save_recipe);
-        EditText recipe_name=findViewById(R.id.recipe_name);
-        EditText recipe_ingredients=findViewById(R.id.recipe_ingredients);
-        EditText recipe_instructions=findViewById(R.id.recipe_instructions);
+        EditText name=findViewById(R.id.recipe_name);
+        EditText ingredients=findViewById(R.id.recipe_ingredients);
+        EditText instructions=findViewById(R.id.recipe_instructions);
 
         Recipe_List=new ArrayList<Recipe>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -42,9 +42,9 @@ public class Recipe_List_Main extends AppCompatActivity {
                             @Override
                              public void onClick(View v) {
                                   // Get the values entered by the user
-                               String recipeName = recipe_name.getText().toString().trim();
-                                 String recipeIngredients = recipe_ingredients.getText().toString().trim();
-                                  String recipeInstructions = recipe_instructions.getText().toString().trim();
+                               String recipeName = name.getText().toString().trim();
+                                 String recipeIngredients = ingredients.getText().toString().trim();
+                                  String recipeInstructions = instructions.getText().toString().trim();
 
                                      // Check if any field is empty
                                    if (recipeName.isEmpty() || recipeIngredients.isEmpty() || recipeInstructions.isEmpty()) {
