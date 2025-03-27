@@ -8,105 +8,7 @@
     tools:context=".Matkon1">
 
     <TextView
-        android:id="@+id/textView27"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text="2 כפות פירורי לחם"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.365" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text="בצל קצוץ"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.335" />
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text="2 כפות קמח"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
-
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text="שתי שיניים שום כתוש"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text="מלח ופלפל"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476" />
-
-    <TextView
-        android:id="@+id/textView30"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text="שמן לטיגון"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text="ביצה אחת"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393" />
-
-    <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/recipe_name"
         android:layout_width="351dp"
         android:layout_height="87dp"
         android:text="מתכון לקציצות עוף עם תפו&quot;א"
@@ -127,7 +29,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/recipe_ingredients_title"
         android:layout_width="82dp"
         android:layout_height="39dp"
         android:text="מצרכים:"
@@ -141,35 +43,21 @@
         app:layout_constraintVertical_bias="0.225" />
 
     <TextView
-        android:id="@+id/textView22"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
+        android:id="@+id/recipe_ingredients"
+        android:layout_width="166dp"
+        android:layout_height="162dp"
         android:text="500 גרם חזה עוף טחון"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
+        app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.278" />
+        app:layout_constraintVertical_bias="0.342" />
 
     <TextView
-        android:id="@+id/textView23"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:text='2 תפו"א'
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.305" />
-
-    <TextView
-        android:id="@+id/textView31"
+        android:id="@+id/recipe_instructions_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="אופן ההכנה:"
@@ -180,16 +68,17 @@
         app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.61" />
 
     <TextView
-        android:id="@+id/textView32"
+        android:id="@+id/recipe_instructions"
         android:layout_width="333dp"
         android:layout_height="211dp"
         android:text="בקערה גדולה מערבבים את כל החומרים. להפוך לקציצות בגודל בינוני (אפשר לעשות את זה עם הידיים או בעזרת כף) . מחממים שמן במחבת רחבה על להבה בינונית. כשהשמן חם, מכניסים את הקציצות למחבת ומטגנים בכל צד עד שהן משחימות ופריכות (כ-5-7 דקות לכל צד)."
         android:textColor="#FDFBFB"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="457dp" />
+        tools:layout_editor_absoluteY="457dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
