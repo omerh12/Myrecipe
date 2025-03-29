@@ -24,7 +24,7 @@
             android:name=".Matkon1"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".Search1"

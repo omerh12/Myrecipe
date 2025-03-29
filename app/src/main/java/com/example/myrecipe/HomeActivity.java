@@ -5,19 +5,18 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.os.Bundle;
 import android.widget.TextView;
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
+
+    Button btnHomeRecipeList, btnHomeUploadNewRecipe, btnHomeFavoriteRecipies, btnHomeAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        TextView textview11= findViewById(R.id.textView11);
-        Button Recipe_List_Main=findViewById(R.id.Search);
-        Button Log_out=findViewById(R.id.Log_out);
-        Button go_to_favorites=findViewById(R.id.go_to_favorites);
+
+
 
         // Disable the default sound effect when the login button is clicked
         Recipe_List_Main.setSoundEffectsEnabled(false);
@@ -27,7 +26,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to start Login activity
-                Intent intent = new Intent(Home.this, Recipe_List_Main.class); // Make sure LoginActivity is the correct class
+                Intent intent = new Intent(HomeActivity.this, Recipe_List_Main.class); // Make sure LoginActivity is the correct class
                 // Start the activity
                 startActivity(intent);
             }
@@ -41,7 +40,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to start Login activity
-                Intent intent = new Intent(Home.this, MainActivity.class); // Make sure the correct class
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class); // Make sure the correct class
                 // Start the activity
                 startActivity(intent);
             }
@@ -55,7 +54,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to start Login activity
-                Intent intent = new Intent(Home.this, Favorites_list.class); // Make sure LoginActivity is the correct class
+                Intent intent = new Intent(HomeActivity.this, Favorites_list.class); // Make sure LoginActivity is the correct class
                 // Start the activity
                 startActivity(intent);
             }

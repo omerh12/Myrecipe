@@ -68,7 +68,7 @@ public class Recipe_List_Main extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                  // Successfully saved
                                                 Toast.makeText(getApplicationContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(Recipe_List_Main.this, Home.class);
+                                                Intent intent = new Intent(Recipe_List_Main.this, HomeActivity.class);
                                                 startActivity(intent);
                                                  } else {
                                                 // Error occurred

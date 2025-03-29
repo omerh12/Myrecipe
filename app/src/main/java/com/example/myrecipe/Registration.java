@@ -8,9 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class Registration extends AppCompatActivity {
 
     // Initialize the EditText fields
@@ -42,7 +39,7 @@ private EditText enter_Email;
                     Toast.makeText(Registration.this, "Please fill in both fields.", Toast.LENGTH_SHORT).show();
                 } else {
                     // Create an Intent to pass the data to SecondActivity
-                    Intent intent = new Intent(Registration.this, Home.class);
+                    Intent intent = new Intent(Registration.this, HomeActivity.class);
 
                     // Put the name and email as extras in the intent
                     intent.putExtra("name", name);

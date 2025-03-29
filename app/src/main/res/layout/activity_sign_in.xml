@@ -7,73 +7,9 @@
     android:background="#00838F"
     tools:context=".SignIn">
 
-    <Button
-        android:id="@+id/submit_signIn"
-        android:layout_width="114dp"
-        android:layout_height="58dp"
-        android:text="שמירה"
-        android:textColor="#00838F"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
 
-    <Button
-        android:id="@+id/goback_SI"
-        android:layout_width="114dp"
-        android:layout_height="58dp"
-        android:text="חזרה"
-        android:textColor="#00838F"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="104dp"
-        android:layout_height="30dp"
-        android:text="Password:"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.651" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email:"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.572" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="75dp"
-        android:layout_height="43dp"
-        android:text="Name:"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.485" />
 
     <TextView
         android:id="@+id/textView3"
@@ -89,52 +25,45 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.235" />
 
-    <Button
-        android:id="@+id/googleSignInButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Sign in with Google"
-        app:layout_constraintTop_toBottomOf="@+id/goback_SI"
-        tools:layout_editor_absoluteX="98dp" />
+
 
     <EditText
-        android:id="@+id/name_SI"
-        android:layout_width="wrap_content"
+        android:id="@+id/etSignInEmail"
+        android:layout_width="300sp"
         android:layout_height="wrap_content"
+        android:hint="Enter you email"
         android:ems="10"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.486" />
+        app:layout_constraintVertical_bias="0.59" />
 
     <EditText
-        android:id="@+id/password_SI"
-        android:layout_width="wrap_content"
+        android:id="@+id/etSignInPass"
+        android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Enter your password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.584" />
-
-    <EditText
-        android:id="@+id/email_SI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.655" />
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Sign In"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.759" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
