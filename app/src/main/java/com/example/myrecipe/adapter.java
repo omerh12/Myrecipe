@@ -23,14 +23,13 @@ public class adapter extends ArrayAdapter<RecipeObjectClass> {
     public View getview(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = ((Activity) Context).getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.activity_recipe_example, parent, false);
-        TextView recipe_name= (TextView) view.findViewById(R.id.recipe_name);
-        TextView recipe_ingredients= (TextView) view.findViewById(R.id.recipe_ingredients);
-        TextView recipe_instruction=(TextView) view.findViewById(R.id.recipe_instructions);
-
+        TextView tvRecipeExampleRecipeName= (TextView) view.findViewById(R.id.tvRecipeExampleRecipeName);
+        TextView tvRecipeExampleRecipeIngredients= (TextView) view.findViewById(R.id.tvRecipeExampleRecipeIngredients);
+        TextView tvRecipeExampleRecipeInstructions= (TextView) view.findViewById(R.id.tvRecipeExampleRecipeInstructions);
         RecipeObjectClass temp= RecipeList.get(position);
-        recipe_name.setText(temp.getName());
-        recipe_ingredients.setText(temp.getIngredients());
-        recipe_instruction.setText(temp.getInstructions());
+        tvRecipeExampleRecipeName.setText(temp.getName());
+        tvRecipeExampleRecipeIngredients.setText(temp.getIngredients());
+        tvRecipeExampleRecipeInstructions.setText(temp.getInstructions());
         return view;
 
 

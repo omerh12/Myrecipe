@@ -1,6 +1,7 @@
 package com.example.myrecipe;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +14,11 @@ import android.widget.EditText;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -32,7 +37,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     EditText etSignInEmail;
     EditText etSignInPass;
-    Button btnSignIn;
+    Button btnSignInEmail, btnSignInGoogle;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,8 +46,39 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         etSignInEmail=findViewById(R.id.etSignInEmail);
         etSignInPass=findViewById(R.id.etSignInPass);
-        btnSignIn=findViewById(R.id.btnSignIn);
-        btnSignIn.setOnClickListener(this);
+        btnSignInEmail=findViewById(R.id.btnSignInEmail);
+        btnSignInGoogle=findViewById(R.id.btnSignInGoogle);
+
+        btnSignInEmail.setOnClickListener(this);
+        btnSignInGoogle.setOnClickListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id)) // Replace with your client ID
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        signInLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                        try {
+                            // Google Sign In was successful, authenticate with Firebase
+                            GoogleSignInAccount account = task.getResult(ApiException.class);
+                            firebaseAuthWithGoogle(account.getIdToken());
+                        } catch (ApiException e) {
+                            // Google Sign In failed, update UI appropriately
+                            Log.w(TAG, "Google sign in failed", e);
+                            Toast.makeText(LogInActivity.this, "Google sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 
     private void signIn() {
@@ -85,25 +121,31 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        if(view==btnSignIn){
-            mAuth=FirebaseAuth.getInstance();
-            //String email=etSignInEmail.getText().toString();
-            //String pass=etSignInPass.getText().toString();
-            String email="abc@a.com";
-            String pass="123456";
-            mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Intent intent=new Intent(LogInActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(LogInActivity.this,
-                                "One or more details are incorrect",Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+        if(view==btnSignInEmail)
+            handleEmailSignIn();
+        else if (view==btnSignInGoogle) {
+            signIn();
         }
+    }
+
+    public void handleEmailSignIn() {
+        mAuth = FirebaseAuth.getInstance();
+        //String email=etSignInEmail.getText().toString();
+        //String pass=etSignInPass.getText().toString();
+        String email = "abc@a.com";
+        String pass = "123456";
+        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(LogInActivity.this,
+                            "One or more details are incorrect", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

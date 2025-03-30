@@ -29,10 +29,10 @@ public class UploadNewRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_new_recipe);
 
-        Button save_recipe=findViewById(R.id.save_recipe);
-        EditText name=findViewById(R.id.recipe_name);
-        EditText ingredients=findViewById(R.id.recipe_ingredients);
-        EditText instructions=findViewById(R.id.recipe_instructions);
+        Button save_recipe=findViewById(R.id.btnUploadNewRecipeSaveRecipe);
+        EditText etUploadNewRecipeName=findViewById(R.id.etUploadNewRecipeName);
+        EditText etUploadNewRecipeIngredients=findViewById(R.id.etUploadNewRecipeIngredients);
+        EditText etUploadNewRecipeInstructions=findViewById(R.id.etUploadNewRecipeInstructions);
 
         Recipe_List=new ArrayList<RecipeObjectClass>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -42,9 +42,9 @@ public class UploadNewRecipeActivity extends AppCompatActivity {
                             @Override
                              public void onClick(View v) {
                                   // Get the values entered by the user
-                               String recipeName = name.getText().toString().trim();
-                                 String recipeIngredients = ingredients.getText().toString().trim();
-                                  String recipeInstructions = instructions.getText().toString().trim();
+                               String recipeName = etUploadNewRecipeName.getText().toString().trim();
+                                 String recipeIngredients = etUploadNewRecipeIngredients.getText().toString().trim();
+                                  String recipeInstructions = etUploadNewRecipeInstructions.getText().toString().trim();
 
                                      // Check if any field is empty
                                    if (recipeName.isEmpty() || recipeIngredients.isEmpty() || recipeInstructions.isEmpty()) {

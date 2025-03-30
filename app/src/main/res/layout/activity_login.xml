@@ -38,12 +38,20 @@
          />
 
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnSignInEmail"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:textColor="#5C9B5E"
         android:text="Sign In"
 />
+
+    <Button
+        android:id="@+id/btnSignInGoogle"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:textColor="#5C9B5E"
+        android:text="Sign In with Gmail"
+        />
 
 
 </LinearLayout>
