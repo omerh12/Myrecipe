@@ -19,22 +19,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 
-public class Recipe_List_Main extends AppCompatActivity {
+public class UploadNewRecipeActivity extends AppCompatActivity {
 
 
-    ArrayList<Recipe> Recipe_List;
+    ArrayList<RecipeObjectClass> Recipe_List;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_list_main);
+        setContentView(R.layout.activity_upload_new_recipe);
 
         Button save_recipe=findViewById(R.id.save_recipe);
         EditText name=findViewById(R.id.recipe_name);
         EditText ingredients=findViewById(R.id.recipe_ingredients);
         EditText instructions=findViewById(R.id.recipe_instructions);
 
-        Recipe_List=new ArrayList<Recipe>();
+        Recipe_List=new ArrayList<RecipeObjectClass>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference RecipeRef=database.getReference("recipes");
 
@@ -52,7 +52,7 @@ public class Recipe_List_Main extends AppCompatActivity {
 
                                    } else {
                                      // Create a new recipe object
-                                       Recipe newRecipe = new Recipe(recipeName, recipeIngredients, recipeInstructions);
+                                       RecipeObjectClass newRecipe = new RecipeObjectClass(recipeName, recipeIngredients, recipeInstructions);
 
                                            // Generate a unique ID for the new recipe
                                         String recipeId = RecipeRef.push().getKey();
@@ -68,7 +68,7 @@ public class Recipe_List_Main extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                  // Successfully saved
                                                 Toast.makeText(getApplicationContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(Recipe_List_Main.this, HomeActivity.class);
+                                                Intent intent = new Intent(UploadNewRecipeActivity.this, HomeActivity.class);
                                                 startActivity(intent);
                                                  } else {
                                                 // Error occurred

@@ -12,16 +12,19 @@
         android:theme="@style/Theme.MyRecipe"
         tools:targetApi="31">
         <activity
-            android:name=".Recipe_List_Main"
+            android:name=".AlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UploadNewRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".History"
             android:exported="false" />
         <activity
-            android:name=".Favorites_list"
+            android:name=".RecipeListsActivity"
             android:exported="false" />
         <activity
-            android:name=".Matkon1"
+            android:name=".RecipeExampleActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
@@ -30,13 +33,13 @@
             android:name=".Search1"
             android:exported="false" />
         <activity
-            android:name=".SignIn"
+            android:name=".LogInActivity"
             android:exported="false" />
         <activity
             android:name=".Registration"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".FirstScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

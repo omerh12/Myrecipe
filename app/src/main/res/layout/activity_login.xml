@@ -7,41 +7,43 @@
     android:background="#5C9B5E"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Registration">
+    tools:context=".LogInActivity">
+
+
 
     <TextView
-        android:id="@+id/tvRegistrationTitle"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registraion"
+        android:text="LogIn"
         android:textColor="@color/white"
         android:textSize="60sp"
- />
-
-    <EditText
-        android:id="@+id/etRegistrationEmail"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:hint="Enter your Email"
-        android:inputType="textEmailAddress"
-        />
-
-    <EditText
-        android:id="@+id/etRegistrationPassword"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/white"
-        android:hint="Enter your Password"
        />
+
+
+    <EditText
+        android:id="@+id/etSignInEmail"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:hint="Enter you email"
+        android:inputType="textEmailAddress"
+         />
+
+    <EditText
+        android:id="@+id/etSignInPass"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:hint="Enter your password"
+        android:inputType="textPassword"
+         />
 
     <Button
-        android:id="@+id/btnRegistrationSignUp"
+        android:id="@+id/btnSignIn"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:text="SignUp"
         android:textColor="#5C9B5E"
-       />
+        android:text="Sign In"
+/>
+
 
 </LinearLayout>

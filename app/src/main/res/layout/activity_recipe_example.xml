@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5C9B5E"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".RecipeExampleActivity">
+
+    <TextView
+        android:id="@+id/tvRecipeExampleRecipeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recipe Name"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:layout_marginTop="120dp"
+        />
+
+    <TextView
+        android:id="@+id/tvRecipeExampleTitleRecipeIngredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recipe Ingredients:"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_marginRight="70sp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tvRecipeExampleRecipeIngredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Here will be the recipe ingredients..."
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_marginRight="24sp"
+        android:layout_marginTop="5dp"
+         />
+
+    <TextView
+        android:id="@+id/tvRecipeExampleTitleRecipeInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recipe Ingredients:"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_marginRight="70sp"
+        android:layout_marginTop="20dp"
+            />
+
+
+    <TextView
+        android:id="@+id/tvRecipeExampleRecipeInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Here will be the recipe instructions..."
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_marginRight="30sp"
+        android:layout_marginTop="20dp"
+         />
+
+
+    <ImageView
+        android:id="@+id/ivRecipeExampleRecipeImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="185dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+</LinearLayout>

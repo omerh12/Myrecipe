@@ -23,12 +23,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class SignIn extends AppCompatActivity implements View.OnClickListener {
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "SignInActivity";
-    private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
-    private ActivityResultLauncher<Intent> signInLauncher;
+   String TAG = "SignInActivity";
+   FirebaseAuth mAuth;
+   GoogleSignInClient mGoogleSignInClient;
+   ActivityResultLauncher<Intent> signInLauncher;
+
     EditText etSignInEmail;
     EditText etSignInPass;
     Button btnSignIn;
@@ -37,53 +38,11 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_login);
         etSignInEmail=findViewById(R.id.etSignInEmail);
         etSignInPass=findViewById(R.id.etSignInPass);
         btnSignIn=findViewById(R.id.btnSignIn);
         btnSignIn.setOnClickListener(this);
-
-//        EditText enter_name = (EditText) findViewById(R.id.enter_name);
-//        EditText enter_Email = (EditText)  findViewById(R.id.enter_Email);
-//        Button submit_reg;
-
-        // Initialize Firebase Auth
-        //mAuth = FirebaseAuth.getInstance();
-
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
-//
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-//
-//        // Find the Submit button and set an OnClickListener
-//
-//        // Set up the ActivityResultLauncher
-//        signInLauncher = registerForActivityResult(
-//                new ActivityResultContracts.StartActivityForResult(),
-//                result -> {
-//                    if (result.getResultCode() == RESULT_OK) {
-//                        Intent data = result.getData();
-//                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//                        try {
-//                            // Google Sign In was successful, authenticate with Firebase
-//                            GoogleSignInAccount account = task.getResult(ApiException.class);
-//                            firebaseAuthWithGoogle(account.getIdToken());
-//                        } catch (ApiException e) {
-//                            // Google Sign In failed
-//                            Log.w(TAG, "Google sign in failed", e);
-//                            Toast.makeText(SignIn.this, "Google sign in failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }
-//        );
-//
-//        findViewById(R.id.googleSignInButton).setOnClickListener(v -> {
-//            signIn();
-//        });
-
     }
 
     private void signIn() {
@@ -103,7 +62,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        Toast.makeText(SignIn.this, "Authentication failed.",
+                        Toast.makeText(LogInActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
@@ -136,11 +95,11 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Intent intent=new Intent(SignIn.this, HomeActivity.class);
+                        Intent intent=new Intent(LogInActivity.this, HomeActivity.class);
                         startActivity(intent);
                     }
                     else{
-                        Toast.makeText(SignIn.this,
+                        Toast.makeText(LogInActivity.this,
                                 "One or more details are incorrect",Toast.LENGTH_LONG).show();
                     }
                 }

@@ -2,19 +2,19 @@ package com.example.myrecipe;
 
 import android.graphics.Bitmap;
 
-public class Recipe {
+public class RecipeObjectClass {
     private String Name;
     private String Ingredients;
     private String Instructions;
     private Bitmap Image;
 
-    public Recipe(String name, String ingredients, String instructions, Bitmap image) {
+    public RecipeObjectClass(String name, String ingredients, String instructions, Bitmap image) {
         this.Name = name;
         this.Ingredients = ingredients;
         this.Instructions = instructions;
         this.Image = image;
     }
-    public Recipe(String name, String ingredients, String instructions) {
+    public RecipeObjectClass(String name, String ingredients, String instructions) {
         this.Name=name;
         this.Ingredients = ingredients;
         this.Instructions = instructions;
