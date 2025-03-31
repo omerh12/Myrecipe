@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 public class UploadNewRecipeActivity extends AppCompatActivity {
 
 
-    ArrayList<RecipeObjectClass> Recipe_List;
+    ArrayList<Recipe> Recipe_List;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class UploadNewRecipeActivity extends AppCompatActivity {
         EditText etUploadNewRecipeIngredients=findViewById(R.id.etUploadNewRecipeIngredients);
         EditText etUploadNewRecipeInstructions=findViewById(R.id.etUploadNewRecipeInstructions);
 
-        Recipe_List=new ArrayList<RecipeObjectClass>();
+        Recipe_List=new ArrayList<Recipe>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference RecipeRef=database.getReference("recipes");
 
@@ -52,7 +52,7 @@ public class UploadNewRecipeActivity extends AppCompatActivity {
 
                                    } else {
                                      // Create a new recipe object
-                                       RecipeObjectClass newRecipe = new RecipeObjectClass(recipeName, recipeIngredients, recipeInstructions);
+                                       Recipe newRecipe = new Recipe(recipeName, recipeIngredients, recipeInstructions);
 
                                            // Generate a unique ID for the new recipe
                                         String recipeId = RecipeRef.push().getKey();

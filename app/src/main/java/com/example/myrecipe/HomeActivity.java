@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         btnHomeRecipeList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, RecipeListsActivity.class);
+                Intent intent = new Intent(HomeActivity.this, RecipeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         btnHomeFavoriteRecipies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, RecipeListsActivity.class); // Make sure LoginActivity is the correct class
+                Intent intent = new Intent(HomeActivity.this, RecipeFavoriteListActivity.class); // Make sure LoginActivity is the correct class
                 startActivity(intent);
             }
         });
