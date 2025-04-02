@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5C9B5E"
+    android:background="#D3A101"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".LogInActivity">
@@ -41,17 +41,18 @@
         android:id="@+id/btnSignInEmail"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:textColor="#5C9B5E"
         android:text="Sign In"
-/>
+        android:textColor="#D3A101"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnSignInGoogle"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:textColor="#5C9B5E"
         android:text="Sign In with Gmail"
-        />
+        android:textColor="#D3A101"
+
+        android:textSize="20sp" />
 
 
 </LinearLayout>

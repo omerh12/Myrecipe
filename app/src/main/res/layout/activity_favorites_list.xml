@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5C9B5E"
+    android:background="#D3A101"
     tools:context=".RecipeFavoriteListActivity">
 
     <TextView

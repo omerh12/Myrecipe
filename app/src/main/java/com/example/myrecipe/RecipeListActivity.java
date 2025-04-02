@@ -40,7 +40,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recipesRecyclerView); // Replace with your RecyclerView ID
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecipiesAdapter(recipesList);
+        adapter = new RecipiesAdapter(this, recipesList);
         recyclerView.setAdapter(adapter);
 
         // Get a reference to the "recipes" node in your Firebase database

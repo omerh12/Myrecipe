@@ -3,21 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#5C9B5E"
+    android:background="#D3A101"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/recipeNameTextView"
-        android:layout_width="250sp"
+        android:layout_width="185dp"
         android:layout_height="100sp"
         android:layout_marginRight="20sp"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="24sp"
+         />
 
     <ImageView
-        android:id="@+id/recipieImageView"
-        android:layout_width="100sp"
+        android:id="@+id/recipeImageView"
+        android:layout_width="172dp"
         android:layout_height="100sp" />
 
 </LinearLayout>

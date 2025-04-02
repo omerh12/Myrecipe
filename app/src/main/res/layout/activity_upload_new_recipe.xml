@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#5C9B5E"
+    android:background="#D3A101"
     android:orientation="vertical"
     tools:context=".UploadNewRecipeActivity">
 
@@ -57,7 +57,7 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:text="Upload Image"
-        android:textColor="#5C9B5E"
+        android:textColor="#D3A101"
         android:textSize="24sp"
         />
 
@@ -67,7 +67,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="50dp"
         android:text="SAVE"
-        android:textColor="#5C9B5E"
+        android:textColor="#D3A101"
         android:textSize="28sp"
         />
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.myrecipe;
 
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.content.Context;
 import android.view.View;
@@ -10,12 +12,17 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
 public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.RecipeViewHolder> {
 
     private List<Recipe> recipes;
+    private Context context;
 
     public RecipiesAdapter(Context context, List<Recipe> recipes) {
         this.context=context;
@@ -35,15 +42,39 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
         Recipe currentRecipe = recipes.get(position);
         holder.recipeNameTextView.setText(currentRecipe.getName());
 
+        String imagePath = currentRecipe.getImage();
 
-        if(currentRecipe.getImageUrl()!=null){
-           holder.recipeImageView.setImageResource(R.drawable.default_image);
+
+        if (imagePath != null && !imagePath.isEmpty()) {
+
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(imagePath);
+            storageRef.getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(context)
+                                    .load(uri)
+                                    .centerCrop() // Or other scaling options
+                                    .into(holder.recipeImageView);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Handle any errors (e.g., image not found, permission issues)
+                            // You might want to log the error or display a default image
+                            //holder.recipeImageView.setImageResource(R.drawable.default_image);
+                            // Or log the error:
+                             Log.e("RecipesAdapter", "Error loading image: " + e.getMessage());
+                        }
+                    });
+
+        } else {
+            // Handle the case where the image URL is missing or empty
+            holder.recipeImageView.setVisibility(View.GONE);
         }
-        else{
-            throw new IllegalArgumentException("Recipe image URL is null");
-        }
-        // You can add more data binding here if you have other recipe properties
     }
+
 
     @Override
     public int getItemCount() {
@@ -57,7 +88,7 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
             recipeImageView=itemView.findViewById(R.id.recipeImageView);
-            recipeNameTextView = itemView.findViewById(R.id.recipeNameTextView); // Replace with your TextView ID
+            recipeNameTextView = itemView.findViewById(R.id.recipeNameTextView);
         }
     }
 }
