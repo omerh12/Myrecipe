@@ -71,7 +71,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                             // Google Sign In was successful, authenticate with Firebase
                             GoogleSignInAccount account = task.getResult(ApiException.class);
                             firebaseAuthWithGoogle(account.getIdToken());
-                        } catch (ApiException e) {
+                        }
+
+                        catch (ApiException e) {
                             // Google Sign In failed, update UI appropriately
                             Log.w(TAG, "Google sign in failed", e);
                             Toast.makeText(LogInActivity.this, "Google sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -84,6 +86,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         signInLauncher.launch(signInIntent);
+
     }
 
     private void firebaseAuthWithGoogle(String idToken) {

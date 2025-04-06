@@ -28,12 +28,15 @@
             android:layout_height="150sp"
             android:layout_marginRight="15sp"
             android:text="Recipe List"
+            android:layout_gravity="center"
+
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnHomeUploadNewRecipe"
             android:layout_width="150sp"
             android:layout_height="150sp"
+            android:layout_gravity="center"
             android:text="Upload New Recipe"
             android:textColor="@color/black" />
 
@@ -50,13 +53,15 @@
             android:layout_height="150sp"
             android:layout_marginRight="15sp"
             android:text="Favorite Recipies"
+            android:layout_gravity="center"
+
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnHomeAlarm"
             android:layout_width="150sp"
             android:layout_height="150sp"
-            android:layout_margin="15sp"
+            android:layout_gravity="center"
             android:text="Alarm"
             android:textColor="@color/black" />
 

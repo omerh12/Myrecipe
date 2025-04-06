@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="#D3A101"
-android:gravity="center"
-android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D3A101"
+    android:id="@+id/main"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".AlarmActivity">
 
 
@@ -14,11 +15,20 @@ android:orientation="vertical"
         android:id="@+id/tvAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alarm"
+        android:text="Set an Alarm"
         android:textColor="@color/white"
         android:textSize="60sp"
-        android:layout_marginBottom="400dp"
         />
-
+    <TimePicker
+        android:id="@+id/tpTimeSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btnSetAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#0e6e28"
+        android:text="Set Alarm"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>
