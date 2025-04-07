@@ -22,7 +22,9 @@
     <TimePicker
         android:id="@+id/tpTimeSelect"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:tin
+        />
     <Button
         android:id="@+id/btnSetAlarm"
         android:layout_width="wrap_content"
