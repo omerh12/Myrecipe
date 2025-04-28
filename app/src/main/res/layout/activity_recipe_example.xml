@@ -14,6 +14,7 @@
         android:id="@+id/tvRecipeExampleRecipeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="RecipeName..."
         android:textColor="@color/white"
         android:textSize="34sp" />
@@ -53,7 +54,7 @@
 
         <TextView
             android:id="@+id/tvRecipeExampleRecipeIngredients"
-            android:layout_width="120sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingredients...."
             android:textColor="@color/white"
