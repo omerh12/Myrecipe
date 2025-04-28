@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -73,6 +74,24 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
             // Handle the case where the image URL is missing or empty
             holder.recipeImageView.setVisibility(View.GONE);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RecipeExample.class);
+
+                intent.putExtra("recipeName", currentRecipe.getName());
+                intent.putExtra("recipeIngredients", currentRecipe.getIngredients());
+                intent.putExtra("recipeInstructions", currentRecipe.getInstructions());
+                intent.putExtra("imagePath", currentRecipe.getImage());
+
+                context.startActivity(intent);
+
+            }
+
+        } );
+
     }
 
 

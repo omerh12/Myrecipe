@@ -7,71 +7,73 @@
     android:background="#D3A101"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".RecipeExampleActivity">
+    tools:context=".RecipeExample">
+
 
     <TextView
         android:id="@+id/tvRecipeExampleRecipeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recipe Name"
+        android:text="RecipeName..."
         android:textColor="@color/white"
-        android:textSize="50sp"
-        android:gravity="center"
-        android:layout_marginTop="120dp"
-        />
+        android:textSize="34sp" />
 
-    <TextView
-        android:id="@+id/tvRecipeExampleTitleRecipeIngredients"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recipe Ingredients:"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_marginRight="70sp"
-        android:layout_marginTop="20dp"
-        />
-
-    <TextView
-        android:id="@+id/tvRecipeExampleRecipeIngredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Here will be the recipe ingredients..."
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:layout_marginRight="24sp"
-        android:layout_marginTop="5dp"
-         />
-
-    <TextView
-        android:id="@+id/tvRecipeExampleTitleRecipeInstructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recipe Ingredients:"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_marginRight="70sp"
-        android:layout_marginTop="20dp"
-            />
+        android:orientation="horizontal">
 
 
     <TextView
-        android:id="@+id/tvRecipeExampleRecipeInstructions"
+        android:id="@+id/tvRecipeExampleRecipeIngredientsTitle"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:text="Ingredients:"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+       <TextView
+            android:id="@+id/tvRecipeExampleRecipeInstructionsTitle"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:text="Instructions:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Here will be the recipe instructions..."
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:layout_marginRight="30sp"
-        android:layout_marginTop="20dp"
-         />
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/tvRecipeExampleRecipeIngredients"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:text="Ingredients...."
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvRecipeExampleRecipeInstructions"
+                android:layout_width="120sp"
+                android:layout_height="wrap_content"
+                android:text="Instructions...."
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivRecipeExampleRecipeImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="185dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars" />
+
 
 </LinearLayout>
