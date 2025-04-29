@@ -64,20 +64,27 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.menu_item_settings) {
-            Intent intent = new Intent(this, AlarmActivity.class);
+        if (itemId == R.id.menu_item_about) {
+            Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);
             return true;
+
         } else if (itemId == R.id.menu_item_profile) {// Handle profile click
-            Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(this, ProfileActivity.class);
+            startActivity(intent);
             return true;
+
         } else if (itemId == R.id.menu_item_logout) {// Handle logout click
             Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent(this, FirstScreenActivity.class);
+            startActivity(intent);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

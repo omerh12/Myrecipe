@@ -3,6 +3,9 @@ package com.example.myrecipe;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,13 +37,15 @@ public class RecipeExample extends AppCompatActivity {
 
 
         if (imagePath != null && !imagePath.isEmpty()) {
-            Glide.with(this)
-                    .load(imagePath) // if imagePath is a full URL, or load from storage again if not
-                    .centerCrop()
-                    .into(ivRecipeExampleRecipeImage);
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(imagePath);
+            storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                Glide.with(this)
+                        .load(uri) // if imagePath is a full URL, or load from storage again if not
+                        .centerCrop()
+                        .into(ivRecipeExampleRecipeImage);
+            });
         }
 
-
+        }
 
     }
-}
