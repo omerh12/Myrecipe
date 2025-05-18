@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import androidx.annotation.Nullable;
+import com.example.myrecipe.PreferenceManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +34,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
    String TAG = "SignInActivity";
    FirebaseAuth mAuth;
-   GoogleSignInClient mGoogleSignInClient;
+   PreferenceManager preferenceManager;
+    GoogleSignInClient mGoogleSignInClient;
    ActivityResultLauncher<Intent> signInLauncher;
 
     EditText etSignInEmail;
@@ -53,6 +56,17 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         btnSignInGoogle.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+        preferenceManager = new PreferenceManager(this);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        boolean isLoggedIn = preferenceManager.isLoggedIn();
+
+        if (currentUser != null && isLoggedIn) {
+            Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish(); // Prevent back navigation
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)) // Replace with your client ID
@@ -111,14 +125,17 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             // User is signed in, navigate to the next activity
+            preferenceManager.setUserEmail(user.getEmail());
+            preferenceManager.setLoggedIn(true);
+
             Toast.makeText(this, "User signed in", Toast.LENGTH_SHORT).show();
             // Example: Start the main activity
-            Intent intent = new Intent(this, HomeActivity.class);
+           Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            // User is signed out
-            Toast.makeText(this, "User signed out", Toast.LENGTH_SHORT).show();
+       } else {
+            //User is signed out
+           Toast.makeText(this, "User signed out", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -142,6 +159,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    FirebaseUser user=mAuth.getCurrentUser();
+                    preferenceManager.setUserEmail(user.getEmail());
+                    preferenceManager.setLoggedIn(true);
+
                     Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
                     startActivity(intent);
                 } else {
@@ -151,4 +172,5 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
 }
