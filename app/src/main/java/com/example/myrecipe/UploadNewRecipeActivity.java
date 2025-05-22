@@ -1,7 +1,9 @@
 package com.example.myrecipe;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +11,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -30,7 +34,7 @@ import com.google.firebase.storage.StorageReference;
 public class UploadNewRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button btnSelectImage;
+    Button btnSelectImage, btnTakeImage;
     ImageView ivRecipeImage;
     ActivityResultLauncher<Intent> galleryLauncher;
     StorageReference storageRef;
@@ -39,6 +43,8 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
     EditText etUploadNewRecipeIngredients;
     EditText etUploadNewRecipeInstructions;
     Uri selectedImageUri;
+    Uri photoUri;
+    ActivityResultLauncher<Intent> cameraLauncher;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,8 +57,19 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         etUploadNewRecipeIngredients = findViewById(R.id.etUploadNewRecipeIngredients);
         etUploadNewRecipeInstructions = findViewById(R.id.etUploadNewRecipeInstructions);
         btnSelectImage = findViewById(R.id.btnSelectImage);
+        btnTakeImage = findViewById(R.id.btnTakeImage);
         ivRecipeImage = findViewById(R.id.ivRecipeImage);
         btnSelectImage.setOnClickListener(this);
+        btnTakeImage.setOnClickListener(this);
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        ivRecipeImage.setImageURI(photoUri);
+                    } else {
+                        Toast.makeText(this, "Photo taking cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                });
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -92,8 +109,22 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         if (view == btnSelectImage) {
             openGallery();
         }
+        else if(view == btnTakeImage){
+            launchCamera();
+        }
     }
+    private void launchCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New Photo");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
+        photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+
+        cameraLauncher.launch(cameraIntent);
+    }
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");

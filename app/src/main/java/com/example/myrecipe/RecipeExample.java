@@ -16,6 +16,7 @@ public class RecipeExample extends AppCompatActivity {
     ImageView ivRecipeExampleRecipeImage;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,15 @@ public class RecipeExample extends AppCompatActivity {
         tvRecipeExampleRecipeName.setText(recipeName);
         tvRecipeExampleRecipeIngredients.setText(recipeIngredients);
         tvRecipeExampleRecipeInstructions.setText(recipeInstructions);
+
+        String[] ingredientsArray = recipeIngredients.split(",");
+        StringBuilder formattedIngredients = new StringBuilder();
+        for (String ingredient : ingredientsArray) {
+            formattedIngredients.append("• ").append(ingredient.trim()).append("\n");
+        }
+
+        tvRecipeExampleRecipeIngredients.setText(formattedIngredients.toString());
+
 
 
         if (imagePath != null && !imagePath.isEmpty()) {

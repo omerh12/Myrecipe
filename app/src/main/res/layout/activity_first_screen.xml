@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D3A101"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/firstscreen"
     tools:context=".FirstScreenActivity">
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="MyRecipe"
         android:textColor="@color/white"
+        android:textStyle="bold"
         android:textSize="60sp" />
 
     <LinearLayout
@@ -29,7 +30,9 @@
             android:layout_height="80dp"
             android:text="LogIn"
             android:textColor="#D3A101"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:backgroundTint="@color/white"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"/>
 
 
         <Button
@@ -39,7 +42,9 @@
             android:layout_marginLeft="10sp"
             android:text="SignUp"
             android:textColor="#D3A101"
-            android:textSize="24sp" />
+            android:backgroundTint="@color/white"
+            android:textSize="24sp"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"/>
 
     </LinearLayout>
 

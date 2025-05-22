@@ -2,6 +2,10 @@ package com.example.myrecipe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+
+
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
@@ -12,8 +16,9 @@ import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button btnHomeRecipeList, btnHomeUploadNewRecipe, btnHomeFavoriteRecipies, btnHomeAlarm;
+    Button btnHomeRecipeList, btnHomeUploadNewRecipe, btnHomeFavoriteRecipies, btnHomeAlarm, btnChatWithAI;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         btnHomeAlarm = findViewById(R.id.btnHomeAlarm);
         btnHomeFavoriteRecipies = findViewById(R.id.btnHomeFavoriteRecipies);
         btnHomeUploadNewRecipe = findViewById(R.id.btnHomeUploadNewRecipe);
+        btnChatWithAI = findViewById(R.id.btnChatWithAI);
 
 
         btnHomeRecipeList.setOnClickListener(new View.OnClickListener() {
@@ -37,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         btnHomeFavoriteRecipies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, RecipeFavoriteListActivity.class); // Make sure LoginActivity is the correct class
+                Intent intent = new Intent(HomeActivity.this, RecipeFavoriteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         btnHomeAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AlarmActivity.class); // Make sure LoginActivity is the correct class
+                Intent intent = new Intent(HomeActivity.this, AlarmActivity.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +59,14 @@ public class HomeActivity extends AppCompatActivity {
         btnHomeUploadNewRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, UploadNewRecipeActivity.class); // Make sure LoginActivity is the correct class
+                Intent intent = new Intent(HomeActivity.this, UploadNewRecipeActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnChatWithAI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ChatActivity.class);
                 startActivity(intent);
             }
         });
@@ -80,6 +93,13 @@ public class HomeActivity extends AppCompatActivity {
 
         } else if (itemId == R.id.menu_item_logout) {// Handle logout click
             Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("user_id");         // Example key storing user ID
+            editor.remove("user_email");      // Example key storing user email
+            editor.remove("user_token");      // Example key storing session/token
+            editor.apply();
+
             Intent intent= new Intent(this, FirstScreenActivity.class);
             startActivity(intent);
             return true;

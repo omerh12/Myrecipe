@@ -1,23 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#D3A101"
-    android:padding="16dp">
+    android:layout_height="220dp"
+    android:layout_marginBottom="16dp">
 
-    <TextView
-        android:id="@+id/recipeNameTextView"
-        android:layout_width="185dp"
-        android:layout_height="100sp"
-        android:layout_marginRight="20sp"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-         />
-
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/recipeImageView"
-        android:layout_width="172dp"
-        android:layout_height="100sp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="Recipe Image"
+        app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
-</LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/btn_star_big_on"
+            app:tint="#FFC107"
+            />
+
+        <TextView
+            android:id="@+id/tvlikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="number of likes"
+            android:textColor="#FFC107"
+            android:textSize="14sp"
+            android:layout_marginStart="6dp"/>
+    </LinearLayout>
+
+         <TextView
+        android:id="@+id/tvRecipeItemRecipeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recipe Title"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="16dp"/>
+
+</FrameLayout>
+
