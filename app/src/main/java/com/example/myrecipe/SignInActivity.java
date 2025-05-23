@@ -6,14 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import androidx.annotation.Nullable;
-import com.example.myrecipe.PreferenceManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,7 +35,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
    String TAG = "SignInActivity";
    FirebaseAuth mAuth;
@@ -42,11 +47,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     EditText etSignInPass;
     Button btnSignInEmail, btnSignInGoogle;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_in);
         etSignInEmail=findViewById(R.id.etSignInEmail);
         etSignInPass=findViewById(R.id.etSignInPass);
         btnSignInEmail=findViewById(R.id.btnSignInEmail);
@@ -54,6 +60,25 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         btnSignInEmail.setOnClickListener(this);
         btnSignInGoogle.setOnClickListener(this);
+
+        TextView tvSignUpLink = findViewById(R.id.tvSignUpLink);
+
+        SpannableString spannableString = new SpannableString("Don't have an account? Sign up");
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(SignInActivity.this, Registration.class);
+                startActivity(intent);
+            }
+        };
+
+        spannableString.setSpan(clickableSpan, 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvSignUpLink.setText(spannableString);
+        tvSignUpLink.setMovementMethod(LinkMovementMethod.getInstance());
+        spannableString.setSpan(new ForegroundColorSpan(Color.YELLOW), 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         preferenceManager = new PreferenceManager(this);
@@ -90,7 +115,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                         catch (ApiException e) {
                             // Google Sign In failed, update UI appropriately
                             Log.w(TAG, "Google sign in failed", e);
-                            Toast.makeText(LogInActivity.this, "Google sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this, "Google sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -115,7 +140,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        Toast.makeText(LogInActivity.this, "Authentication failed.",
+                        Toast.makeText(SignInActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
@@ -163,10 +188,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     preferenceManager.setUserEmail(user.getEmail());
                     preferenceManager.setLoggedIn(true);
 
-                    Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(LogInActivity.this,
+                    Toast.makeText(SignInActivity.this,
                             "One or more details are incorrect", Toast.LENGTH_LONG).show();
                 }
             }

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
         android:text="Recipe List"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="50sp"
         android:textStyle="bold" />
 

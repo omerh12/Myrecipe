@@ -50,7 +50,7 @@ public class AboutAppActivity extends AppCompatActivity {
                 // Optional: Clear SharedPreferences
                 new PreferenceManager(this).clear();
 
-                Intent logoutIntent = new Intent(this, LogInActivity.class);
+                Intent logoutIntent = new Intent(this, SignInActivity.class);
                 logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
                 startActivity(logoutIntent);
                 finish();

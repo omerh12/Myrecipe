@@ -49,7 +49,7 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".SignInActivity"
             android:exported="false" />
         <activity
             android:name=".Registration"

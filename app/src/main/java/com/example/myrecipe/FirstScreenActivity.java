@@ -39,7 +39,7 @@ public class FirstScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to start Login activity
-                Intent intent = new Intent(FirstScreenActivity.this, LogInActivity.class); // Make sure LoginActivity is the correct class
+                Intent intent = new Intent(FirstScreenActivity.this, SignInActivity.class); // Make sure LoginActivity is the correct class
                 // Start the activity
                 startActivity(intent);
             }

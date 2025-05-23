@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomeActivity extends AppCompatActivity {
 
     Button btnHomeRecipeList, btnHomeUploadNewRecipe, btnHomeFavoriteRecipies, btnHomeAlarm, btnChatWithAI;
@@ -99,6 +101,8 @@ public class HomeActivity extends AppCompatActivity {
             editor.remove("user_email");      // Example key storing user email
             editor.remove("user_token");      // Example key storing session/token
             editor.apply();
+            FirebaseAuth.getInstance().signOut();
+
 
             Intent intent= new Intent(this, FirstScreenActivity.class);
             startActivity(intent);
