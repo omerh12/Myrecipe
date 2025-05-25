@@ -2,11 +2,18 @@ package com.example.myrecipe;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -19,12 +26,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Registration extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
-    EditText etRegistrationEmail, etRegistrationPassword;
-    Button btnRegistrationSignUp;
+    EditText etSignUpEmail, etSignUpPass;
+    Button btnSignUp;
 
     String TAG = "SignUpActivity";
     FirebaseAuth mAuth;
@@ -35,23 +41,23 @@ public class Registration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
 
-        etRegistrationEmail = findViewById(R.id.etRegistrationEmail);
-        etRegistrationPassword = findViewById(R.id.etRegistrationPassword);
-        btnRegistrationSignUp = findViewById(R.id.btnRegistrationSignUp);
+        etSignUpEmail = findViewById(R.id.etSignUpEmail);
+        etSignUpPass = findViewById(R.id.etSignUpPass);
+        btnSignUp = findViewById(R.id.btnSignUp);
 
 
-        btnRegistrationSignUp.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etRegistrationEmail.getText().toString();
-                String pass = etRegistrationPassword.getText().toString();
+                String email = etSignUpEmail.getText().toString();
+                String pass = etSignUpPass.getText().toString();
 
                 if (email.isEmpty() || pass.isEmpty()) {
-                    Toast.makeText(Registration.this, "Please fill in both fields.",
+                    Toast.makeText(SignUpActivity.this, "Please fill in both fields.",
                             Toast.LENGTH_SHORT).show();
                 } else {
                     CreateAccount(email, pass);
@@ -60,6 +66,25 @@ public class Registration extends AppCompatActivity {
 
             }
         });
+
+        TextView tvSignUpLink = findViewById(R.id.tvSignInLink);
+
+        SpannableString spannableString = new SpannableString("Already have an account? Sign in");
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        };
+
+        spannableString.setSpan(clickableSpan, 25, 32, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvSignUpLink.setText(spannableString);
+        tvSignUpLink.setMovementMethod(LinkMovementMethod.getInstance());
+        spannableString.setSpan(new ForegroundColorSpan(Color.YELLOW), 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
     }
         public void CreateAccount (String email, String pass){
 
@@ -77,7 +102,7 @@ public class Registration extends AppCompatActivity {
 
                             else{
                                 Log.w(TAG,"User creation failed", task.getException());
-                                Toast.makeText(Registration.this, "Authentication failed.",
+                                Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                                 updateUI(null);
 
@@ -92,15 +117,15 @@ public class Registration extends AppCompatActivity {
 
         if(user!=null)
             {
-                Toast.makeText(Registration.this, "Registration Successful",
+                Toast.makeText(SignUpActivity.this, "Registration Successful",
                         Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(Registration.this,HomeActivity.class);
+                Intent intent=new Intent(SignUpActivity.this,HomeActivity.class);
                 startActivity(intent);
                 finish();
             }
             if(user==null)
             {
-                Toast.makeText(Registration.this, "Registration failed",
+                Toast.makeText(SignUpActivity.this, "Registration failed",
                         Toast.LENGTH_SHORT).show();
             }
         }

@@ -68,7 +68,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                Intent intent = new Intent(SignInActivity.this, Registration.class);
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         };

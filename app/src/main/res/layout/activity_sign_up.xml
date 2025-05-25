@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/signupscreen"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SignUpActivity">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textColor="#D3A101"
+        android:textStyle="bold"
+        android:textSize="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/etSignUpEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="150dp" />
+
+    <EditText
+        android:id="@+id/etSignUpEmail"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:hint="Enter your email..."
+        android:inputType="textEmailAddress"
+        android:padding="6dp"
+        android:background="@drawable/roundededittext"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="60dp" />
+
+    <EditText
+        android:id="@+id/etSignUpPass"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:hint="Enter your password..."
+        android:inputType="textPassword"
+        android:padding="6dp"
+        android:background="@drawable/roundededittext"
+        app:layout_constraintTop_toBottomOf="@+id/etSignUpEmail"
+        app:layout_constraintStart_toStartOf="@+id/etSignUpEmail"
+        app:layout_constraintEnd_toEndOf="@+id/etSignUpEmail"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textColor="#D3A101"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/etSignUpPass"
+        app:layout_constraintStart_toStartOf="@+id/etSignUpEmail"
+        app:layout_constraintEnd_toEndOf="@+id/etSignUpEmail"
+        android:layout_marginTop="20dp" />
+
+
+    <TextView
+        android:id="@+id/tvSignInLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Sign in"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="#D3A101"-->
+<!--    android:gravity="center"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:context=".Registration">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvRegistrationTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Registraion"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="60sp"-->
+<!-- />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/etRegistrationEmail"-->
+<!--        android:layout_width="300sp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:hint="Enter your Email"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/etRegistrationPassword"-->
+<!--        android:layout_width="300sp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:hint="Enter your Password"-->
+<!--       />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnRegistrationSignUp"-->
+<!--        android:layout_width="300sp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="SignUp"-->
+<!--        android:textColor="#D3A101"-->
+<!--        android:textSize="20sp" />-->
+
+<!--</LinearLayout>-->

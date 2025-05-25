@@ -1,4 +1,5 @@
 package com.example.myrecipe;
+import android.content.SharedPreferences;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +14,11 @@ import android.widget.TextView;
 public class RecipeExample extends AppCompatActivity {
 
     TextView tvRecipeExampleRecipeName, tvRecipeExampleRecipeIngredients, tvRecipeExampleRecipeInstructions;
-    ImageView ivRecipeExampleRecipeImage;
+    ImageView ivRecipeExampleRecipeImage, ivFavorite;
 
-
+    SharedPreferences prefs;
+    boolean isFavorite = false;
+    String FAVORITES_PREF = "favorite_recipes";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public class RecipeExample extends AppCompatActivity {
         tvRecipeExampleRecipeIngredients = findViewById(R.id.tvRecipeExampleRecipeIngredients);
         tvRecipeExampleRecipeInstructions = findViewById(R.id.tvRecipeExampleRecipeInstructions);
         ivRecipeExampleRecipeImage = findViewById(R.id.ivRecipeExampleRecipeImage);
+        ivFavorite = findViewById(R.id.ivFavorite);
+
+        prefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
 
         String recipeName = getIntent().getStringExtra("recipeName");
         String recipeIngredients = getIntent().getStringExtra("recipeIngredients");
@@ -43,6 +49,9 @@ public class RecipeExample extends AppCompatActivity {
         }
 
         tvRecipeExampleRecipeIngredients.setText(formattedIngredients.toString());
+
+        isFavorite = prefs.getBoolean(recipeName, false);
+        ivFavorite.setImageResource(isFavorite ? R.drawable.baseline_star_24 : R.drawable.baseline_star_border_24);
 
 
 

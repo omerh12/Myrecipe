@@ -25,7 +25,7 @@ public class FirstScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to start Registration activity
-                Intent intent = new Intent(FirstScreenActivity.this, Registration.class);
+                Intent intent = new Intent(FirstScreenActivity.this, SignUpActivity.class);
                 // Start the activity
                 startActivity(intent);
             }
