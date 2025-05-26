@@ -19,14 +19,43 @@
             android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:textSize="40dp" />
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="16dp">
 
-        <ImageView
-               android:id="@+id/ivHomeCurrentlyCookingImage"
-               android:layout_width="match_parent"
-               android:layout_height="250dp"
-               android:contentDescription="Recipe Image"
-               android:scaleType="centerCrop"
-               app:shapeAppearanceOverlay="@style/RoundedImageView" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/recipeCurrentlyCookingImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Recipe Image"
+                    app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+                <TextView
+                    android:id="@+id/tvRecipeCurrentlyCookingRecipeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="bottom|start"
+                    android:layout_margin="16dp"/>
+
+                <TextView
+                    android:id="@+id/tvRecipeNoCurrentlyCookingRecipeName"
+                    android:paddingLeft="45dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nothing Cooking Yet"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="bottom|start"
+                    android:layout_margin="16dp"/>
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvHomeFavoriteRecipes"
@@ -57,5 +86,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+
 </LinearLayout>
 
