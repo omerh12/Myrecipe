@@ -31,7 +31,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private static final String GEMINI_API_KEY = "AIzaSyDrzUv_h4UXEO6ktLia-sp6i54s5suN-sQ";
-    private static final String GEMINI_ENDPOINT =  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=";
+    private static final String GEMINI_ENDPOINT =  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=";
     EditText etMessage;
     Button btnSend;
     TextView tvResponse; // This will show the latest AI response

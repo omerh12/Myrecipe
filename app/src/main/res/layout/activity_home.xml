@@ -6,99 +6,75 @@
     android:layout_height="match_parent"
     android:background="#D3A101"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".HomeActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/homeToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#ff00ff"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
 
         <TextView
-            android:id="@+id/tvHome"
+            android:id="@+id/tvCurrentlyCooking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose your option"
+            android:text="Currently Cooking"
             android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:textStyle="bold"
+            android:layout_marginTop="40dp"
+            android:textSize="40dp" />
 
-        <LinearLayout
+
+        <ImageView
+               android:id="@+id/ivHomeCurrentlyCookingImage"
+               android:layout_width="match_parent"
+               android:layout_height="250dp"
+               android:contentDescription="Recipe Image"
+               android:scaleType="centerCrop"
+               app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+        <TextView
+            android:id="@+id/tvHomeFavoriteRecipes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnHomeRecipeList"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:layout_gravity="center"
-                android:layout_marginRight="15sp"
-                android:text="Recipe List"
-
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/btnHomeUploadNewRecipe"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:layout_gravity="center"
-                android:text="Upload New Recipe"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
+            android:text="Favorite Recipes"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="60dp"
+            android:textSize="40dp" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:orientation="horizontal" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/recipeImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="Recipe Image"
+        app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/btn_star_big_on"
+            app:tint="#FFC107"
+            />
+
+        <TextView
+            android:id="@+id/tvlikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnHomeFavoriteRecipies"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:layout_gravity="center"
-                android:layout_marginRight="15sp"
-                android:text="Favorite Recipies"
-
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/btnHomeAlarm"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:layout_gravity="center"
-                android:text="Alarm"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnChatWithAI"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:layout_gravity="center"
-                android:layout_marginRight="15sp"
-                android:text="Chat With AI"
-
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-        </LinearLayout>
-
+            android:text="number of likes"
+            android:textColor="#FFC107"
+            android:textSize="14sp"
+            android:layout_marginStart="6dp"/>
     </LinearLayout>
+</LinearLayout>
 

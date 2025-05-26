@@ -1,29 +1,36 @@
 package com.example.myrecipe;
-
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-//import android.widget.Toolbar;
-import androidx.appcompat.widget.Toolbar;
-
+import java.util.Map;
+import java.util.LinkedHashMap;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button btnHomeRecipeList, btnHomeUploadNewRecipe, btnHomeFavoriteRecipies, btnHomeAlarm, btnChatWithAI;
-    Toolbar toolbar;
-    ActionBarDrawerToggle drawerToggle;
+    SharedPreferences prefs;
+    SharedPreferences cookingPref;
+    String FAVORITES_PREF = "favorite_recipes";
+    String COOKING_PREF = "cooking_recipes";
+
+    TextView tvHomeFavoriteRecipes;
+    ImageView ivHomeCurrentlyFavoriteRecipesImage1, ivHomeCurrentlyFavoriteRecipesImage2;
+
+    Map<String, String> lastTwoFavorites = new LinkedHashMap<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -31,55 +38,77 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        toolbar = findViewById(R.id.homeToolbar);
-        btnHomeRecipeList = findViewById(R.id.btnHomeRecipeList);
-        btnHomeAlarm = findViewById(R.id.btnHomeAlarm);
-        btnHomeFavoriteRecipies = findViewById(R.id.btnHomeFavoriteRecipies);
-        btnHomeUploadNewRecipe = findViewById(R.id.btnHomeUploadNewRecipe);
-        btnChatWithAI = findViewById(R.id.btnChatWithAI);
+        tvHomeFavoriteRecipes=findViewById(R.id.tvHomeFavoriteRecipes);
 
+        //ivHomeCurrentlyFavoriteRecipesImage1=findViewById(R.id.ivHomeCurrentlyFavoriteRecipesImage1);
+        //ivHomeCurrentlyFavoriteRecipesImage2=findViewById(R.id.ivHomeCurrentlyFavoriteRecipesImage2);
 
-        btnHomeRecipeList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, RecipeListActivity.class);
-                startActivity(intent);
+        prefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
+
+        // Load the last two favorite recipes (names and image paths stored in prefs)
+        for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
+            if ((boolean) entry.getValue()) {
+                // We assume image path is stored under "<recipeName>_image"
+                String imagePath = prefs.getString(entry.getKey() + "_image", "");
+                if (!imagePath.isEmpty()) {
+                    lastTwoFavorites.put(entry.getKey(), imagePath);
+                    if (lastTwoFavorites.size() == 2) break;
+                }
             }
-        });
+        }
 
+        // Load images into the home screen
+        int index = 0;
+        for (Map.Entry<String, String> favorite : lastTwoFavorites.entrySet()) {
+            ImageView targetImage = (index == 0) ? ivHomeCurrentlyFavoriteRecipesImage1 : ivHomeCurrentlyFavoriteRecipesImage2;
+            Glide.with(this).load(favorite.getValue()).into(targetImage);
 
-        btnHomeFavoriteRecipies.setOnClickListener(new View.OnClickListener() {
+            String recipeName = favorite.getKey();
+            targetImage.setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, RecipeView.class);
+                intent.putExtra("recipeName", recipeName);
+                intent.putExtra("imagePath", favorite.getValue());
+                // You can optionally pass more details like ingredients if stored
+                startActivity(intent);
+            });
+            index++;
+        }
+
+        tvHomeFavoriteRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, FavoritesListActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
-        btnHomeAlarm.setOnClickListener(new View.OnClickListener() {
+        tvHomeFavoriteRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AlarmActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        btnHomeUploadNewRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, UploadNewRecipeActivity.class);
+                Intent intent=new Intent(HomeActivity.this, FavoritesListActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-        btnChatWithAI.setOnClickListener(new View.OnClickListener() {
+        //prefs.edit().clear().commit();
+        SharedPreferences.Editor editor = cookingPref.edit();
+        String currentlyCookingRecipe = editor.g("cookingRecipe", "");
+        getRecipeByName(currentlyCookingRecipe, new OnRecipeLoadedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ChatActivity.class);
-                startActivity(intent);
-            }
-        });
+            public void onRecipeLoaded(Recipe recipe) {
+                if (recipe != null) {
 
+                } else {
+
+                }
+            }
+        });
     }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -93,11 +122,29 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);
             return true;
+        }
 
-        } else if (itemId == R.id.menu_item_profile) {// Handle profile click
-            Intent intent=new Intent(this, ProfileActivity.class);
+         else if (itemId == R.id.menu_item_recipe_list) {
+            Intent intent = new Intent(this, RecipeListActivity.class);
             startActivity(intent);
             return true;
+        }
+
+         else if (itemId == R.id.menu_item_upload_new_recipe) {
+             Intent intent=new Intent(this, UploadNewRecipeActivity.class);
+             startActivity(intent);
+             return true;
+
+        } else if (itemId == R.id.menu_item_chat) {
+            Intent intent=new Intent(this, ChatActivity.class);
+            startActivity(intent);
+            return true;
+
+        } else if (itemId == R.id.menu_item_alarm) {
+            Intent intent=new Intent(this, AlarmActivity.class);
+            startActivity(intent);
+            return true;
+
 
         } else if (itemId == R.id.menu_item_logout) {// Handle logout click
             Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
@@ -118,5 +165,32 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    public interface OnRecipeLoadedListener {
+        void onRecipeLoaded(Recipe recipe);
+    }
+
+    public void getRecipeByName(String recipeName, OnRecipeLoadedListener listener) {
+        DatabaseReference recipesRef = FirebaseDatabase.getInstance().getReference("recipes");
+
+        recipesRef.orderByChild("name").equalTo(recipeName)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Recipe recipe = snapshot.getValue(Recipe.class);
+                            listener.onRecipeLoaded(recipe); // Return the result via callback
+                            return;
+                        }
+                        // No matching recipe found
+                        listener.onRecipeLoaded(null);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        listener.onRecipeLoaded(null);
+                    }
+                });
+    }
 
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFC107"
-    tools:context=".RecipeExample">
+    tools:context=".RecipeView">
 
 
     <LinearLayout
@@ -99,6 +99,20 @@
                 android:text="Instructions go here..."
                 android:textColor="#666666"
                 android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/btnRecipeExampleStartCooking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D3A101"
+                android:text="Start Cooking"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+
+
 
 
         </LinearLayout>

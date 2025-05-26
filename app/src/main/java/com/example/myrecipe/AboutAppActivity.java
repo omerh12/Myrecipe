@@ -57,7 +57,7 @@ public class AboutAppActivity extends AppCompatActivity {
                 return true;
 
 
-            case R.id.menu_item_profile:
+            case R.id.menu_item_alarm:
                 // Navigate to profile screen
                 Intent ProfileIntent = new Intent(this, ProfileActivity.class);
                 startActivity(ProfileIntent);

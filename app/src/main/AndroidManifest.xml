@@ -29,7 +29,7 @@
             android:name=".AboutAppActivity"
             android:exported="false" />
         <activity
-            android:name=".RecipeExample"
+            android:name=".RecipeView"
             android:exported="false"
             android:label="@string/title_activity_recipe_example"
             android:theme="@style/Theme.MyRecipe.NoActionBar" />
@@ -46,9 +46,6 @@
             android:name=".UploadNewRecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".RecipeFavoriteListActivity"
-            android:exported="false" />
-        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
@@ -59,10 +56,10 @@
             android:exported="false" />
         <activity
             android:name=".FirstScreenActivity"
+            android:theme="@style/Theme.MyRecipe.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

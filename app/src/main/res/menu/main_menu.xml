@@ -5,8 +5,17 @@
         android:id="@+id/menu_item_about"
         android:title="About the app"/>
     <item
-        android:id="@+id/menu_item_profile"
-        android:title="Profile"/>
+        android:id="@+id/menu_item_recipe_list"
+        android:title="Recipe List"/>
+    <item
+        android:id="@+id/menu_item_upload_new_recipe"
+        android:title="Upload New Recipe"/>
+    <item
+        android:id="@+id/menu_item_chat"
+        android:title="Chat With AI"/>
+    <item
+        android:id="@+id/menu_item_alarm"
+        android:title="Alarm"/>
     <item
         android:id="@+id/menu_item_logout"
         android:title="Logout"/>
