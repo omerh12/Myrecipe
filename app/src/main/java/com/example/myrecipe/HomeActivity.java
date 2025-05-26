@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageView recipeCurrentlyCookingImageView, ivHomeCurrentlyFavoriteRecipesImage1, ivHomeCurrentlyFavoriteRecipesImage2;
 
     Map<String, String> lastTwoFavorites = new LinkedHashMap<>();
-
+    static Recipe currentCookingRecipe;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,16 @@ public class HomeActivity extends AppCompatActivity {
         prefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
         cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
 
-        tvHomeFavoriteRecipes.setOnClickListener(new View.OnClickListener() {
+        tvRecipeCurrentlyCookingRecipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, FavoritesListActivity.class);
+
+                Intent intent = new Intent(HomeActivity.this, RecipeView.class)
+                        .putExtra("recipeName", currentCookingRecipe.getName())
+                        .putExtra("recipeIngredients", currentCookingRecipe.getIngredients())
+                        .putExtra("recipeInstructions", currentCookingRecipe.getInstructions())
+                        .putExtra("imagePath", currentCookingRecipe.getImage());
+
                 startActivity(intent);
                 finish();
             }
@@ -193,8 +199,8 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Recipe recipe = snapshot.getValue(Recipe.class);
-                            listener.onRecipeLoaded(recipe);
+                            currentCookingRecipe = snapshot.getValue(Recipe.class);
+                            listener.onRecipeLoaded(currentCookingRecipe);
                             return;
                         }
                         listener.onRecipeLoaded(null);
