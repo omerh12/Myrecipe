@@ -65,6 +65,20 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+        recipeCurrentlyCookingImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(HomeActivity.this, RecipeView.class)
+                        .putExtra("recipeName", currentCookingRecipe.getName())
+                        .putExtra("recipeIngredients", currentCookingRecipe.getIngredients())
+                        .putExtra("recipeInstructions", currentCookingRecipe.getInstructions())
+                        .putExtra("imagePath", currentCookingRecipe.getImage());
+
+                startActivity(intent);
+                finish();
+            }
+        });
 
         loadHomeScreenData();
     }
