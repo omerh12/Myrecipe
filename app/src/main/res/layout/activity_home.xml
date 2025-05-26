@@ -20,7 +20,6 @@
             android:layout_marginTop="40dp"
             android:textSize="40dp" />
 
-
         <ImageView
                android:id="@+id/ivHomeCurrentlyCookingImage"
                android:layout_width="match_parent"
@@ -45,36 +44,18 @@
             android:elevation="8dp"
             android:orientation="horizontal" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/recipeImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:contentDescription="Recipe Image"
-        app:shapeAppearanceOverlay="@style/RoundedImageView" />
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:orientation="horizontal"
-        android:padding="6dp">
+        <ImageView
+            android:id="@+id/ivHomeCurrentlyFavoriteRecipesImage1"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@android:drawable/btn_star_big_on"
-            app:tint="#FFC107"
-            />
-
-        <TextView
-            android:id="@+id/tvlikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="number of likes"
-            android:textColor="#FFC107"
-            android:textSize="14sp"
-            android:layout_marginStart="6dp"/>
-    </LinearLayout>
+            android:id="@+id/ivHomeCurrentlyFavoriteRecipesImage2"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/RoundedImageView" />
 </LinearLayout>
 

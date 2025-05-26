@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         //ivHomeCurrentlyFavoriteRecipesImage2=findViewById(R.id.ivHomeCurrentlyFavoriteRecipesImage2);
 
         prefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
-
+        cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
         // Load the last two favorite recipes (names and image paths stored in prefs)
         for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
             if ((boolean) entry.getValue()) {
@@ -92,9 +92,8 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //prefs.edit().clear().commit();
-        SharedPreferences.Editor editor = cookingPref.edit();
-        String currentlyCookingRecipe = editor.g("cookingRecipe", "");
+
+        String currentlyCookingRecipe = cookingPref.getString("cookingRecipe", "");
         getRecipeByName(currentlyCookingRecipe, new OnRecipeLoadedListener() {
             @Override
             public void onRecipeLoaded(Recipe recipe) {

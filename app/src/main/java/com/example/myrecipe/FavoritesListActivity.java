@@ -19,7 +19,7 @@ import java.util.Map;
 public class FavoritesListActivity extends AppCompatActivity {
 
     private RecyclerView favoritesRecyclerView;
-    private RecipiesAdapter adapter;
+    private RecipesAdapter adapter;
     private List<Recipe> allRecipes = new ArrayList<>();
     private List<Recipe> favoriteRecipes = new ArrayList<>();
     private SharedPreferences prefs;
@@ -32,7 +32,7 @@ public class FavoritesListActivity extends AppCompatActivity {
 
         favoritesRecyclerView = findViewById(R.id.rvFavorites);
         favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecipiesAdapter(this, favoriteRecipes);
+        adapter = new RecipesAdapter(this, favoriteRecipes);
         favoritesRecyclerView.setAdapter(adapter);
 
 
@@ -56,7 +56,7 @@ public class FavoritesListActivity extends AppCompatActivity {
                             favoriteRecipes.add(recipe);
                         }
                     }
-                    }
+                }
                 adapter.notifyDataSetChanged(); // Update RecyclerView
 
             }
@@ -64,6 +64,6 @@ public class FavoritesListActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError error) {
                 // Optional: handle Firebase read error
             }
-            });
+        });
     }
 }
