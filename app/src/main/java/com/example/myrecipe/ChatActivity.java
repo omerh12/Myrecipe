@@ -1,9 +1,11 @@
 package com.example.myrecipe;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,12 +29,12 @@ import okhttp3.Response;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private static final String OPENAI_API_KEY = "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"; // 🔐 Replace with your actual key
-    private static final String OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
+    private static final String GEMINI_API_KEY = "AIzaSyDrzUv_h4UXEO6ktLia-sp6i54s5suN-sQ";
+    private static final String GEMINI_ENDPOINT =  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=";
     EditText etMessage;
     Button btnSend;
-    TextView tvResponse;
+    TextView tvResponse; // This will show the latest AI response
 
     OkHttpClient client = new OkHttpClient();
 
@@ -48,34 +50,50 @@ public class ChatActivity extends AppCompatActivity {
         btnSend.setOnClickListener(v -> {
             String userMessage = etMessage.getText().toString().trim();
             if (!userMessage.isEmpty()) {
-                sendMessageToOpenAI(userMessage);
+                // Clear the input field immediately
+                etMessage.setText("");
+                tvResponse.setText("Thinking..."); // Provide immediate feedback
+                sendMessageToGemini(userMessage);
+            } else {
+                Toast.makeText(ChatActivity.this, "Please type a message.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void sendMessageToOpenAI(String message) {
+    private void sendMessageToGemini(String message) {
         try {
-            // 1. Build the JSON request body
+            // 1. Build the JSON request body for Gemini
             JSONObject json = new JSONObject();
-            json.put("model", "gpt-3.5-turbo");
+            JSONArray contents = new JSONArray();
+            JSONObject content = new JSONObject();
+            content.put("role", "user"); // Role for user message
 
-            JSONArray messages = new JSONArray();
-            JSONObject userMessage = new JSONObject();
-            userMessage.put("role", "user");
-            userMessage.put("content", message);
-            messages.put(userMessage);
+            JSONArray parts = new JSONArray();
+            JSONObject part = new JSONObject();
+            part.put("text", message);
+            parts.put(part);
 
-            json.put("messages", messages);
+            content.put("parts", parts);
+            contents.put(content);
+            json.put("contents", contents);
+
+            // Optional: Add generation config for more control
+            // JSONObject generationConfig = new JSONObject();
+            // generationConfig.put("temperature", 0.7); // Adjust for creativity (0.0-1.0)
+            // generationConfig.put("topP", 0.95);
+            // generationConfig.put("topK", 40);
+            // generationConfig.put("maxOutputTokens", 1024);
+            // json.put("generationConfig", generationConfig);
+
 
             // 2. Build the request
             RequestBody body = RequestBody.create(
                     json.toString(),
-                    MediaType.parse("application/json")
+                    MediaType.parse("application/json; charset=utf-8") // Specify charset
             );
 
             Request request = new Request.Builder()
-                    .url(OPENAI_ENDPOINT)
-                    .header("Authorization", "Bearer " + OPENAI_API_KEY)
+                    .url(GEMINI_ENDPOINT + GEMINI_API_KEY) // Append API key directly to URL
                     .post(body)
                     .build();
 
@@ -83,46 +101,55 @@ public class ChatActivity extends AppCompatActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    runOnUiThread(() -> tvResponse.setText("Failure Error: " + e.getMessage()));
+                    e.printStackTrace();
+                    runOnUiThread(() -> {
+                        tvResponse.setText("Network Error: " + e.getMessage());
+                        Toast.makeText(ChatActivity.this, "Network error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String responseData = response.body() != null ? response.body().string() : "No body";
+                    Log.d("Gemini_Response", responseData);
+
                     if (response.isSuccessful()) {
                         try {
                             JSONObject jsonObject = new JSONObject(responseData);
-                            JSONArray choices = jsonObject.getJSONArray("choices");
-                            String reply = choices.getJSONObject(0).getJSONObject("message").getString("content");
-
-                            runOnUiThread(() -> tvResponse.setText("AI: " + reply.trim()));
+                            JSONArray candidates = jsonObject.getJSONArray("candidates");
+                            if (candidates.length() > 0) {
+                                JSONObject firstCandidate = candidates.getJSONObject(0);
+                                JSONObject content = firstCandidate.getJSONObject("content");
+                                JSONArray parts = content.getJSONArray("parts");
+                                if (parts.length() > 0) {
+                                    String reply = parts.getJSONObject(0).getString("text");
+                                    runOnUiThread(() -> tvResponse.setText("AI: " + reply.trim()));
+                                } else {
+                                    runOnUiThread(() -> tvResponse.setText("AI: No parts found in response."));
+                                }
+                            } else {
+                                runOnUiThread(() -> tvResponse.setText("AI: No candidates found in response."));
+                            }
                         } catch (JSONException e) {
-                            runOnUiThread(() -> tvResponse.setText("Failed to parse response"));
+                            runOnUiThread(() -> {
+                                tvResponse.setText("Failed to parse response: " + e.getMessage());
+                                Toast.makeText(ChatActivity.this, "Failed to parse AI response.", Toast.LENGTH_LONG).show();
+                            });
                         }
                     } else {
-                        runOnUiThread(() -> tvResponse.setText("Error " + response.code() + ": " + responseData));
+                        runOnUiThread(() -> {
+                            tvResponse.setText("Error " + response.code() + ": " + responseData);
+                            Toast.makeText(ChatActivity.this, "API Error: " + response.code(), Toast.LENGTH_LONG).show();
+                        });
                     }
-//                    if (response.isSuccessful()) {
-//                        String responseData = response.body().string();
-//
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(responseData);
-//                            JSONArray choices = jsonObject.getJSONArray("choices");
-//                            String reply = choices.getJSONObject(0).getJSONObject("message").getString("content");
-//
-//                            runOnUiThread(() -> tvResponse.setText("AI: " + reply.trim()));
-//                        } catch (JSONException e) {
-//                            runOnUiThread(() -> tvResponse.setText("Failed to parse response"));
-//                        }
-//
-//                    } else {
-//                        runOnUiThread(() -> tvResponse.setText("Response Error: " + response.message()));
-//                    }
                 }
             });
 
         } catch (JSONException e) {
-            tvResponse.setText("JSON error: " + e.getMessage());
+            runOnUiThread(() -> {
+                tvResponse.setText("JSON error: " + e.getMessage());
+                Toast.makeText(ChatActivity.this, "Internal JSON error.", Toast.LENGTH_LONG).show();
+            });
         }
     }
 }

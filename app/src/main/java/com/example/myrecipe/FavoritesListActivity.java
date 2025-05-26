@@ -28,6 +28,7 @@ public class FavoritesListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_favorites_list);
 
         favoritesRecyclerView = findViewById(R.id.rvFavorites);
         favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,18 +49,21 @@ public class FavoritesListActivity extends AppCompatActivity {
 
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     Recipe recipe = childSnapshot.getValue(Recipe.class);
-                    if (recipe != null && allFavorites.containsKey(recipe.getName()) && (Boolean) allFavorites.get(recipe.getName())) {
-                        favoriteRecipes.add(recipe);
-                    }
-                }
-                adapter.notifyDataSetChanged(); // Update RecyclerView
-            }
 
+                    if (recipe != null && allFavorites.containsKey(recipe.getName())) {
+                        Object value = allFavorites.get(recipe.getName());
+                        if (value instanceof Boolean && (Boolean) value) {
+                            favoriteRecipes.add(recipe);
+                        }
+                    }
+                    }
+                adapter.notifyDataSetChanged(); // Update RecyclerView
+
+            }
             @Override
             public void onCancelled(DatabaseError error) {
                 // Optional: handle Firebase read error
             }
-
-    });
+            });
     }
 }

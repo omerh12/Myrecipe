@@ -50,12 +50,14 @@ public class RecipeExample extends AppCompatActivity {
 
         tvRecipeExampleRecipeIngredients.setText(formattedIngredients.toString());
 
+
         isFavorite = prefs.getBoolean(recipeName, false);
         ivFavorite.setImageResource(isFavorite ? R.drawable.baseline_star_24 : R.drawable.baseline_star_border_24);
 
 
 
-        if (imagePath != null && !imagePath.isEmpty()) {
+
+            if (imagePath != null && !imagePath.isEmpty()) {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(imagePath);
             storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 Glide.with(this)
@@ -63,6 +65,23 @@ public class RecipeExample extends AppCompatActivity {
                         .centerCrop()
                         .into(ivRecipeExampleRecipeImage);
             });
+
+                ivFavorite.setOnClickListener(v -> {
+                    isFavorite = !isFavorite; // Toggle state
+                    // Save favorite state
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean(recipeName, isFavorite);
+                    editor.apply();
+
+
+                    // Update star icon
+                    if (isFavorite) {
+                        ivFavorite.setImageResource(R.drawable.baseline_star_24);
+                    } else {
+                        ivFavorite.setImageResource(R.drawable.baseline_star_border_24);
+                    }
+
+                });
         }
 
         }
