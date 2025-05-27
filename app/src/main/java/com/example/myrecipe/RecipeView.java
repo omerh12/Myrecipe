@@ -1,24 +1,24 @@
 package com.example.myrecipe;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Collection;
+import androidx.appcompat.widget.Toolbar;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 
@@ -34,11 +34,13 @@ public class RecipeView extends AppCompatActivity {
     String FAVORITES_PREF = "favorite_recipes";
     String COOKING_PREF = "cooking_recipes";
 
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_example);
+        setContentView(R.layout.activity_recipe_view);
 
         tvRecipeExampleRecipeName = findViewById(R.id.tvRecipeExampleRecipeName);
         tvRecipeExampleRecipeIngredients = findViewById(R.id.tvRecipeExampleRecipeIngredients);
@@ -46,6 +48,9 @@ public class RecipeView extends AppCompatActivity {
         ivRecipeExampleRecipeImage = findViewById(R.id.ivRecipeExampleRecipeImage);
         ivFavorite = findViewById(R.id.ivFavorite);
         btnRecipeExampleStartCooking = findViewById(R.id.btnRecipeExampleStartCooking);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         favoritePrefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
         cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
@@ -131,4 +136,55 @@ public class RecipeView extends AppCompatActivity {
 
             }
         }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_item_about) {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (itemId == R.id.menu_item_home) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        else if (itemId == R.id.menu_item_recipe_list) {
+            Intent intent = new Intent(this, RecipeListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_upload_new_recipe) {
+            Intent intent = new Intent(this, UploadNewRecipeActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_chat) {
+            Intent intent = new Intent(this, ChatActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_alarm) {
+            Intent intent = new Intent(this, AlarmActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_logout) {
+            Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("user_id");
+            editor.remove("user_email");
+            editor.remove("user_token");
+            editor.apply();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, FirstScreenActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     }

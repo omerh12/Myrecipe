@@ -21,21 +21,8 @@
         android:orientation="horizontal"
         android:padding="6dp">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@android:drawable/btn_star_big_on"
-            app:tint="#FFC107"
-            />
 
-        <TextView
-            android:id="@+id/tvlikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="number of likes"
-            android:textColor="#FFC107"
-            android:textSize="14sp"
-            android:layout_marginStart="6dp"/>
+
     </LinearLayout>
 
          <TextView

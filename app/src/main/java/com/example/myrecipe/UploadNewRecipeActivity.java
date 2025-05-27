@@ -3,6 +3,7 @@ package com.example.myrecipe;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
@@ -163,5 +167,55 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
                         Toast.makeText(UploadNewRecipeActivity.this, "Error saving recipe", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_item_about) {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (itemId == R.id.menu_item_home) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        else if (itemId == R.id.menu_item_recipe_list) {
+            Intent intent = new Intent(this, RecipeListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_upload_new_recipe) {
+            Intent intent = new Intent(this, UploadNewRecipeActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_chat) {
+            Intent intent = new Intent(this, ChatActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_alarm) {
+            Intent intent = new Intent(this, AlarmActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_logout) {
+            Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("user_id");
+            editor.remove("user_email");
+            editor.remove("user_token");
+            editor.apply();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, FirstScreenActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

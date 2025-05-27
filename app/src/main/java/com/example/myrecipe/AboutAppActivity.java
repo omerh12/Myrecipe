@@ -19,13 +19,7 @@ public class AboutAppActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_about_app);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
 
     @Override
@@ -59,7 +53,7 @@ public class AboutAppActivity extends AppCompatActivity {
 
             case R.id.menu_item_alarm:
                 // Navigate to profile screen
-                Intent ProfileIntent = new Intent(this, ProfileActivity.class);
+                Intent ProfileIntent = new Intent(this, AlarmActivity.class);
                 startActivity(ProfileIntent);
                 return true;
 
