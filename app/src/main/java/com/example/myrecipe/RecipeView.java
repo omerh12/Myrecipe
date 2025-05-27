@@ -4,6 +4,9 @@ import android.content.SharedPreferences;
 import android.widget.Button;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
@@ -12,6 +15,11 @@ import com.google.firebase.storage.StorageReference;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 
 public class RecipeView extends AppCompatActivity {
@@ -64,7 +72,12 @@ public class RecipeView extends AppCompatActivity {
 
         tvRecipeExampleRecipeIngredients.setText(formattedIngredients.toString());
 
-        isFavorite = favoritePrefs.getBoolean(recipeName, false);
+        //isFavorite = favoritePrefs.getBoolean(recipeName, false);
+
+        Set<String> existingPreferences =favoritePrefs.getStringSet("favorites", new HashSet<>());
+        if(existingPreferences.contains(recipeName)){
+            isFavorite = true;
+        }
         ivFavorite.setImageResource(isFavorite ? R.drawable.baseline_star_24 : R.drawable.baseline_star_border_24);
 
 
@@ -80,10 +93,17 @@ public class RecipeView extends AppCompatActivity {
         ivFavorite.setOnClickListener(v -> {
             isFavorite = !isFavorite; // Toggle state
             // Save favorite state
-            SharedPreferences.Editor editor = favoritePrefs.edit();
-            editor.putBoolean(recipeName, isFavorite);
-            editor.commit();
 
+
+            if(isFavorite && !existingPreferences.contains(recipeName)){
+                existingPreferences.add(recipeName);
+            }
+            else if(!isFavorite && existingPreferences.contains(recipeName)) {
+                existingPreferences.remove(recipeName);
+            }
+            SharedPreferences.Editor editor = favoritePrefs.edit();
+            editor.putStringSet("favorites", existingPreferences);
+            editor.commit();
 
             // Update star icon
             if (isFavorite) {
@@ -110,7 +130,5 @@ public class RecipeView extends AppCompatActivity {
             });
 
             }
-
         }
-
     }
