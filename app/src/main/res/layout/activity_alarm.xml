@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#D3A101"
     android:id="@+id/main"
-    android:gravity="center"
+    android:gravity="top|center"
     android:padding="16dp"
     android:orientation="vertical"
     tools:context=".AlarmActivity">

@@ -92,8 +92,6 @@ public class RecipeListActivity extends AppCompatActivity {
         }
 
         else if (itemId == R.id.menu_item_recipe_list) {
-            Intent intent = new Intent(this, RecipeListActivity.class);
-            startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_upload_new_recipe) {
             Intent intent = new Intent(this, UploadNewRecipeActivity.class);
