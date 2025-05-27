@@ -4,19 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import java.util.ArrayList;
-
+import androidx.appcompat.widget.Toolbar;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,10 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +52,10 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         btnSelectImage = findViewById(R.id.btnSelectImage);
         btnTakeImage = findViewById(R.id.btnTakeImage);
         ivRecipeImage = findViewById(R.id.ivRecipeImage);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         btnSelectImage.setOnClickListener(this);
         btnTakeImage.setOnClickListener(this);
         cameraLauncher = registerForActivityResult(

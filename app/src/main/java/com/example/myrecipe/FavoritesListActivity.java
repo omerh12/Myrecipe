@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +43,8 @@ public class FavoritesListActivity extends AppCompatActivity {
         adapter = new RecipesAdapter(this, favoriteRecipes);
         favoritesRecyclerView.setAdapter(adapter);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         prefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
         Map<String, ?> allFavorites = prefs.getAll();

@@ -1,9 +1,12 @@
 package com.example.myrecipe;
 
+import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,50 +23,61 @@ public class AboutAppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
-    }
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_about:
-                // Navigate to profile screen
-                Intent AboutAppIntent = new Intent(this, AboutAppActivity.class);
-                startActivity(AboutAppIntent);
-                return true;
-
-            case R.id.menu_item_logout:
-                // Sign out and return to login
-                FirebaseAuth.getInstance().signOut();
-
-                // Optional: Clear SharedPreferences
-                new PreferenceManager(this).clear();
-
-                Intent logoutIntent = new Intent(this, SignInActivity.class);
-                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
-                startActivity(logoutIntent);
-                finish();
-                return true;
-
-
-            case R.id.menu_item_alarm:
-                // Navigate to profile screen
-                Intent ProfileIntent = new Intent(this, AlarmActivity.class);
-                startActivity(ProfileIntent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_item_about) {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+            return true;
         }
+        else if (itemId == R.id.menu_item_home) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        else if (itemId == R.id.menu_item_recipe_list) {
+            Intent intent = new Intent(this, RecipeListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_upload_new_recipe) {
+            Intent intent = new Intent(this, UploadNewRecipeActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_chat) {
+            Intent intent = new Intent(this, ChatActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_alarm) {
+            Intent intent = new Intent(this, AlarmActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_logout) {
+            Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("user_id");
+            editor.remove("user_email");
+            editor.remove("user_token");
+            editor.apply();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, FirstScreenActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     }
 
 
 
-}
