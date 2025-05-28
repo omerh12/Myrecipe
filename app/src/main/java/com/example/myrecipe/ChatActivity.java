@@ -1,5 +1,6 @@
 package com.example.myrecipe;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class ChatActivity extends AppCompatActivity {
 
     OkHttpClient client = new OkHttpClient();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +50,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        etMessage = findViewById(R.id.etMessage);
-        btnSend = findViewById(R.id.btnSend);
-        tvResponse = findViewById(R.id.tvResponse);
+        etMessage = findViewById(R.id.etChatWithAIMessage);
+        btnSend = findViewById(R.id.btnChatWithAISend);
+        tvResponse = findViewById(R.id.tvChatWithAIResponse);
 
         btnSend.setOnClickListener(v -> {
             String userMessage = etMessage.getText().toString().trim();

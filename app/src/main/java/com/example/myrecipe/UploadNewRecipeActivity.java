@@ -50,7 +50,7 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         etUploadNewRecipeInstructions = findViewById(R.id.etUploadNewRecipeInstructions);
         btnSelectImage = findViewById(R.id.btnSelectImage);
         btnTakeImage = findViewById(R.id.btnTakeImage);
-        ivRecipeImage = findViewById(R.id.ivRecipeImage);
+        ivRecipeImage = findViewById(R.id.ivRecipeExampleRecipeImage);
 
 
         btnSelectImage.setOnClickListener(this);

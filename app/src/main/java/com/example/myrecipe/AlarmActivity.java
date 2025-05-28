@@ -26,17 +26,18 @@ import java.util.Calendar;
 public class AlarmActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button btnSetAlarm;
+    Button btnAlarmSetAlarm;
     AlarmManager alarmManager;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
 
-        btnSetAlarm = findViewById(R.id.btnSetAlarm);
-        btnSetAlarm.setOnClickListener(this);
+        btnAlarmSetAlarm = findViewById(R.id.btnAlarmSetAlarm);
+        btnAlarmSetAlarm.setOnClickListener(this);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         createNotificationChannel();
@@ -45,7 +46,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     @SuppressLint("ScheduleExactAlarm")
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnSetAlarm) {
+        if (view.getId() == R.id.btnAlarmSetAlarm) {
 
 
             MaterialTimePicker picker = new MaterialTimePicker.Builder()
