@@ -25,10 +25,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnFirstScreenLogIn"
+            android:id="@+id/btnFirstScreenSignIn"
             android:layout_width="150dp"
             android:layout_height="80dp"
-            android:text="LogIn"
+            android:text="SignIn"
             android:textColor="#D3A101"
             android:textSize="24sp"
             android:backgroundTint="@color/white"

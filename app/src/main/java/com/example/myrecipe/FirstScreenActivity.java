@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class FirstScreenActivity extends AppCompatActivity {
 
     SignInPreferenceHandler preferenceHandler;
-    Button btnFirstScreenSignUp,btnFirstScreenLogIn;
+    Button btnFirstScreenSignUp,btnFirstScreenSignIn;
 
 
     @Override
@@ -39,9 +39,9 @@ public class FirstScreenActivity extends AppCompatActivity {
             }
         });
 
-        btnFirstScreenLogIn = findViewById(R.id.btnFirstScreenLogIn); // Make sure the ID matches the button in your XML
+        btnFirstScreenSignIn = findViewById(R.id.btnFirstScreenSignIn); // Make sure the ID matches the button in your XML
 
-        btnFirstScreenLogIn.setOnClickListener(new View.OnClickListener() {
+        btnFirstScreenSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FirstScreenActivity.this, SignInActivity.class); // Make sure LoginActivity is the correct class
