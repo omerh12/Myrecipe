@@ -3,6 +3,7 @@ package com.example.myrecipe;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -68,21 +69,15 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         TextView tvSignUpLink = findViewById(R.id.tvSignInLink);
+        tvSignUpLink.setPaintFlags(tvSignUpLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        SpannableString spannableString = new SpannableString("Already have an account? Sign in");
-
-        ClickableSpan clickableSpan = new ClickableSpan() {
+        tvSignUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View widget) {
+            public void onClick(View v) {
                 Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
-        };
-
-        spannableString.setSpan(clickableSpan, 25, 32, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvSignUpLink.setText(spannableString);
-        tvSignUpLink.setMovementMethod(LinkMovementMethod.getInstance());
-        spannableString.setSpan(new ForegroundColorSpan(Color.YELLOW), 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        });
 
 
     }
