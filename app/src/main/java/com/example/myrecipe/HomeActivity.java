@@ -36,8 +36,8 @@ public class HomeActivity extends AppCompatActivity {
     String COOKING_PREF = "cooking_recipes";
     String FAVORITES_PREF = "favorite_recipes";
 
-    TextView tvRecipeCurrentlyCookingRecipeName, tvRecipeNoCurrentlyCookingRecipeName, tvHomeFavoriteRecipes;
-    ImageView recipeCurrentlyCookingImageView;
+    TextView tvHomeRecipeCurrentlyCookingRecipeName, tvHomeRecipeNoCurrentlyCookingRecipeName, tvHomeFavoriteRecipes;
+    ImageView ivHomeRecipeCurrentlyCooking;
     static Recipe currentCookingRecipe;
     static ArrayList <Recipe>favoriterecipes;
 
@@ -102,20 +102,20 @@ private void loadFavoriteRecipesView(){
                 e.printStackTrace();
             }
 
-            favoriteViewPager = findViewById(R.id.favoriteViewPager);
+            favoriteViewPager = findViewById(R.id.pagerHomeFavoriteView);
             favoriteViewPager.setAdapter(favoriteAdapter);
 
-            ImageView btnLeft = findViewById(R.id.btnLeft);
-            ImageView btnRight = findViewById(R.id.btnRight);
+            ImageView ivArrowLeft = findViewById(R.id.ivHomeArrowLeft);
+            ImageView ivArrowRight = findViewById(R.id.ivHomeArrowRight);
 
-            btnLeft.setOnClickListener(v -> {
+            ivArrowLeft.setOnClickListener(v -> {
                 int currentItem = favoriteViewPager.getCurrentItem();
                 if (currentItem > 0) {
                     favoriteViewPager.setCurrentItem(currentItem - 1, true);
                 }
             });
 
-            btnRight.setOnClickListener(v -> {
+            ivArrowRight.setOnClickListener(v -> {
                 int currentItem = favoriteViewPager.getCurrentItem();
                 if (currentItem < favoriteAdapter.getItemCount() - 1) {
                     favoriteViewPager.setCurrentItem(currentItem + 1, true);
@@ -131,11 +131,11 @@ private void loadFavoriteRecipesView(){
 
 
     private void loadCurrentCookingView() {
-        tvRecipeCurrentlyCookingRecipeName = findViewById(R.id.tvRecipeCurrentlyCookingRecipeName);
-        tvRecipeNoCurrentlyCookingRecipeName = findViewById(R.id.tvRecipeNoCurrentlyCookingRecipeName);
-        recipeCurrentlyCookingImageView = findViewById(R.id.recipeCurrentlyCookingImageView);
+        tvHomeRecipeCurrentlyCookingRecipeName = findViewById(R.id.tvHomeRecipeCurrentlyCookingRecipeName);
+        tvHomeRecipeNoCurrentlyCookingRecipeName = findViewById(R.id.tvHomeNoRecipeCurrentlyCooking);
+        ivHomeRecipeCurrentlyCooking = findViewById(R.id.ivHomeRecipeCurrentlyCooking);
 
-        tvRecipeCurrentlyCookingRecipeName.setOnClickListener(new View.OnClickListener() {
+        tvHomeRecipeCurrentlyCookingRecipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -149,7 +149,7 @@ private void loadFavoriteRecipesView(){
                 finish();
             }
         });
-        recipeCurrentlyCookingImageView.setOnClickListener(new View.OnClickListener() {
+        ivHomeRecipeCurrentlyCooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -175,17 +175,17 @@ private void loadFavoriteRecipesView(){
                     String recipeName = recipe.getName();
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(imageUrl);
                     storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                        Glide.with(HomeActivity.this).load(uri).centerCrop().into(recipeCurrentlyCookingImageView);
+                        Glide.with(HomeActivity.this).load(uri).centerCrop().into(ivHomeRecipeCurrentlyCooking);
                     });
-                    tvRecipeCurrentlyCookingRecipeName.setText(recipeName);
-                    tvRecipeNoCurrentlyCookingRecipeName.setVisibility(View.INVISIBLE);
+                    tvHomeRecipeCurrentlyCookingRecipeName.setText(recipeName);
+                    tvHomeRecipeNoCurrentlyCookingRecipeName.setVisibility(View.INVISIBLE);
                 } else {
-                    tvRecipeNoCurrentlyCookingRecipeName.setVisibility(View.VISIBLE);
-                    recipeCurrentlyCookingImageView.setImageDrawable(null);
-                    tvRecipeCurrentlyCookingRecipeName.setText("");
+                    tvHomeRecipeNoCurrentlyCookingRecipeName.setVisibility(View.VISIBLE);
+                    ivHomeRecipeCurrentlyCooking.setImageDrawable(null);
+                    tvHomeRecipeCurrentlyCookingRecipeName.setText("");
 
-                    tvRecipeCurrentlyCookingRecipeName.setOnClickListener(null);
-                    recipeCurrentlyCookingImageView.setOnClickListener(null);
+                    tvHomeRecipeCurrentlyCookingRecipeName.setOnClickListener(null);
+                    ivHomeRecipeCurrentlyCooking.setOnClickListener(null);
                 }
 
             }

@@ -68,10 +68,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        TextView tvSignUpLink = findViewById(R.id.tvSignInLink);
-        tvSignUpLink.setPaintFlags(tvSignUpLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        TextView tvSignInLink = findViewById(R.id.tvSignInLink);
+        tvSignInLink.setPaintFlags(tvSignInLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        tvSignUpLink.setOnClickListener(new View.OnClickListener() {
+        tvSignInLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);

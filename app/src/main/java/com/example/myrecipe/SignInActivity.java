@@ -4,23 +4,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -33,6 +26,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import android.content.SharedPreferences;
+
 
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -61,22 +56,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         btnSignInGoogle.setOnClickListener(this);
 
         TextView tvSignUpLink = findViewById(R.id.tvSignUpLink);
+        tvSignUpLink.setPaintFlags(tvSignUpLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        SpannableString spannableString = new SpannableString("Don't have an account? Sign up");
-
-        ClickableSpan clickableSpan = new ClickableSpan() {
+        tvSignUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View widget) {
+            public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
-        };
-
-        spannableString.setSpan(clickableSpan, 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvSignUpLink.setText(spannableString);
-        tvSignUpLink.setMovementMethod(LinkMovementMethod.getInstance());
-        spannableString.setSpan(new ForegroundColorSpan(Color.YELLOW), 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+        });
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -170,6 +158,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         });
+    }
+
+    private void saveUserToPreferences(FirebaseUser user) {
+        if (user == null) return;
+
+        SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("is_logged_in", true);
+        editor.putString("user_email", user.getEmail());
+        editor.apply();
     }
 
 }
