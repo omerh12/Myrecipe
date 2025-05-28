@@ -1,6 +1,5 @@
 package com.example.myrecipe;
 
-import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,8 +16,7 @@ public class AboutAppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,6 +31,11 @@ public class AboutAppActivity extends AppCompatActivity {
         }
         else if (itemId == R.id.menu_item_home) {
             Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
             startActivity(intent);
             return true;
         }

@@ -56,8 +56,8 @@
         android:id="@+id/btnSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:textColor="#D3A101"
+        android:text="Sign Up"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/etSignUpPass"
         app:layout_constraintStart_toStartOf="@+id/etSignUpEmail"
@@ -79,49 +79,3 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:background="#D3A101"-->
-<!--    android:gravity="center"-->
-<!--    android:orientation="vertical"-->
-<!--    tools:context=".Registration">-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/tvRegistrationTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Registraion"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="60sp"-->
-<!-- />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etRegistrationEmail"-->
-<!--        android:layout_width="300sp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:hint="Enter your Email"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etRegistrationPassword"-->
-<!--        android:layout_width="300sp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:hint="Enter your Password"-->
-<!--       />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btnRegistrationSignUp"-->
-<!--        android:layout_width="300sp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="SignUp"-->
-<!--        android:textColor="#D3A101"-->
-<!--        android:textSize="20sp" />-->
-
-<!--</LinearLayout>-->

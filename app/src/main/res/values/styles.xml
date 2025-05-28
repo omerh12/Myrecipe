@@ -6,20 +6,5 @@
         <item name="cornerSize">16dp</item>
     </style>
 
-<!--    <style name="ToolbarMenuStyle" parent="ThemeOverlay.AppCompat.Light">-->
-<!--        &lt;!&ndash; Icon and text color of menu items &ndash;&gt;-->
-<!--        <item name="android:popupBackground">#303030</item>-->
-<!--        <item name="android:background">#303030</item>-->
-<!--        <item name="android:colorBackground">#303030</item>-->
-<!--        <item name="android:textColor">@color/black </item> &lt;!&ndash; White text &ndash;&gt;-->
-<!--        <item name="android:iconTint">#FFFFFF</item>  &lt;!&ndash; White icons (API 26+) &ndash;&gt;-->
-<!--        <item name="actionMenuTextColor">@color/black</item> &lt;!&ndash; For overflow text &ndash;&gt;-->
-<!--    </style>-->
-
-    <style name="PopupMenuTextAppearance" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">#000000</item> <!-- Black text -->
-    </style>
-
-
 
 </resources>

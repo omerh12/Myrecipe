@@ -34,7 +34,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_recipe_item, parent, false); // Replace with your item layout
+                .inflate(R.layout.activity_recipe_item, parent, false);
         return new RecipeViewHolder(itemView);
     }
 
@@ -61,16 +61,11 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            // Handle any errors (e.g., image not found, permission issues)
-                            // You might want to log the error or display a default image
-                            //holder.recipeImageView.setImageResource(R.drawable.default_image);
-                            // Or log the error:
                              Log.e("RecipesAdapter", "Error loading image: " + e.getMessage());
                         }
                     });
 
         } else {
-            // Handle the case where the image URL is missing or empty
             holder.recipeImageView.setVisibility(View.GONE);
         }
 

@@ -8,10 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,38 +35,33 @@ public class RecipeListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_list);
 
 
-        recyclerView = findViewById(R.id.recipesRecyclerView); // Replace with your RecyclerView ID
+        recyclerView = findViewById(R.id.recipesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecipesAdapter(this, recipesList);
         recyclerView.setAdapter(adapter);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        // Get a reference to the "recipes" node in your Firebase database
+
         database = FirebaseDatabase.getInstance().getReference("recipes");
 
-        // Read from the database
+
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                recipesList.clear(); // Clear the list before adding new data
+
+                recipesList.clear();
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     Recipe recipe = childSnapshot.getValue(Recipe.class);
                     if (recipe != null) {
                         recipesList.add(recipe);
                     }
                 }
-                adapter.notifyDataSetChanged(); // Update the RecyclerView
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Failed to read value
                 Log.w("RecipeListActivity", "Failed to read value.", error.toException());
-                // Handle the error appropriately, e.g., display an error message to the user
             }
         });
     }
@@ -90,7 +83,11 @@ public class RecipeListActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-
+        else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
+            startActivity(intent);
+            return true;
+        }
         else if (itemId == R.id.menu_item_recipe_list) {
             return true;
         } else if (itemId == R.id.menu_item_upload_new_recipe) {

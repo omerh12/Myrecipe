@@ -1,4 +1,5 @@
 package com.example.myrecipe;
+
 import android.view.LayoutInflater;
 import android.content.Context;
 import android.view.View;
@@ -13,14 +14,23 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+
 import java.util.List;
+
 public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAdapter.ViewHolder> {
+
+    public interface OnRecipeClickListener {
+        void onRecipeClick(Recipe recipe);
+    }
+
     private List<Recipe> favoriteList;
     private Context context;
+    private OnRecipeClickListener onRecipeClickListener;
 
-    public FavoriteRecipeAdapter(List<Recipe> favoriteList, Context context) {
+    public FavoriteRecipeAdapter(List<Recipe> favoriteList, Context context, OnRecipeClickListener onRecipeClickListener) {
         this.favoriteList = favoriteList;
         this.context = context;
+        this.onRecipeClickListener = onRecipeClickListener;
     }
 
     @NonNull
@@ -38,11 +48,17 @@ public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAd
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(imagePath);
         storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
             Glide.with(context)
-                    .load(uri) // if imagePath is a full URL, or load from storage again if not
+                    .load(uri)
                     .centerCrop()
                     .into(holder.imageView);
         });
         Glide.with(context).load(recipe.getImage()).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (onRecipeClickListener != null) {
+                onRecipeClickListener.onRecipeClick(recipe);
+            }
+        });
     }
 
     @Override

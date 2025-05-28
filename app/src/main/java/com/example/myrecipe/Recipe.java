@@ -1,7 +1,5 @@
 package com.example.myrecipe;
 
-import android.graphics.Bitmap;
-import android.widget.ImageView;
 
 public class Recipe {
     private String name;

@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     String COOKING_PREF = "cooking_recipes";
     String FAVORITES_PREF = "favorite_recipes";
 
-    TextView tvRecipeCurrentlyCookingRecipeName, tvRecipeNoCurrentlyCookingRecipeName;
+    TextView tvRecipeCurrentlyCookingRecipeName, tvRecipeNoCurrentlyCookingRecipeName, tvHomeFavoriteRecipes;
     ImageView recipeCurrentlyCookingImageView;
     static Recipe currentCookingRecipe;
     static ArrayList <Recipe>favoriterecipes;
@@ -54,8 +54,21 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //loadCurrentCookingView();
-        //loadFavoriteRecipesView();
+        TextView tvHomeFavoriteRecipes = findViewById(R.id.tvHomeFavoriteRecipes);
+
+        tvHomeFavoriteRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Intent intent = new Intent(HomeActivity.this, FavoritesListActivity.class);
+              startActivity(intent);
+            }
+        });
+
+
+
+        loadCurrentCookingView();
+        loadFavoriteRecipesView();
+
     }
 private void loadFavoriteRecipesView(){
 
@@ -66,14 +79,21 @@ private void loadFavoriteRecipesView(){
         @Override
         public void onRecipesLoaded(ArrayList<Recipe> recipes) {
             try {
-                // Do something with the list of recipes
-                // For example, update the adapter data
+
                 favoriteRecipes.clear();
                 if (recipes != null) {
                     favoriteRecipes.addAll(recipes);
                 }
 
-                favoriteAdapter = new FavoriteRecipeAdapter(favoriteRecipes, HomeActivity.this);
+                favoriteAdapter = new FavoriteRecipeAdapter(favoriteRecipes, HomeActivity.this, recipe -> {
+                    Intent intent = new Intent(HomeActivity.this, RecipeView.class);
+                    intent.putExtra("recipeName", recipe.getName());
+                    intent.putExtra("recipeIngredients", recipe.getIngredients());
+                    intent.putExtra("recipeInstructions", recipe.getInstructions());
+                    intent.putExtra("imagePath", recipe.getImage());
+                    startActivity(intent);
+
+                });
 
             }
             catch(Exception e)
@@ -84,17 +104,31 @@ private void loadFavoriteRecipesView(){
 
             favoriteViewPager = findViewById(R.id.favoriteViewPager);
             favoriteViewPager.setAdapter(favoriteAdapter);
+
+            ImageView btnLeft = findViewById(R.id.btnLeft);
+            ImageView btnRight = findViewById(R.id.btnRight);
+
+            btnLeft.setOnClickListener(v -> {
+                int currentItem = favoriteViewPager.getCurrentItem();
+                if (currentItem > 0) {
+                    favoriteViewPager.setCurrentItem(currentItem - 1, true);
+                }
+            });
+
+            btnRight.setOnClickListener(v -> {
+                int currentItem = favoriteViewPager.getCurrentItem();
+                if (currentItem < favoriteAdapter.getItemCount() - 1) {
+                    favoriteViewPager.setCurrentItem(currentItem + 1, true);
+                }
+            });
+
+
         }
     });
 
 
 }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadCurrentCookingView();
-        loadFavoriteRecipesView();
-    }
+
 
     private void loadCurrentCookingView() {
         tvRecipeCurrentlyCookingRecipeName = findViewById(R.id.tvRecipeCurrentlyCookingRecipeName);
@@ -149,7 +183,11 @@ private void loadFavoriteRecipesView(){
                     tvRecipeNoCurrentlyCookingRecipeName.setVisibility(View.VISIBLE);
                     recipeCurrentlyCookingImageView.setImageDrawable(null);
                     tvRecipeCurrentlyCookingRecipeName.setText("");
+
+                    tvRecipeCurrentlyCookingRecipeName.setOnClickListener(null);
+                    recipeCurrentlyCookingImageView.setOnClickListener(null);
                 }
+
             }
         });
     }
@@ -176,7 +214,7 @@ private void loadFavoriteRecipesView(){
                     }
                 }
                 listener.onRecipesLoaded(favoriterecipes);
-                // matchingRecipes now contains all recipes with names in nameSet
+
             }
 
             @Override
@@ -229,6 +267,11 @@ private void loadFavoriteRecipesView(){
             startActivity(intent);
             return true;
             }
+        else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         else if (itemId == R.id.menu_item_recipe_list) {
             Intent intent = new Intent(this, RecipeListActivity.class);
@@ -261,7 +304,7 @@ private void loadFavoriteRecipesView(){
         }
         return super.onOptionsItemSelected(item);
     }
-    //Menu
+
 }
-//DAL
+
 

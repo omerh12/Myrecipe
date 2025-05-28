@@ -19,15 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import android.widget.Button;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
-
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import java.util.Calendar;
 
 public class AlarmActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,17 +35,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_alarm);
 
 
-        // Initialize views
         btnSetAlarm = findViewById(R.id.btnSetAlarm);
         btnSetAlarm.setOnClickListener(this);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Get AlarmManager system service
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        // Create the notification channel
         createNotificationChannel();
     }
 
@@ -60,38 +46,38 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnSetAlarm) {
-            // Build MaterialTimePicker with keyboard input mode
+
 
             MaterialTimePicker picker = new MaterialTimePicker.Builder()
-                    .setTimeFormat(TimeFormat.CLOCK_24H) // You can also use CLOCK_12H
-                    .setHour(12) // Default hour shown
-                    .setMinute(0) // Default minute shown
+                    .setTimeFormat(TimeFormat.CLOCK_24H)
+                    .setHour(12)
+                    .setMinute(0)
                     .setTitleText("Select Alarm Time")
-                    .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD) // Allow manual typing of time
+                    .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
                     .build();
 
-            // Show the picker
+
             picker.show(getSupportFragmentManager(), "ALARM_TIME_PICKER");
 
-            // Set action when user clicks OK
+
             picker.addOnPositiveButtonClickListener(v -> {
                 int hour = picker.getHour();
                 int minute = picker.getMinute();
 
-                // Set the calendar time
+
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
 
-                // Create intent to trigger AlarmReceiver
+
                 Intent intent = new Intent(this, AlarmReceiver.class);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(
                         this,
                         0,
                         intent,
-                        PendingIntent.FLAG_MUTABLE // Required for newer Android versions
+                        PendingIntent.FLAG_MUTABLE
                 );
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -99,10 +85,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                 }
-                // Schedule the alarm
-                //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-                // Show confirmation
                 Toast.makeText(this,
                         "Alarm set for " + String.format("%02d:%02d", hour, minute),
                         Toast.LENGTH_SHORT).show();
@@ -110,7 +93,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    // Create a high importance notification channel
+
     private void createNotificationChannel() {
         NotificationChannel channel = new NotificationChannel(
                 "ALARM_CHANNEL_ID",
@@ -139,6 +122,11 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
             return true;
         }
+        else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         else if (itemId == R.id.menu_item_recipe_list) {
             Intent intent = new Intent(this, RecipeListActivity.class);
@@ -153,8 +141,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {
-            Intent intent = new Intent(this, AlarmActivity.class);
-            startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_logout) {
             Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();

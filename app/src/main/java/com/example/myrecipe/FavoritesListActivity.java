@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class FavoritesListActivity extends AppCompatActivity {
 
@@ -43,28 +44,21 @@ public class FavoritesListActivity extends AppCompatActivity {
         adapter = new RecipesAdapter(this, favoriteRecipes);
         favoritesRecyclerView.setAdapter(adapter);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         prefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
-        Map<String, ?> allFavorites = prefs.getAll();
-
+        Set<String> favoriteNames = prefs.getStringSet("favorites", new HashSet<>());
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("recipes");
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                allRecipes.clear();
                 favoriteRecipes.clear();
 
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     Recipe recipe = childSnapshot.getValue(Recipe.class);
 
-                    if (recipe != null && allFavorites.containsKey(recipe.getName())) {
-                        Object value = allFavorites.get(recipe.getName());
-                        if (value instanceof Boolean && (Boolean) value) {
+                    if (recipe != null && favoriteNames.contains(recipe.getName())) {
                             favoriteRecipes.add(recipe);
-                        }
                     }
                 }
                 adapter.notifyDataSetChanged(); // Update RecyclerView
@@ -72,7 +66,7 @@ public class FavoritesListActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(DatabaseError error) {
-                // Optional: handle Firebase read error
+
             }
         });
     }
@@ -93,6 +87,9 @@ public class FavoritesListActivity extends AppCompatActivity {
         else if (itemId == R.id.menu_item_home) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
+            return true;
+        }
+        else if (itemId == R.id.menu_item_favorites_list) {
             return true;
         }
 

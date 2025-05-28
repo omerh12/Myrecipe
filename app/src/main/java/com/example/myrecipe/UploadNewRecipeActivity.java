@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,8 +52,6 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         btnTakeImage = findViewById(R.id.btnTakeImage);
         ivRecipeImage = findViewById(R.id.ivRecipeImage);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         btnSelectImage.setOnClickListener(this);
         btnTakeImage.setOnClickListener(this);
@@ -84,12 +81,10 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         save_recipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the values entered by the user
                 String recipeName = etUploadNewRecipeName.getText().toString().trim();
                 String recipeIngredients = etUploadNewRecipeIngredients.getText().toString().trim();
                 String recipeInstructions = etUploadNewRecipeInstructions.getText().toString().trim();
 
-                // Check if any field is empty
                 if (recipeName.isEmpty() || recipeIngredients.isEmpty() || recipeInstructions.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
 
@@ -176,6 +171,12 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         }
         else if (itemId == R.id.menu_item_home) {
             Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
             startActivity(intent);
             return true;
         }

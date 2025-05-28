@@ -17,7 +17,6 @@ import com.google.firebase.storage.StorageReference;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,9 +48,6 @@ public class RecipeView extends AppCompatActivity {
         ivFavorite = findViewById(R.id.ivFavorite);
         btnRecipeExampleStartCooking = findViewById(R.id.btnRecipeExampleStartCooking);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         favoritePrefs = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
         cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
 
@@ -62,7 +58,7 @@ public class RecipeView extends AppCompatActivity {
         btnRecipeExampleStartCooking.setText("Start Cooking");
         if(cookingPref.getString("cookingRecipe", "").equals(recipeName))
         {
-            btnRecipeExampleStartCooking.setText("Cookin' it!!!");
+            btnRecipeExampleStartCooking.setText("Cooking it!");
         }
 
         tvRecipeExampleRecipeName.setText(recipeName);
@@ -77,7 +73,6 @@ public class RecipeView extends AppCompatActivity {
 
         tvRecipeExampleRecipeIngredients.setText(formattedIngredients.toString());
 
-        //isFavorite = favoritePrefs.getBoolean(recipeName, false);
 
         Set<String> existingPreferences =favoritePrefs.getStringSet("favorites", new HashSet<>());
         if(existingPreferences.contains(recipeName)){
@@ -90,27 +85,27 @@ public class RecipeView extends AppCompatActivity {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(imagePath);
         storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
             Glide.with(this)
-                    .load(uri) // if imagePath is a full URL, or load from storage again if not
+                    .load(uri)
                     .centerCrop()
                     .into(ivRecipeExampleRecipeImage);
         });
 
         ivFavorite.setOnClickListener(v -> {
-            isFavorite = !isFavorite; // Toggle state
-            // Save favorite state
+            isFavorite = !isFavorite;
 
+            Set<String> originalSet = favoritePrefs.getStringSet("favorites", new HashSet<>());
+            Set<String> updatedSet = new HashSet<>(originalSet);
 
-            if(isFavorite && !existingPreferences.contains(recipeName)){
-                existingPreferences.add(recipeName);
+            if (isFavorite) {
+                updatedSet.add(recipeName);
+            } else {
+                updatedSet.remove(recipeName);
             }
-            else if(!isFavorite && existingPreferences.contains(recipeName)) {
-                existingPreferences.remove(recipeName);
-            }
+
             SharedPreferences.Editor editor = favoritePrefs.edit();
-            editor.putStringSet("favorites", existingPreferences);
-            editor.commit();
+            editor.putStringSet("favorites", updatedSet);
+            editor.apply(); // or commit()
 
-            // Update star icon
             if (isFavorite) {
                 ivFavorite.setImageResource(R.drawable.baseline_star_24);
             } else {
@@ -118,7 +113,7 @@ public class RecipeView extends AppCompatActivity {
             }
         });
             btnRecipeExampleStartCooking.setOnClickListener(v->{
-                if(btnRecipeExampleStartCooking.getText().equals("Cookin' it!!!")){
+                if(btnRecipeExampleStartCooking.getText().equals("Cooking it!")){
                     SharedPreferences.Editor editor = cookingPref.edit();
                     editor.clear();
                     editor.commit();
@@ -130,7 +125,7 @@ public class RecipeView extends AppCompatActivity {
                     editor.clear();
                     editor.putString("cookingRecipe", recipeName);
                     editor.commit();
-                    btnRecipeExampleStartCooking.setText("Cookin' it!!!");
+                    btnRecipeExampleStartCooking.setText("Cooking it!");
                 }
             });
 
@@ -155,7 +150,11 @@ public class RecipeView extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-
+        else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
+            startActivity(intent);
+            return true;
+        }
         else if (itemId == R.id.menu_item_recipe_list) {
             Intent intent = new Intent(this, RecipeListActivity.class);
             startActivity(intent);

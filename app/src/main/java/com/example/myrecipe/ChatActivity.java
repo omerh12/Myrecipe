@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,8 +46,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         etMessage = findViewById(R.id.etMessage);
         btnSend = findViewById(R.id.btnSend);
@@ -57,9 +55,9 @@ public class ChatActivity extends AppCompatActivity {
         btnSend.setOnClickListener(v -> {
             String userMessage = etMessage.getText().toString().trim();
             if (!userMessage.isEmpty()) {
-                // Clear the input field immediately
+
                 etMessage.setText("");
-                tvResponse.setText("Thinking..."); // Provide immediate feedback
+                tvResponse.setText("Thinking...");
                 sendMessageToGemini(userMessage);
             } else {
                 Toast.makeText(ChatActivity.this, "Please type a message.", Toast.LENGTH_SHORT).show();
@@ -69,11 +67,11 @@ public class ChatActivity extends AppCompatActivity {
 
     private void sendMessageToGemini(String message) {
         try {
-            // 1. Build the JSON request body for Gemini
+
             JSONObject json = new JSONObject();
             JSONArray contents = new JSONArray();
             JSONObject content = new JSONObject();
-            content.put("role", "user"); // Role for user message
+            content.put("role", "user");
 
             JSONArray parts = new JSONArray();
             JSONObject part = new JSONObject();
@@ -84,23 +82,13 @@ public class ChatActivity extends AppCompatActivity {
             contents.put(content);
             json.put("contents", contents);
 
-            // Optional: Add generation config for more control
-            // JSONObject generationConfig = new JSONObject();
-            // generationConfig.put("temperature", 0.7); // Adjust for creativity (0.0-1.0)
-            // generationConfig.put("topP", 0.95);
-            // generationConfig.put("topK", 40);
-            // generationConfig.put("maxOutputTokens", 1024);
-            // json.put("generationConfig", generationConfig);
-
-
-            // 2. Build the request
             RequestBody body = RequestBody.create(
                     json.toString(),
-                    MediaType.parse("application/json; charset=utf-8") // Specify charset
+                    MediaType.parse("application/json; charset=utf-8")
             );
 
             Request request = new Request.Builder()
-                    .url(GEMINI_ENDPOINT + GEMINI_API_KEY) // Append API key directly to URL
+                    .url(GEMINI_ENDPOINT + GEMINI_API_KEY)
                     .post(body)
                     .build();
 
@@ -179,6 +167,11 @@ public class ChatActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         else if (itemId == R.id.menu_item_recipe_list) {
             Intent intent = new Intent(this, RecipeListActivity.class);
@@ -189,8 +182,6 @@ public class ChatActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, ChatActivity.class);
-            startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {
             Intent intent = new Intent(this, AlarmActivity.class);

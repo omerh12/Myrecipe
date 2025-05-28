@@ -4,34 +4,47 @@
     android:layout_height="match_parent"
     android:gravity="top|center"
     android:orientation="vertical"
+    android:background="#D3A101"
     android:padding="16dp">
 
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:id="@+id/tvChatWithAI"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:elevation="4dp"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Chat With AI "
+        android:textStyle="bold"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:paddingTop="16dp" />
 
     <EditText
         android:id="@+id/etMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ask something..." />
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundededittext"
+        android:hint="Ask AI..."
+        android:textColorHint="#888888"
+        android:textColor="#888888"
+        android:textSize="18sp"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textColor="#D3A101"
         android:text="Send"/>
 
     <TextView
         android:id="@+id/tvResponse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="AI: "
         android:paddingTop="16dp" />
 </LinearLayout>

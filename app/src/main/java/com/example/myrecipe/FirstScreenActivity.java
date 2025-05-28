@@ -1,48 +1,84 @@
 package com.example.myrecipe;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class FirstScreenActivity extends AppCompatActivity {
 
-    // Declare buttons
+    SignInPreferenceHandler preferenceHandler;
     Button btnFirstScreenSignUp,btnFirstScreenLogIn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_screen);
 
-        // Initialize the registration button
+        preferenceHandler = new SignInPreferenceHandler(this);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        preferenceHandler.handleSuccessfulLogin(user);
+
+
         btnFirstScreenSignUp = findViewById(R.id.btnFirstScreenSignUp);
 
 
-        // Set an OnClickListener to the registration button
         btnFirstScreenSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to start Registration activity
                 Intent intent = new Intent(FirstScreenActivity.this, SignUpActivity.class);
-                // Start the activity
                 startActivity(intent);
             }
         });
 
-        // Initialize the login button
         btnFirstScreenLogIn = findViewById(R.id.btnFirstScreenLogIn); // Make sure the ID matches the button in your XML
 
-        // Set an OnClickListener to the login button
         btnFirstScreenLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to start Login activity
                 Intent intent = new Intent(FirstScreenActivity.this, SignInActivity.class); // Make sure LoginActivity is the correct class
-                // Start the activity
                 startActivity(intent);
             }
         });
+        preferenceHandler.handleSuccessfulLogin(user);
+        boolean isLoggedIn = preferenceHandler.isPreviouslyLoggedIn();
+
+        if (user != null && isLoggedIn) {
+            Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        }
+
+
+
     }
+
+    public class SignInPreferenceHandler {
+
+        private final PreferenceManager preferenceManager;
+
+        public SignInPreferenceHandler(Context context) {
+            this.preferenceManager = new PreferenceManager(context);
+        }
+
+        public void handleSuccessfulLogin(FirebaseUser user) {
+            if (user != null) {
+                preferenceManager.setUserEmail(user.getEmail());
+                preferenceManager.setLoggedIn(true);
+            }
+        }
+
+        public boolean isPreviouslyLoggedIn() {
+            return preferenceManager.isLoggedIn();
+        }
+    }
+
 }

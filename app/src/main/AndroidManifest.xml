@@ -16,40 +16,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRecipe"
         tools:targetApi="31">
+
         <activity
             android:name=".FavoritesListActivity"
-            android:theme="@style/Theme.MyRecipe.NoActionBar"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
-            android:theme="@style/Theme.MyRecipe.NoActionBar"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
             android:name=".AboutAppActivity"
-            android:theme="@style/Theme.MyRecipe.NoActionBar"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
             android:name=".RecipeView"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false"
-            android:label="@string/title_activity_recipe_example"
-            android:theme="@style/Theme.MyRecipe.NoActionBar" />
+            />
         <activity
             android:name=".Recipe_item"
             android:exported="false" />
         <activity
             android:name=".RecipeListActivity"
-            android:theme="@style/Theme.MyRecipe.NoActionBar"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
             android:name=".AlarmActivity"
-            android:theme="@style/Theme.MyRecipe.NoActionBar"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
             android:name=".UploadNewRecipeActivity"
-            android:theme="@style/Theme.MyRecipe.NoActionBar"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
+            android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
@@ -59,7 +61,6 @@
             android:exported="false" />
         <activity
             android:name=".FirstScreenActivity"
-            android:theme="@style/Theme.MyRecipe.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

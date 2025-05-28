@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/menu_item_home"
-        android:title="Home" />
 
     <item
         android:id="@+id/menu_item_about"
         android:title="About the app"/>
     <item
+        android:id="@+id/menu_item_home"
+        android:title="Home" />
+    <item
         android:id="@+id/menu_item_recipe_list"
         android:title="Recipe List"/>
+    <item
+        android:id="@+id/menu_item_favorites_list"
+        android:title="Favorites List" />
     <item
         android:id="@+id/menu_item_upload_new_recipe"
         android:title="Upload New Recipe"/>
