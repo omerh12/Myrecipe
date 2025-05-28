@@ -86,7 +86,7 @@ private void loadFavoriteRecipesView(){
                 }
 
                 favoriteAdapter = new FavoriteRecipeAdapter(favoriteRecipes, HomeActivity.this, recipe -> {
-                    Intent intent = new Intent(HomeActivity.this, RecipeView.class);
+                    Intent intent = new Intent(HomeActivity.this, RecipeViewActivity.class);
                     intent.putExtra("recipeName", recipe.getName());
                     intent.putExtra("recipeIngredients", recipe.getIngredients());
                     intent.putExtra("recipeInstructions", recipe.getInstructions());
@@ -139,7 +139,7 @@ private void loadFavoriteRecipesView(){
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(HomeActivity.this, RecipeView.class)
+                Intent intent = new Intent(HomeActivity.this, RecipeViewActivity.class)
                         .putExtra("recipeName", currentCookingRecipe.getName())
                         .putExtra("recipeIngredients", currentCookingRecipe.getIngredients())
                         .putExtra("recipeInstructions", currentCookingRecipe.getInstructions())
@@ -153,7 +153,7 @@ private void loadFavoriteRecipesView(){
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(HomeActivity.this, RecipeView.class)
+                Intent intent = new Intent(HomeActivity.this, RecipeViewActivity.class)
                         .putExtra("recipeName", currentCookingRecipe.getName())
                         .putExtra("recipeIngredients", currentCookingRecipe.getIngredients())
                         .putExtra("recipeInstructions", currentCookingRecipe.getInstructions())

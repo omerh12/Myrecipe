@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="top|center"
     android:background="#FFC107"
-    tools:context=".RecipeView">
+    tools:context=".RecipeViewActivity">
 
 
     <LinearLayout

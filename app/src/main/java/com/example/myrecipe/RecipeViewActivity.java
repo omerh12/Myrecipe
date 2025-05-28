@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class RecipeView extends AppCompatActivity {
+public class RecipeViewActivity extends AppCompatActivity {
 
     TextView tvRecipeExampleRecipeName, tvRecipeExampleRecipeIngredients, tvRecipeExampleRecipeInstructions;
     ImageView ivRecipeExampleRecipeImage, ivFavorite;

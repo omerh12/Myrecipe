@@ -30,7 +30,7 @@
             android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
         <activity
-            android:name=".RecipeView"
+            android:name=".RecipeViewActivity"
             android:theme="@style/Theme.MyRecipe"
             android:exported="false"
             />
