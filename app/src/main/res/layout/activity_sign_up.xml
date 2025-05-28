@@ -11,7 +11,7 @@
     tools:context=".SignUpActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up"
@@ -32,7 +32,7 @@
         android:inputType="textEmailAddress"
         android:padding="6dp"
         android:background="@drawable/roundededittext"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="40dp"

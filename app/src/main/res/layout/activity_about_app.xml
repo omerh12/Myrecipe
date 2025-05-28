@@ -21,4 +21,14 @@
         android:gravity="center"
         android:paddingTop="16dp" />
 
+    <TextView
+        android:id="@+id/tvAboutAppExplanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="About App"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:paddingTop="16dp" />
+
     </LinearLayout>
