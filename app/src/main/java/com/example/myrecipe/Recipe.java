@@ -1,6 +1,5 @@
 package com.example.myrecipe;
 
-
 public class Recipe {
     private String name;
     private String ingredients;
@@ -15,11 +14,6 @@ public class Recipe {
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.ImageUrl = image;
-    }
-    public Recipe(String name, String ingredients, String instructions) {
-        this.name =name;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
     }
 
     public String getName() {
