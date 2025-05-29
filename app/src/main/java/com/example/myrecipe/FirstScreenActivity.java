@@ -57,9 +57,6 @@ public class FirstScreenActivity extends AppCompatActivity {
             startActivity(new Intent(this, HomeActivity.class));
             finish();
         }
-
-
-
     }
 
     public class SignInPreferenceHandler {
