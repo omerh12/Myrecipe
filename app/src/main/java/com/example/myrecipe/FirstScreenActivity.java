@@ -16,6 +16,7 @@ public class FirstScreenActivity extends AppCompatActivity {
 
     SignInPreferenceHandler preferenceHandler;
     Button btnFirstScreenSignUp,btnFirstScreenSignIn;
+    FirebaseUser user;
 
 
     @Override
@@ -24,7 +25,7 @@ public class FirstScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first_screen);
 
         preferenceHandler = new SignInPreferenceHandler(this);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user= FirebaseAuth.getInstance().getCurrentUser();
         preferenceHandler.handleSuccessfulLogin(user);
 
 

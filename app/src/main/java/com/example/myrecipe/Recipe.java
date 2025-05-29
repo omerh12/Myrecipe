@@ -4,7 +4,7 @@ public class Recipe {
     private String name;
     private String ingredients;
     private String instructions;
-    private String ImageUrl;
+    private String imageURL;
 
     public Recipe() {
     }
@@ -13,7 +13,7 @@ public class Recipe {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
-        this.ImageUrl = image;
+        this.imageURL = image;
     }
 
     public String getName() {
@@ -41,10 +41,10 @@ public class Recipe {
     }
 
     public String getImage() {
-        return ImageUrl;
+        return imageURL;
     }
 
     public void setImage(String imageUrl) {
-        ImageUrl = imageUrl;
+        this.imageURL = imageUrl;
     }
 }
