@@ -14,7 +14,6 @@ public class PreferenceManager {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    // Constructor
     public PreferenceManager(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -38,29 +37,24 @@ public class PreferenceManager {
         return sharedPreferences.getString(KEY_USER_ID, null);
     }
 
-    // Save user email
     public void setUserEmail(String email) {
         editor.putString(KEY_USER_EMAIL, email);
         editor.apply();
     }
 
-    // Get user email
     public String getUserEmail() {
         return sharedPreferences.getString(KEY_USER_EMAIL, null);
     }
 
-    // Save login state
     public void setLoggedIn(boolean isLoggedIn) {
         editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
         editor.apply();
     }
 
-    // Check login state
     public boolean isLoggedIn() {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
-    // Clear all data
     public void clear() {
         editor.clear();
         editor.apply();

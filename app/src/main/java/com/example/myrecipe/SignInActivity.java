@@ -109,6 +109,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     if (task.isSuccessful()) {
                         Log.d(TAG, "signInWithCredential:success");
                         FirebaseUser user = mAuth.getCurrentUser();
+                        saveUserToPreferences(user);
                         updateUI(user);
                     } else {
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -143,8 +144,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     public void handleEmailSignIn() {
         mAuth = FirebaseAuth.getInstance();
-        String email = "abc@a.com";
-        String pass = "123456";
+        String email = etSignInEmail.getText().toString().trim();
+        String pass = etSignInPass.getText().toString().trim();
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override

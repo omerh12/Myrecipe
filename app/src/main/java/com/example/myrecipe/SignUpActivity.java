@@ -2,6 +2,7 @@ package com.example.myrecipe;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -30,12 +31,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity {
 
+
     EditText etSignUpEmail, etSignUpPass;
     Button btnSignUp;
 
     String TAG = "SignUpActivity";
     FirebaseAuth mAuth;
-
     GoogleSignInClient mGoogleSignInClient;
     ActivityResultLauncher<Intent> mGoogleSignInLauncher;
 
@@ -50,81 +51,62 @@ public class SignUpActivity extends AppCompatActivity {
         etSignUpPass = findViewById(R.id.etSignUpPass);
         btnSignUp = findViewById(R.id.btnSignUp);
 
+        btnSignUp.setOnClickListener(v -> {
+            String email = etSignUpEmail.getText().toString().trim();
+            String pass = etSignUpPass.getText().toString().trim();
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = etSignUpEmail.getText().toString();
-                String pass = etSignUpPass.getText().toString();
-
-                if (email.isEmpty() || pass.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please fill in both fields.",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    CreateAccount(email, pass);
-
-                }
-
+            if (email.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(SignUpActivity.this, "Please fill in both fields.", Toast.LENGTH_SHORT).show();
+            } else {
+                createAccount(email, pass);
             }
         });
 
         TextView tvSignInLink = findViewById(R.id.tvSignInLink);
         tvSignInLink.setPaintFlags(tvSignInLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-        tvSignInLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                startActivity(intent);
-            }
+        tvSignInLink.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+            startActivity(intent);
         });
-
-
     }
-        public void CreateAccount (String email, String pass){
 
-            Log.d(TAG, "createAccount:" + email);
-            mAuth.createUserWithEmailAndPassword(email,pass)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                            {
-                                Log.d(TAG, "User created");
-                                FirebaseUser user=mAuth.getCurrentUser();
-                                updateUI(user);
-                            }
+    public void createAccount(String email, String pass) {
+        Log.d(TAG, "createAccount:" + email);
+        mAuth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User created");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        saveUserToPreferences(user);
+                        updateUI(user);
+                    } else {
+                        Log.w(TAG, "User creation failed", task.getException());
+                        Toast.makeText(SignUpActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        updateUI(null);
+                    }
+                });
+    }
 
-                            else{
-                                Log.w(TAG,"User creation failed", task.getException());
-                                Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                updateUI(null);
+    private void saveUserToPreferences(FirebaseUser user) {
+        if (user == null) return;
 
-                            }
-                        }
-                    });
+        SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("is_logged_in", true);
+        editor.putString("user_email", user.getEmail());
+        editor.apply();
+    }
 
-
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
         }
-
-        private void updateUI(FirebaseUser user) {
-
-        if(user!=null)
-            {
-                Toast.makeText(SignUpActivity.this, "Registration Successful",
-                        Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(SignUpActivity.this,HomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-            if(user==null)
-            {
-                Toast.makeText(SignUpActivity.this, "Registration failed",
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-
+    }
     }
 
 
