@@ -19,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText etSignUpEmail, etSignUpPass;
     Button btnSignUp;
     FirebaseAuth mAuth;
+    TextView tvSignInLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        TextView tvSignInLink = findViewById(R.id.tvSignInLink);
+        tvSignInLink = findViewById(R.id.tvSignInLink);
         tvSignInLink.setPaintFlags(tvSignInLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tvSignInLink.setOnClickListener(v -> {
             Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
