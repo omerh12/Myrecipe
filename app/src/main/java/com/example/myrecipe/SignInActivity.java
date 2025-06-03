@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -32,7 +31,6 @@ import android.content.SharedPreferences;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
-   String TAG = "SignInActivity";
    FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
    ActivityResultLauncher<Intent> signInLauncher;
@@ -70,7 +68,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id)) // Replace with your client ID
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -88,7 +86,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         }
 
                         catch (ApiException e) {
-                            Log.w(TAG, "Google sign in failed", e);
                             Toast.makeText(SignInActivity.this, "Google sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -107,12 +104,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "signInWithCredential:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         saveUserToPreferences(user);
                         updateUI(user);
                     } else {
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
                         Toast.makeText(SignInActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
@@ -123,12 +118,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Toast.makeText(this, "User signed in", Toast.LENGTH_SHORT).show();
-            // Example: Start the main activity
            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
        } else {
-            //User is signed out
            Toast.makeText(this, "User signed out", Toast.LENGTH_SHORT).show();
         }
     }
