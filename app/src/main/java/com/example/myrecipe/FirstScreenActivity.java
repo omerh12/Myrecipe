@@ -16,6 +16,7 @@ public class FirstScreenActivity extends AppCompatActivity {
     PreferenceManager preferenceManager;
     Button btnFirstScreenSignUp,btnFirstScreenSignIn;
     FirebaseUser user;
+    boolean isLoggedIn;
 
 
     @Override
@@ -26,7 +27,7 @@ public class FirstScreenActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(this);
         user= FirebaseAuth.getInstance().getCurrentUser();
 
-        boolean isLoggedIn = preferenceManager.isLoggedIn();
+        isLoggedIn = preferenceManager.isLoggedIn();
 
         if (user != null && isLoggedIn) {
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
