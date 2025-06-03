@@ -35,9 +35,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     GoogleSignInClient mGoogleSignInClient;
    ActivityResultLauncher<Intent> signInLauncher;
 
-    EditText etSignInEmail;
-    EditText etSignInPass;
+    EditText etSignInEmail,etSignInPass;
     Button btnSignInEmail, btnSignInGoogle;
+    TextView tvSignUpLink;
 
 
     @SuppressLint("MissingInflatedId")
@@ -53,7 +53,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         btnSignInEmail.setOnClickListener(this);
         btnSignInGoogle.setOnClickListener(this);
 
-        TextView tvSignUpLink = findViewById(R.id.tvSignUpLink);
+        tvSignUpLink = findViewById(R.id.tvSignUpLink);
         tvSignUpLink.setPaintFlags(tvSignUpLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         tvSignUpLink.setOnClickListener(new View.OnClickListener() {
