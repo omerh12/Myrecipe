@@ -20,7 +20,6 @@ public class SignUpActivity extends AppCompatActivity {
     EditText etSignUpEmail, etSignUpPass;
     Button btnSignUp;
 
-    String TAG = "SignUpActivity";
     FirebaseAuth mAuth;
 
     @Override
@@ -54,16 +53,13 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void createAccount(String email, String pass) {
-        Log.d(TAG, "createAccount:" + email);
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "User created");
                         FirebaseUser user = mAuth.getCurrentUser();
                         saveUserToPreferences(user);
                         updateUI(user);
                     } else {
-                        Log.w(TAG, "User creation failed", task.getException());
                         Toast.makeText(SignUpActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
