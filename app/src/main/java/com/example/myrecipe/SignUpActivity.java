@@ -45,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         tvSignInLink = findViewById(R.id.tvSignInLink);
         tvSignInLink.setPaintFlags(tvSignInLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
         tvSignInLink.setOnClickListener(v -> {
             Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
             startActivity(intent);

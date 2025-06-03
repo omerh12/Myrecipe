@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
    ActivityResultLauncher<Intent> signInLauncher;
 
     EditText etSignInEmail,etSignInPass;
-    Button btnSignInEmail, btnSignInGoogle;
+    Button btnSignInEmailAndPass, btnSignInGoogle;
     TextView tvSignUpLink;
 
 
@@ -47,22 +47,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
         etSignInEmail=findViewById(R.id.etSignInEmail);
         etSignInPass=findViewById(R.id.etSignInPass);
-        btnSignInEmail=findViewById(R.id.btnSignInEmail);
+        btnSignInEmailAndPass =findViewById(R.id.btnSignInEmail);
         btnSignInGoogle=findViewById(R.id.btnSignInGoogle);
 
-        btnSignInEmail.setOnClickListener(this);
+        btnSignInEmailAndPass.setOnClickListener(this);
         btnSignInGoogle.setOnClickListener(this);
+
 
         tvSignUpLink = findViewById(R.id.tvSignUpLink);
         tvSignUpLink.setPaintFlags(tvSignUpLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        tvSignUpLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
+        tvSignUpLink.setOnClickListener(v->
+        {  Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+        startActivity(intent);  }) ;
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -128,7 +125,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if(view==btnSignInEmail)
+        if(view== btnSignInEmailAndPass)
             handleEmailSignIn();
         else if (view==btnSignInGoogle) {
             signIn();
