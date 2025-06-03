@@ -18,7 +18,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     EditText etSignUpEmail, etSignUpPass;
     Button btnSignUp;
-
     FirebaseAuth mAuth;
 
     @Override
