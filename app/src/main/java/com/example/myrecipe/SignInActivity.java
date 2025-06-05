@@ -34,6 +34,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
    FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
    ActivityResultLauncher<Intent> signInLauncher;
+    GoogleSignInOptions gso;
 
     EditText etSignInEmail,etSignInPass;
     Button btnSignInEmailAndPass, btnSignInGoogle;
@@ -64,7 +65,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         mAuth = FirebaseAuth.getInstance();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -90,7 +91,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void signIn() {
+    private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         signInLauncher.launch(signInIntent);
 
@@ -128,7 +129,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if(view== btnSignInEmailAndPass)
             handleEmailSignIn();
         else if (view==btnSignInGoogle) {
-            signIn();
+            signInWithGoogle();
         }
     }
 
@@ -141,8 +142,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-                    startActivity(intent);
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    saveUserToPreferences(user);
+                    updateUI(user);
                 } else {
                     Toast.makeText(SignInActivity.this,
                             "One or more details are incorrect", Toast.LENGTH_LONG).show();
