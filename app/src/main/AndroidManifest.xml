@@ -35,9 +35,6 @@
             android:exported="false"
             />
         <activity
-            android:name=".Recipe_item"
-            android:exported="false" />
-        <activity
             android:name=".RecipeListActivity"
             android:theme="@style/Theme.MyRecipe"
             android:exported="false" />
