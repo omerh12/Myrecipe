@@ -36,10 +36,10 @@ public class HomeActivity extends AppCompatActivity {
     String COOKING_PREF = "cooking_recipes";
     String FAVORITES_PREF = "favorite_recipes";
 
-    TextView tvHomeRecipeCurrentlyCookingRecipeName, tvHomeRecipeNoCurrentlyCookingRecipeName, tvHomeFavoriteRecipes;
+    TextView tvHomeRecipeCurrentlyCookingRecipeName, tvHomeRecipeNoCurrentlyCookingRecipeName;
     ImageView ivHomeRecipeCurrentlyCooking;
     static Recipe currentCookingRecipe;
-    static ArrayList <Recipe>favoriterecipes;
+    static ArrayList <Recipe> favoriteRecipe;
 
     private ViewPager2 favoriteViewPager;
     private List<Recipe> favoriteRecipes = new ArrayList<>();
@@ -64,14 +64,10 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
-
         loadCurrentCookingView();
         loadFavoriteRecipesView();
-
     }
 private void loadFavoriteRecipesView(){
-
     favoritesPref = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
 
     Set<String> favoriteRecipeNames = favoritesPref.getStringSet("favorites", new HashSet<>());
@@ -122,11 +118,8 @@ private void loadFavoriteRecipesView(){
                 }
             });
 
-
         }
     });
-
-
 }
 
 
@@ -164,7 +157,6 @@ private void loadFavoriteRecipesView(){
             }
         });
 
-        // Load currently cooking recipe
         cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
         String currentlyCookingRecipe = cookingPref.getString("cookingRecipe", "");
         getCurrentCookingRecipeByName(currentlyCookingRecipe, new OnRecipeLoadedListener() {
@@ -193,7 +185,7 @@ private void loadFavoriteRecipesView(){
     }
 
 
-//DAL
+
     public interface OnRecipeLoadedListener {
         void onRecipeLoaded(Recipe recipe);
     }
@@ -205,21 +197,21 @@ private void loadFavoriteRecipesView(){
         recipesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                favoriterecipes = new ArrayList<>();
+                favoriteRecipe = new ArrayList<>();
                 for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
                     String recipeName = recipeSnapshot.child("name").getValue(String.class);
                     if (recipesNames.contains(recipeName)) {
                         Recipe recipe = recipeSnapshot.getValue(Recipe.class);
-                        favoriterecipes.add(recipe);
+                        favoriteRecipe.add(recipe);
                     }
                 }
-                listener.onRecipesLoaded(favoriterecipes);
+                listener.onRecipesLoaded(favoriteRecipe);
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                listener.onRecipesLoaded(null);// Handle error
+                listener.onRecipesLoaded(null);
             }
         });
 
@@ -248,7 +240,7 @@ private void loadFavoriteRecipesView(){
 
 
 
-    //Menu
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
