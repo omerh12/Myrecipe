@@ -32,7 +32,7 @@ public class RecipeViewActivity extends AppCompatActivity {
     boolean isFavorite = false;
     String FAVORITES_PREF = "favorite_recipes";
     String COOKING_PREF = "cooking_recipes";
-
+    String[] ingredientsArray;
 
 
     @SuppressLint("MissingInflatedId")
@@ -65,7 +65,7 @@ public class RecipeViewActivity extends AppCompatActivity {
         tvRecipeExampleRecipeIngredients.setText(recipeIngredients);
         tvRecipeExampleRecipeInstructions.setText(recipeInstructions);
 
-        String[] ingredientsArray = recipeIngredients.split(",");
+        ingredientsArray = recipeIngredients.split(",");
         StringBuilder formattedIngredients = new StringBuilder();
         for (String ingredient : ingredientsArray) {
             formattedIngredients.append("• ").append(ingredient.trim()).append("\n");

@@ -3,6 +3,7 @@ package com.example.myrecipe;
 import android.content.Intent;
 import android.os.Bundle;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class FavoritesListActivity extends AppCompatActivity {
@@ -61,12 +61,12 @@ public class FavoritesListActivity extends AppCompatActivity {
                             favoriteRecipes.add(recipe);
                     }
                 }
-                adapter.notifyDataSetChanged(); // Update RecyclerView
+                adapter.notifyDataSetChanged();
 
             }
             @Override
             public void onCancelled(DatabaseError error) {
-
+                Log.w("FavoriteListActivity", "Failed.", error.toException());
             }
         });
     }

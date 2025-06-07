@@ -16,7 +16,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
-public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAdapter.ViewHolder> {
+public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAdapter.RecipeViewHolder> {
 
     public interface OnRecipeClickListener {
         void onRecipeClick(Recipe recipe);
@@ -34,13 +34,13 @@ public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAd
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_favorite_carousel, parent, false);
-        return new ViewHolder(view);
+        return new RecipeViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = favoriteList.get(position);
         holder.title.setText(recipe.getName());
         String imagePath = recipe.getImage();
@@ -65,11 +65,11 @@ public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAd
         return favoriteList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class RecipeViewHolder extends RecyclerView.ViewHolder {
         ShapeableImageView imageView;
         TextView title;
 
-        public ViewHolder(@NonNull View itemView) {
+        public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.recipeImage);
             title = itemView.findViewById(R.id.recipeTitle);
