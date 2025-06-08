@@ -29,10 +29,9 @@ public class FavoritesListActivity extends AppCompatActivity {
 
     private RecyclerView favoritesRecyclerView;
     private RecipesAdapter adapter;
-    private List<Recipe> allRecipes = new ArrayList<>();
     private List<Recipe> favoriteRecipes = new ArrayList<>();
     private SharedPreferences prefs;
-    private static final String FAVORITES_PREF = "favorite_recipes";
+    private String FAVORITES_PREF = "favorite_recipes";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
