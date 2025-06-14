@@ -119,14 +119,14 @@ public class ChatActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             runOnUiThread(() -> {
-                                tvResponse.setText("Failed to parse response: " + e.getMessage());
-                                Toast.makeText(ChatActivity.this, "Failed to parse AI response.", Toast.LENGTH_LONG).show();
+                                tvResponse.setText("Error");
+                                Log.e("ChatActivity", "API Error: " + response.code());
                             });
                         }
                     } else {
                         runOnUiThread(() -> {
-                            tvResponse.setText("Error " + response.code() + ": " + responseData);
-                            Toast.makeText(ChatActivity.this, "API Error: " + response.code(), Toast.LENGTH_LONG).show();
+                            tvResponse.setText("Error");
+                            Log.e("ChatActivity", "API Error: " + response.code());
                         });
                     }
                 }
@@ -134,8 +134,8 @@ public class ChatActivity extends AppCompatActivity {
 
         } catch (JSONException e) {
             runOnUiThread(() -> {
-                tvResponse.setText("JSON error: " + e.getMessage());
-                Toast.makeText(ChatActivity.this, " error.", Toast.LENGTH_LONG).show();
+                tvResponse.setText("Error");
+                Log.e("ChatActivity", "JSON Error: ");
             });
         }
     }
