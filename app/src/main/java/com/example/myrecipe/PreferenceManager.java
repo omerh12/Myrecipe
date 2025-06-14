@@ -5,14 +5,15 @@ import android.content.SharedPreferences;
 
 public class PreferenceManager {
 
-    private static final String PREF_NAME = "MyAppPrefs";
+    private static final String PREF_NAME = "MyAppPrefs";    // מגדירה שם קבוע לקובץ שבו יאוחסנו ההעדפות
+    // משתנים למפתחות שישמשו לשמירה ושליפה של מידע מההעדפות
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_USER_TOKEN = "user_token";
     private static final String KEY_USER_EMAIL = "user_email";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences;// אובייקט שמחזיק את ההעדפות עצמן
+    SharedPreferences.Editor editor;// אובייקט שמאפשר לערוך את ההעדפות
 
     public PreferenceManager(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -59,7 +60,4 @@ public class PreferenceManager {
         editor.clear();
         editor.apply();
     }
-
-
-
 }

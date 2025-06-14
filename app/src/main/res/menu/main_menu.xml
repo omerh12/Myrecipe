@@ -15,6 +15,9 @@
         android:id="@+id/menu_item_favorites_list"
         android:title="Favorites List" />
     <item
+        android:id="@+id/menu_item_myRecipes_list"
+        android:title="My Recipes List" />
+    <item
         android:id="@+id/menu_item_upload_new_recipe"
         android:title="Upload New Recipe"/>
     <item

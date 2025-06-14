@@ -1,8 +1,8 @@
 package com.example.myrecipe;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -31,21 +30,19 @@ import java.util.Set;
 
 public class HomeActivity extends AppCompatActivity {
 
-    SharedPreferences cookingPref;
-    SharedPreferences favoritesPref;
-    String COOKING_PREF = "cooking_recipes";
-    String FAVORITES_PREF = "favorite_recipes";
+    SharedPreferences cookingPref;// עדיפויות לאחסון מתכון בבישול כרגע
+    SharedPreferences favoritesPref;// עדיפויות לאחסון מועדפים
+    String COOKING_PREF = "cooking_recipes";// שם הקובץ לבישולים
+    String FAVORITES_PREF = "favorite_recipes";// שם הקובץ למועדפים
 
-    TextView tvHomeRecipeCurrentlyCookingRecipeName, tvHomeRecipeNoCurrentlyCookingRecipeName;
+    TextView tvHomeRecipeCurrentlyCookingRecipeName, tvHomeRecipeNoCurrentlyCookingRecipeName ;
     ImageView ivHomeRecipeCurrentlyCooking;
     static Recipe currentCookingRecipe;
-    static ArrayList <Recipe> favoriteRecipe;
+    static ArrayList<Recipe> favoriteRecipe;
 
     private ViewPager2 favoriteViewPager;
     private List<Recipe> favoriteRecipes = new ArrayList<>();
     private FavoriteRecipeAdapter favoriteAdapter;
-
-
 
 
     @SuppressLint("MissingInflatedId")
@@ -58,69 +55,75 @@ public class HomeActivity extends AppCompatActivity {
 
         tvHomeFavoriteRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-              Intent intent = new Intent(HomeActivity.this, FavoritesListActivity.class);
-              startActivity(intent);
+            public void onClick(View v) {                // מעבר למסך שמציג את כל המועדפים
+                Intent intent = new Intent(HomeActivity.this, FavoritesListActivity.class);
+                startActivity(intent);
             }
         });
 
-        loadCurrentCookingView();
-        loadFavoriteRecipesView();
+        loadCurrentCookingView();// טוען את המתכון שמתבשל כרגע
+        loadFavoriteRecipesView();// טוען את הקרוסלת המועדפים
     }
-private void loadFavoriteRecipesView(){
-    favoritesPref = getSharedPreferences(FAVORITES_PREF, MODE_PRIVATE);
 
-    Set<String> favoriteRecipeNames = favoritesPref.getStringSet("favorites", new HashSet<>());
-    getFavoriteRecipesByNames(favoriteRecipeNames, new OnRecipesLoadedListener() {
-        @Override
-        public void onRecipesLoaded(ArrayList<Recipe> recipes) {
-            try {
 
-                favoriteRecipes.clear();
-                if (recipes != null) {
-                    favoriteRecipes.addAll(recipes);
+    private void loadFavoriteRecipesView() {
+        String uid=FirebaseAuth.getInstance().getUid();
+        favoritesPref = getSharedPreferences(FAVORITES_PREF+ "" +uid, MODE_PRIVATE);// טוען את ההעדפות של מועדפים
+
+        Set<String> favoriteRecipeNames = favoritesPref.getStringSet("favorites", new HashSet<>()); // מביא את שמות המתכונים ששמורים כמועדפים
+        getFavoriteRecipesByNames(favoriteRecipeNames, new OnRecipesLoadedListener() {
+            @Override
+            public void onRecipesLoaded(ArrayList<Recipe> recipes) {
+                try {
+                    favoriteRecipes.clear();// מנקה את הרשימה הקודמת
+                    if (recipes != null) {
+                        favoriteRecipes.addAll(recipes);// מוסיף את המתכונים שהתקבלו
+                    }
+                    // יוצר את האדפטר עם האזנה ללחיצה על מתכון
+                    favoriteAdapter = new FavoriteRecipeAdapter(favoriteRecipes, HomeActivity.this, recipe -> {
+                        Intent intent = new Intent(HomeActivity.this, RecipeViewActivity.class);
+                        intent.putExtra("recipeName", recipe.getName());
+                        intent.putExtra("recipeIngredients", recipe.getIngredients());
+                        intent.putExtra("recipeInstructions", recipe.getInstructions());
+                        intent.putExtra("imagePath", recipe.getImage());
+                        intent.putExtra("recipeAuthorUid", recipe.getAuthorUid());
+
+                        startActivity(intent);
+
+                    });
+
+
+
+                } catch (Exception e) {
+                    Log.e("YourTag", "Error ", e);
+                    e.printStackTrace();
                 }
 
-                favoriteAdapter = new FavoriteRecipeAdapter(favoriteRecipes, HomeActivity.this, recipe -> {
-                    Intent intent = new Intent(HomeActivity.this, RecipeViewActivity.class);
-                    intent.putExtra("recipeName", recipe.getName());
-                    intent.putExtra("recipeIngredients", recipe.getIngredients());
-                    intent.putExtra("recipeInstructions", recipe.getInstructions());
-                    intent.putExtra("imagePath", recipe.getImage());
-                    startActivity(intent);
+                favoriteViewPager = findViewById(R.id.pagerHomeFavoriteView);
+                favoriteViewPager.setAdapter(favoriteAdapter); // מחבר את האדפטר לתצוגה
 
+                ImageView ivArrowLeft = findViewById(R.id.ivHomeArrowLeft);
+                ImageView ivArrowRight = findViewById(R.id.ivHomeArrowRight);
+
+                // לוחץ שמאלה — עובר מתכון אחורה
+                ivArrowLeft.setOnClickListener(v -> {
+                    int currentItem = favoriteViewPager.getCurrentItem();
+                    if (currentItem > 0) {
+                        favoriteViewPager.setCurrentItem(currentItem - 1, true);
+                    }
+                });
+
+                // לוחץ ימינה — עובר מתכון קדימה
+                ivArrowRight.setOnClickListener(v -> {
+                    int currentItem = favoriteViewPager.getCurrentItem();
+                    if (currentItem < favoriteAdapter.getItemCount() - 1) {
+                        favoriteViewPager.setCurrentItem(currentItem + 1, true);
+                    }
                 });
 
             }
-            catch(Exception e)
-            {
-                Log.e("YourTag", "Error in riskyOperation", e);
-                e.printStackTrace();
-            }
-
-            favoriteViewPager = findViewById(R.id.pagerHomeFavoriteView);
-            favoriteViewPager.setAdapter(favoriteAdapter);
-
-            ImageView ivArrowLeft = findViewById(R.id.ivHomeArrowLeft);
-            ImageView ivArrowRight = findViewById(R.id.ivHomeArrowRight);
-
-            ivArrowLeft.setOnClickListener(v -> {
-                int currentItem = favoriteViewPager.getCurrentItem();
-                if (currentItem > 0) {
-                    favoriteViewPager.setCurrentItem(currentItem - 1, true);
-                }
-            });
-
-            ivArrowRight.setOnClickListener(v -> {
-                int currentItem = favoriteViewPager.getCurrentItem();
-                if (currentItem < favoriteAdapter.getItemCount() - 1) {
-                    favoriteViewPager.setCurrentItem(currentItem + 1, true);
-                }
-            });
-
-        }
-    });
-}
+        });
+    }
 
 
     private void loadCurrentCookingView() {
@@ -131,7 +134,7 @@ private void loadFavoriteRecipesView(){
         tvHomeRecipeCurrentlyCookingRecipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // לחיצה על שם המתכון תוביל לתצוגת מתכון
                 Intent intent = new Intent(HomeActivity.this, RecipeViewActivity.class)
                         .putExtra("recipeName", currentCookingRecipe.getName())
                         .putExtra("recipeIngredients", currentCookingRecipe.getIngredients())
@@ -142,10 +145,9 @@ private void loadFavoriteRecipesView(){
                 finish();
             }
         });
-        ivHomeRecipeCurrentlyCooking.setOnClickListener(new View.OnClickListener() {
+        ivHomeRecipeCurrentlyCooking.setOnClickListener(new View.OnClickListener() {        // גם לחיצה על התמונה תוביל לתצוגת מתכון
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(HomeActivity.this, RecipeViewActivity.class)
                         .putExtra("recipeName", currentCookingRecipe.getName())
                         .putExtra("recipeIngredients", currentCookingRecipe.getIngredients())
@@ -157,9 +159,10 @@ private void loadFavoriteRecipesView(){
             }
         });
 
-        cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
-        String currentlyCookingRecipe = cookingPref.getString("cookingRecipe", "");
-        getCurrentCookingRecipeByName(currentlyCookingRecipe, new OnRecipeLoadedListener() {
+        String uid=FirebaseAuth.getInstance().getUid();
+        cookingPref = getSharedPreferences(COOKING_PREF + ""+uid, MODE_PRIVATE);// טוען את ההעדפות של מתכון בבישול
+        String currentlyCookingRecipe = cookingPref.getString("cookingRecipe", "");// מביא את שם המתכון שמתבשל כרגע
+        getCurrentCookingRecipeByName(currentlyCookingRecipe, new OnRecipeLoadedListener() { // מביא את האובייקט המלא של המתכון לפי השם
             @Override
             public void onRecipeLoaded(Recipe recipe) {
                 if (recipe != null) {
@@ -184,15 +187,18 @@ private void loadFavoriteRecipesView(){
         });
     }
 
-
-
+    //עבור מתכון אחד
     public interface OnRecipeLoadedListener {
         void onRecipeLoaded(Recipe recipe);
     }
+
+    //עבור כמה מתכונים
     public interface OnRecipesLoadedListener {
         void onRecipesLoaded(ArrayList<Recipe> recipes);
     }
-    public void getFavoriteRecipesByNames(Set<String>recipesNames, OnRecipesLoadedListener listener){
+
+    // פונקציה שמביאה את המתכון שמתבשל כרגע לפי שם
+    public void getFavoriteRecipesByNames(Set<String> recipesNames, OnRecipesLoadedListener listener) {
         DatabaseReference recipesRef = FirebaseDatabase.getInstance().getReference("recipes");
         recipesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -239,13 +245,12 @@ private void loadFavoriteRecipesView(){
     }
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -253,19 +258,19 @@ private void loadFavoriteRecipesView(){
             Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);
             return true;
-        }
-        else if (itemId == R.id.menu_item_home) {
+        } else if (itemId == R.id.menu_item_home) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             return true;
-            }
-        else if (itemId == R.id.menu_item_favorites_list) {
+        } else if (itemId == R.id.menu_item_favorites_list) {
             Intent intent = new Intent(this, FavoritesListActivity.class);
             startActivity(intent);
             return true;
-        }
-
-        else if (itemId == R.id.menu_item_recipe_list) {
+        } else if (itemId == R.id.menu_item_myRecipes_list) {
+            Intent intent = new Intent(this, MyRecipesListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_recipe_list) {
             Intent intent = new Intent(this, RecipeListActivity.class);
             startActivity(intent);
             return true;
@@ -274,7 +279,7 @@ private void loadFavoriteRecipesView(){
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, ChatActivity.class);
+            Intent intent = new Intent(this, GeminiActivity.class);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,9 +15,6 @@ public class AboutAppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
-
-        TextView tvAboutApp = findViewById(R.id.tvAboutApp);
-        TextView tvAboutAppExplanation = findViewById(R.id.tvAboutAppExplanation);
 
     }
 
@@ -53,7 +49,7 @@ public class AboutAppActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, ChatActivity.class);
+            Intent intent = new Intent(this, GeminiActivity.class);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {

@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/MyRecipesLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D3A101"
     android:orientation="vertical"
-    android:paddingStart="24dp"
-    android:paddingTop="40dp"
-    android:paddingEnd="24dp"
     android:gravity="top|center"
-    tools:context=".RecipeListActivity">
+    android:background="#D3A101"
+    android:padding="16dp"
+    tools:context=".FavoritesListActivity">
+
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tvMyRecipesTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:text="Recipe List"
+        android:text="My Recipes"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="12dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipesRecyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:backgroundTint="#FFC107" />
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
 
 </LinearLayout>

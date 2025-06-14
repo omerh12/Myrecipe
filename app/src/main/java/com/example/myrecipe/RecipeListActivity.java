@@ -7,24 +7,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeListActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private DatabaseReference database;
-    private List<Recipe> recipesList = new ArrayList<>();
-    private RecipesAdapter adapter;
+    private RecyclerView recipesRecyclerView;// תצוגת הרשימה של המתכונים
+    private DatabaseReference database;// משתנה שמחזיק הפנייה ל- "recipes" בפיירבייס
+    private List<Recipe> recipesList = new ArrayList<>();// רשימה של אובייקטים מסוג Recipe
+    private RecipesAdapter adapter;// מקשר בין הרשימה ל- RecyclerView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +35,24 @@ public class RecipeListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_list);
 
 
-        recyclerView = findViewById(R.id.recipesRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecipesAdapter(this, recipesList);
-        recyclerView.setAdapter(adapter);
+        recipesRecyclerView = findViewById(R.id.recipesRecyclerView);
+        recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));// מסדרת את הרשימה לאורך
+        adapter = new RecipesAdapter(this, recipesList);// יוצרת את האדפטר עם רשימת המתכונים
+        recipesRecyclerView.setAdapter(adapter);// מחברת בין הרשימה לתצוגה
 
-        database = FirebaseDatabase.getInstance().getReference("recipes");
-        database.addValueEventListener(new ValueEventListener() {
+        database = FirebaseDatabase.getInstance().getReference("recipes");//  הפניה לענף של המתכונים בפיירבייס
+        database.addValueEventListener(new ValueEventListener() {// מאזינה לשינויים בנתונים
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                recipesList.clear();
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    Recipe recipe = childSnapshot.getValue(Recipe.class);
+                recipesList.clear();// קודם כל מנקה את הרשימה הקודמת
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {// עוברת על כל מתכון
+                    Recipe recipe = childSnapshot.getValue(Recipe.class); // ממירה את הנתונים לעצם מתכון
                     if (recipe != null) {
-                        recipesList.add(recipe);
+                        recipesList.add(recipe);// מוסיפה את המתכון לרשימה
                     }
                 }
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();// מודיעה לאדפטר שהתוכן השתנה וצריך לעדכן את התצוגה
             }
 
             @Override
@@ -58,11 +61,13 @@ public class RecipeListActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -70,14 +75,16 @@ public class RecipeListActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);
             return true;
-        }
-        else if (itemId == R.id.menu_item_home) {
+        } else if (itemId == R.id.menu_item_home) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             return true;
-        }
-        else if (itemId == R.id.menu_item_favorites_list) {
+        } else if (itemId == R.id.menu_item_favorites_list) {
             Intent intent = new Intent(this, FavoritesListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (itemId == R.id.menu_item_myRecipes_list) {
+            Intent intent = new Intent(this, MyRecipesListActivity.class);
             startActivity(intent);
             return true;
         }
@@ -88,7 +95,7 @@ public class RecipeListActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, ChatActivity.class);
+            Intent intent = new Intent(this, GeminiActivity.class);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {

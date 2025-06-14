@@ -31,14 +31,15 @@ import android.content.SharedPreferences;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
-   FirebaseAuth mAuth;
-    GoogleSignInClient mGoogleSignInClient;
-   ActivityResultLauncher<Intent> signInLauncher;
-    GoogleSignInOptions gso;
+   FirebaseAuth mAuth;    // מחלקה שאחראית על התחברות עם Firebase
+    GoogleSignInClient mGoogleSignInClient;    // לקוח של Google Sign-In
+    ActivityResultLauncher<Intent> signInLauncher;    // משגר תוצאה עבור התחברות עם חשבון Google
+    GoogleSignInOptions gso;    // אפשרויות ההתחברות של Google
 
-    EditText etSignInEmail,etSignInPass;
-    Button btnSignInEmailAndPass, btnSignInGoogle;
-    TextView tvSignUpLink;
+
+    EditText etSignInEmail,etSignInPass;    // שדות להזנת אימייל וסיסמה
+    Button btnSignInEmailAndPass, btnSignInGoogle;    // כפתורים להתחברות עם אימייל וסיסמה או עם Google
+    TextView tvSignUpLink;    // טקסט לחיץ שמפנה למסך ההרשמה
 
 
     @SuppressLint("MissingInflatedId")
@@ -65,13 +66,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         mAuth = FirebaseAuth.getInstance();
 
+        // בנייה של אפשרויות ההתחברות עם Google
          gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);        // יצירת לקוח התחברות לפי ההגדרות שנבנו למעלה
 
+        // הרשמה לפעולה שמאזינה לתוצאה מההתחברות עם Google
         signInLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -79,7 +82,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         Intent data = result.getData();
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                         try {
-                            GoogleSignInAccount account = task.getResult(ApiException.class);
+                            GoogleSignInAccount account = task.getResult(ApiException.class);    // אם הצליח, מוציא את חשבון ה-Google ושולח לפיירבייס
                             firebaseAuthWithGoogle(account.getIdToken());
                         }
 
@@ -90,18 +93,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 });
 
     }
-
+    // פעולה שמפעילה את חלון ההתחברות של גוגל
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         signInLauncher.launch(signInIntent);
 
     }
-
+    // פעולה ששומרת משתמש אחרי שהתחבר דרך גוגל
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {                        // התחברות הצליחה, שומרת את המשתמש בשיירד פרפרנס
                         FirebaseUser user = mAuth.getCurrentUser();
                         saveUserToPreferences(user);
                         updateUI(user);
@@ -113,6 +116,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 });
     }
 
+    // אם המשתמש מחובר מעבירה למסך הבית
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Toast.makeText(this, "User signed in", Toast.LENGTH_SHORT).show();
@@ -133,6 +137,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    // פעולה שמטפלת בהתחברות עם אימייל וסיסמה
     public void handleEmailSignIn() {
         mAuth = FirebaseAuth.getInstance();
         String email = etSignInEmail.getText().toString().trim();
@@ -153,6 +158,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    // שמירת פרטי המשתמש ב-SharedPreferences
     private void saveUserToPreferences(FirebaseUser user) {
         if (user == null) return;
 

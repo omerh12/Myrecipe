@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +38,7 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
     Uri photoUri;
     ActivityResultLauncher<Intent> cameraLauncher;
     FirebaseDatabase database;
+    String authorUid;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,11 +52,15 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
         etUploadNewRecipeInstructions = findViewById(R.id.etUploadNewRecipeInstructions);
         btnSelectImage = findViewById(R.id.btnSelectImage);
         btnTakeImage = findViewById(R.id.btnTakeImage);
-        ivRecipeImage = findViewById(R.id.ivRecipeExampleRecipeImage);
+        ivRecipeImage = findViewById(R.id.ivUploadNewRecipeImage);
 
+        authorUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        // הגדרת מאזינים לכפתורים
         btnSelectImage.setOnClickListener(this);
         btnTakeImage.setOnClickListener(this);
+
+        // הרשמה לתוצאה של פתיחת מצלמה
         cameraLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -68,6 +70,8 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
                         Toast.makeText(this, "Photo taking cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        // הרשמה לתוצאה של פתיחת גלריה
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -77,11 +81,11 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
                     }
                 });
 
-        database = FirebaseDatabase.getInstance();
-        recipeRef = database.getReference("recipes");
-        storageRef = FirebaseStorage.getInstance().getReference("image");
+        database = FirebaseDatabase.getInstance();  // קישור לפיירבייס
+        recipeRef = database.getReference("recipes");// הפניה ל- "recipes"
+        storageRef = FirebaseStorage.getInstance().getReference("image");// הפניה לתיקיית "image" בענן
 
-
+        // לחיצה על כפתור שמירה תפעיל בדיקה ואז תעלה תמונה ותשמור מתכון
         save_recipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,19 +107,22 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View view) {
         if (view == btnSelectImage) {
-            openGallery();
+            openGallery(); // פתיחת גלריה
         } else if (view == btnTakeImage) {
-            launchCamera();
+            launchCamera();// פתיחת מצלמה
         }
     }
 
     private void launchCamera() {
+        // מייצר נתונים בסיסיים לתמונה
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New Photo");
         values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
+        // מוסיף מקום לתמונה חדשה בגלריה
         photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
+        // פתיחת מצלמה עם המקום לתמונה החדשה
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 
@@ -123,6 +130,7 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
     }
 
     private void openGallery() {
+        // פתיחת גלריה כדי לבחור תמונה
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         galleryLauncher.launch(intent);
@@ -130,18 +138,19 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
 
     private void uploadImageAndSaveRecipe() {
         String filename = System.currentTimeMillis() + ".jpg";
-        StorageReference fileRef = storageRef.child(filename);
+        StorageReference fileRef = storageRef.child(filename);// קישור לקובץ באחסון
 
-        fileRef.putFile(selectedImageUri)
+        fileRef.putFile(selectedImageUri)  // העלאת הקובץ ואחר כך שמירת הנתונים בפיירבייס
                 .addOnSuccessListener(taskSnapshot ->
                         fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                            saveRecipeData("image/" + filename);
+                            saveRecipeData("image/" + filename);// שמירה עם הנתיב של התמונה
                         }))
                 .addOnFailureListener(e ->
                         Toast.makeText(UploadNewRecipeActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show());
     }
 
     private void saveRecipeData(String imageUrl) {
+        // לוקח את הערכים מהשדות
         String name = etUploadNewRecipeName.getText().toString().trim();
         String ingredients = etUploadNewRecipeIngredients.getText().toString().trim();
         String instructions = etUploadNewRecipeInstructions.getText().toString().trim();
@@ -151,10 +160,10 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
             return;
         }
 
-        String key = recipeRef.push().getKey();
-        Recipe recipe = new Recipe(name, ingredients, instructions, imageUrl);
+        String key = recipeRef.push().getKey();// יצירת מפתח ייחודי למתכון
+        Recipe recipe = new Recipe(name, ingredients, instructions, imageUrl, authorUid);// יצירת מתכון
 
-        recipeRef.child(key).setValue(recipe)
+        recipeRef.child(key).setValue(recipe)// כאן מכניסים את המתכון לפיירבייס
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(UploadNewRecipeActivity.this, "Recipe saved", Toast.LENGTH_SHORT).show();
@@ -194,7 +203,7 @@ public class UploadNewRecipeActivity extends AppCompatActivity implements View.O
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, ChatActivity.class);
+            Intent intent = new Intent(this, GeminiActivity.class);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {

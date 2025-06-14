@@ -1,73 +1,66 @@
 package com.example.myrecipe;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class FavoritesListActivity extends AppCompatActivity {
-
-    private RecyclerView favoritesRecyclerView;//  שמציג את המתכונים ברשימה
-    private RecipesAdapter adapter;// האדפטר שיציג את המתכונים
-    private List<Recipe> favoriteRecipes = new ArrayList<>();// רשימה של מתכונים אהובים
-    private SharedPreferences prefs;//מתכון נשמור האם מתכון אהוב
-    private String FAVORITES_PREF = "favorite_recipes";// שם הקובץ שבו שומרים את האהובים
-    String uid;
+public class MyRecipesListActivity extends AppCompatActivity {
+    private RecyclerView recipesRecyclerView;// תצוגת הרשימה של המתכונים
+    private DatabaseReference database;// משתנה שמחזיק הפנייה ל- "recipes" בפיירבייס
+    private List<Recipe> recipesList = new ArrayList<>();// רשימה של אובייקטים מסוג Recipe
+    private RecipesAdapter adapter;// מקשר בין הרשימה ל- RecyclerView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorites_list);
+        setContentView(R.layout.activity_my_recipes_list);
+        //setContentView(R.layout.activity_recipe_list);
 
-        favoritesRecyclerView = findViewById(R.id.rvFavorites);
-        favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));// סידור לינארי של הרשימה
-        adapter = new RecipesAdapter(this, favoriteRecipes);// יוצרת את האדפטר עם רשימה ריקה
-        favoritesRecyclerView.setAdapter(adapter);// מחברת את האדפטר לרשימה במסך
+        recipesRecyclerView = findViewById(R.id.recipesRecyclerView);
+        recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));// מסדרת את הרשימה לאורך
+        adapter = new RecipesAdapter(this, recipesList);// יוצרת את האדפטר עם רשימת המתכונים
+        recipesRecyclerView.setAdapter(adapter);// מחברת בין הרשימה לתצוגה
 
-        uid=FirebaseAuth.getInstance().getUid();
+        database = FirebaseDatabase.getInstance().getReference("recipes");//  הפניה לענף של המתכונים בפיירבייס
+        Query query = database.orderByChild("authorUid").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        // טוענת את רשימת שמות המתכונים שסומנו כאהובים מההעדפות
-        prefs = getSharedPreferences(FAVORITES_PREF + ""+uid, MODE_PRIVATE);
-        Set<String> favoriteNames = prefs.getStringSet("favorites", new HashSet<>());
-
-        // מתחבר ל- Firebase כדי להביא את כל המתכונים
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("recipes");
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {// מאזינה לשינויים בנתונים
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                favoriteRecipes.clear();// מנקה את הרשימה לפני הטעינה
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    Recipe recipe = childSnapshot.getValue(Recipe.class);// ממירה את הנתונים למתכון
-
-                    if (recipe != null && favoriteNames.contains(recipe.getName())) {
-                        // מוסיפה לרשימה רק את המתכונים שהשם שלהם נמצא ברשימת האהובים
-                        favoriteRecipes.add(recipe);
+                recipesList.clear();// קודם כל מנקה את הרשימה הקודמת
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {// עוברת על כל מתכון
+                    Recipe recipe = childSnapshot.getValue(Recipe.class); // ממירה את הנתונים לעצם מתכון
+                    if (recipe != null) {
+                        recipesList.add(recipe);// מוסיפה את המתכון לרשימה
                     }
                 }
-                adapter.notifyDataSetChanged();// מעדכנת את התצוגה
-
+                adapter.notifyDataSetChanged();// מודיעה לאדפטר שהתוכן השתנה וצריך לעדכן את התצוגה
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w("FavoriteListActivity", "Failed.", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("MyRecipeListActivity", "Failed to read value.", error.toException());
             }
         });
     }
@@ -90,12 +83,14 @@ public class FavoritesListActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_favorites_list) {
+            Intent intent = new Intent(this, FavoritesListActivity.class);
+            startActivity(intent);
             return true;
-        }else if (itemId == R.id.menu_item_myRecipes_list) {
+        } else if (itemId == R.id.menu_item_myRecipes_list) {
             Intent intent = new Intent(this, MyRecipesListActivity.class);
             startActivity(intent);
             return true;
-        }  else if (itemId == R.id.menu_item_recipe_list) {
+        } else if (itemId == R.id.menu_item_recipe_list) {
             Intent intent = new Intent(this, RecipeListActivity.class);
             startActivity(intent);
             return true;

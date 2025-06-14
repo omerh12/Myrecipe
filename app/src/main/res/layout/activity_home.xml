@@ -9,6 +9,18 @@
     android:gravity="center"
     tools:context=".HomeActivity">
 
+        <TextView
+            android:id="@+id/tvNewMessageAlert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF3CD"
+            android:textColor="#856404"
+            android:text="נשאלה שאלה לגבי מתכון שהעלת"
+            android:padding="12dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvHomeCurrentlyCooking"

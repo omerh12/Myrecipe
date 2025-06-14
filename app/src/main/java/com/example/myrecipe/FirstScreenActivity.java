@@ -12,10 +12,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class FirstScreenActivity extends AppCompatActivity {
-
+    // משתנה לניהול העדפות משתמש
     PreferenceManager preferenceManager;
-    Button btnFirstScreenSignUp,btnFirstScreenSignIn;
+    // שני כפתורים למסך הראשי - התחברות והרשמה
+    Button btnFirstScreenSignUp, btnFirstScreenSignIn;
+    // אובייקט שמייצג את המשתמש הנוכחי
     FirebaseUser user;
+    // משתנה בוליאני שבודק אם המשתמש כבר מחובר
     boolean isLoggedIn;
 
 
@@ -25,9 +28,9 @@ public class FirstScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first_screen);
 
         preferenceManager = new PreferenceManager(this);
-        user= FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();        // מקבלת את המשתמש הנוכחי מ-Firebase (אם קיים)
+        isLoggedIn = preferenceManager.isLoggedIn();     // בודקת אם המשתמש מסומן כ"מחובר" בהעדפות
 
-        isLoggedIn = preferenceManager.isLoggedIn();
 
         if (user != null && isLoggedIn) {
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();

@@ -13,23 +13,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.firebase.auth.FirebaseAuth;
-
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Calendar;
 
 public class AlarmActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button btnAlarmSetAlarm;
-    AlarmManager alarmManager;
+    Button btnAlarmSetAlarm;// כפתור הגדרת שעון מעורר
+    AlarmManager alarmManager;// משתנה של מנהל ההתראות
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,9 +34,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_alarm);
 
         btnAlarmSetAlarm = findViewById(R.id.btnAlarmSetAlarm);
-        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);// מקבל את שירות השעונים מהמערכת
         btnAlarmSetAlarm.setOnClickListener(this);
-        createNotificationChannel();
+        createNotificationChannel();// יוצר ערוץ התראות לשימוש עתידי
     }
 
     @SuppressLint("ScheduleExactAlarm")
@@ -49,38 +45,38 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.btnAlarmSetAlarm) {
 
 
-            MaterialTimePicker picker = new MaterialTimePicker.Builder()
-                    .setTimeFormat(TimeFormat.CLOCK_24H)
-                    .setHour(12)
-                    .setMinute(0)
-                    .setTitleText("Select Alarm Time")
-                    .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
+            MaterialTimePicker picker = new MaterialTimePicker.Builder()// יוצר שדה לבחירת שעה
+                    .setTimeFormat(TimeFormat.CLOCK_24H) // קובע פורמט 24 שעות
+                    .setHour(12)// ברירת מחדל שעה 12
+                    .setMinute(0)// ברירת מחדל דקה 0
+                    .setTitleText("Select Alarm Time") // כותרת לחלון
+                    .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)// מאפשר להקליד את השעה
                     .build();
 
-            picker.show(getSupportFragmentManager(), "ALARM_TIME_PICKER");
+            picker.show(getSupportFragmentManager(), "ALARM_TIME_PICKER");// מציג את חלון הבחירה
 
-            picker.addOnPositiveButtonClickListener(v -> {
-                int hour = picker.getHour();
-                int minute = picker.getMinute();
+            picker.addOnPositiveButtonClickListener(v -> {// פעולה שמתרחשת כשהמשתמש לוחץ על "אישור"
+                int hour = picker.getHour();// השעה שנבחרה
+                int minute = picker.getMinute();// דקה שנבחרה
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
+                Calendar calendar = Calendar.getInstance();// הזמן נוכחי
+                calendar.set(Calendar.HOUR_OF_DAY, hour);// מגדיר את השעה הרצויה
+                calendar.set(Calendar.MINUTE, minute);// מגדיר את הדקה הרצויה
+                calendar.set(Calendar.SECOND, 0);// אפס שניות
+                calendar.set(Calendar.MILLISECOND, 0);// אפס אלפיות
 
-                Intent intent = new Intent(this, AlarmReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                Intent intent = new Intent(this, AlarmReceiver.class);// יוצר אינטנט שיפעיל את AlarmReceiver
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(// יוצר PendingIntent שישוגר בשעה שנקבעה
                         this,
                         0,
                         intent,
                         PendingIntent.FLAG_MUTABLE
                 );
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// אם גרסת האנדרואיד היא M ומעלה
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);// קובע שעון מדויק שפועל גם במצב שינה
                 } else {
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);// עבור גרסאות ישנות - רק "מדויק"
                 }
 
                 Toast.makeText(this,
@@ -91,14 +87,14 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private void createNotificationChannel() {
-        NotificationChannel channel = new NotificationChannel(
-                "ALARM_CHANNEL_ID",
-                "Alarm Channel",
-                NotificationManager.IMPORTANCE_HIGH
+    private void createNotificationChannel() {// פעולה שיוצרת ערוץ התראות
+        NotificationChannel channel = new NotificationChannel(// יוצר ערוץ חדש
+                "ALARM_CHANNEL_ID",// מזהה לערוץ
+                "Alarm Channel",// שם הערוץ
+                NotificationManager.IMPORTANCE_HIGH// רמת החשיבות של ההתראות בערוץ זה
         );
-        NotificationManager manager = getSystemService(NotificationManager.class);
-        manager.createNotificationChannel(channel);
+        NotificationManager manager = getSystemService(NotificationManager.class);// מקבל את מנהל ההתראות
+        manager.createNotificationChannel(channel);// יוצר את הערוץ בפועל
 
     }
 
@@ -132,7 +128,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, ChatActivity.class);
+            Intent intent = new Intent(this, GeminiActivity.class);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {
