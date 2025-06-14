@@ -56,11 +56,9 @@ public class RecipeViewActivity extends AppCompatActivity {
 
         uid=FirebaseAuth.getInstance().getUid();
 
-
-
         // מאחסנת את רשימת המתכונים המועדפים והמבושלים בזיכרון של הטלפון
-        favoritePrefs = getSharedPreferences(FAVORITES_PREF+ ""+uid ,MODE_PRIVATE);
-        cookingPref = getSharedPreferences(COOKING_PREF + ""+uid, MODE_PRIVATE);
+        favoritePrefs = getSharedPreferences(FAVORITES_PREF,MODE_PRIVATE);
+        cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
 
         // קבלת הנתונים שנשלחו מהמסך קודם
         String recipeName = getIntent().getStringExtra("recipeName");
@@ -69,12 +67,6 @@ public class RecipeViewActivity extends AppCompatActivity {
         String imagePath = getIntent().getStringExtra("imagePath");
         String recipeAuthorUid = getIntent().getStringExtra("recipeAuthorUid");
         String recipeId=getIntent().getStringExtra("recipeId");
-
-
-
-
-
-
 
         // אם המתכון הזה מבושל כרגע - משנים את שם הכפתור
         btnRecipeExampleStartCooking.setText("Start Cooking");

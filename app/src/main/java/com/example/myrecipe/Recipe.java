@@ -1,7 +1,5 @@
 package com.example.myrecipe;
 
-import java.util.UUID;
-
 public class Recipe {
     private String name;
     private String ingredients;

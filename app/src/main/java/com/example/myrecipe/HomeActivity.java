@@ -158,8 +158,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        String uid=FirebaseAuth.getInstance().getUid();
-        cookingPref = getSharedPreferences(COOKING_PREF + ""+uid, MODE_PRIVATE);// טוען את ההעדפות של מתכון בבישול
+        cookingPref = getSharedPreferences(COOKING_PREF , MODE_PRIVATE);// טוען את ההעדפות של מתכון בבישול
         String currentlyCookingRecipe = cookingPref.getString("cookingRecipe", "");// מביא את שם המתכון שמתבשל כרגע
         getCurrentCookingRecipeByName(currentlyCookingRecipe, new OnRecipeLoadedListener() { // מביא את האובייקט המלא של המתכון לפי השם
             @Override
@@ -181,22 +180,21 @@ public class HomeActivity extends AppCompatActivity {
                     tvHomeRecipeCurrentlyCookingRecipeName.setOnClickListener(null);
                     ivHomeRecipeCurrentlyCooking.setOnClickListener(null);
                 }
-
             }
         });
     }
 
-    //עבור מתכון אחד
+    //עבור מתכון אחד תצוגה
     public interface OnRecipeLoadedListener {
         void onRecipeLoaded(Recipe recipe);
     }
 
-    //עבור כמה מתכונים
+    //עבור כמה מתכונים תצוגה
     public interface OnRecipesLoadedListener {
         void onRecipesLoaded(ArrayList<Recipe> recipes);
     }
 
-    // פונקציה שמביאה את המתכון שמתבשל כרגע לפי שם
+    // פונקציה שמביאה את המתכונים המועדפים כרגע לפי שם
     public void getFavoriteRecipesByNames(Set<String> recipesNames, OnRecipesLoadedListener listener) {
         DatabaseReference recipesRef = FirebaseDatabase.getInstance().getReference("recipes");
         recipesRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -221,7 +219,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
-
+    // פעולה שמביאה את המתכון שמתבשל כרגע לפי שם
     public void getCurrentCookingRecipeByName(String recipeName, OnRecipeLoadedListener listener) {
         DatabaseReference recipesRef = FirebaseDatabase.getInstance().getReference("recipes");
         recipesRef.orderByChild("name").equalTo(recipeName)
