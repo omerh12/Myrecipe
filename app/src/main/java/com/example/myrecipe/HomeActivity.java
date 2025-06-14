@@ -258,8 +258,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_home) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_favorites_list) {
             Intent intent = new Intent(this, FavoritesListActivity.class);

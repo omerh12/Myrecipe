@@ -119,7 +119,13 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(this, FavoritesListActivity.class);
             startActivity(intent);
             return true;
-        } else if (itemId == R.id.menu_item_recipe_list) {
+        }
+        else if (itemId == R.id.menu_item_myRecipes_list) {
+            Intent intent = new Intent(this, MyRecipesListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (itemId == R.id.menu_item_recipe_list) {
             Intent intent = new Intent(this, RecipeListActivity.class);
             startActivity(intent);
             return true;
