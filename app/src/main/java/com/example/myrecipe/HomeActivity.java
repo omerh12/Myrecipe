@@ -1,6 +1,5 @@
 package com.example.myrecipe;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import android.annotation.SuppressLint;
@@ -279,7 +278,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, GeminiActivity.class);
+            Intent intent = new Intent(this, ChatActivity.class);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {

@@ -25,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class GeminiActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity {
 
     private static final String GEMINI_API_KEY = "AIzaSyDrzUv_h4UXEO6ktLia-sp6i54s5suN-sQ";// מפתח API קבוע לשליחת בקשות לג'מיני
     private static final String GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=";// כתובת ה-API
@@ -38,7 +38,7 @@ public class GeminiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gemini);
+        setContentView(R.layout.activity_chat);
 
         etMessage = findViewById(R.id.etChatWithAIMessage);
         btnSend = findViewById(R.id.btnChatWithAISend);
@@ -52,7 +52,7 @@ public class GeminiActivity extends AppCompatActivity {
                 tvResponse.setText("Thinking...");
                 sendMessageToGemini(userMessage);// שולח את ההודעה ל-Gemini
             } else {
-                Toast.makeText(GeminiActivity.this, "Please type a message.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatActivity.this, "Please type a message.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -91,7 +91,7 @@ public class GeminiActivity extends AppCompatActivity {
                     e.printStackTrace();// אם הבקשה נכשלה
                     runOnUiThread(() -> {// מריץ את הפעולה על ת'רד ראשי
                         tvResponse.setText("Network Error: " + e.getMessage());// מציג שגיאת רשת
-                        Toast.makeText(GeminiActivity.this, "Network error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ChatActivity.this, "Network error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     });
                 }
 
@@ -120,13 +120,13 @@ public class GeminiActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             runOnUiThread(() -> {
                                 tvResponse.setText("Failed to parse response: " + e.getMessage());
-                                Toast.makeText(GeminiActivity.this, "Failed to parse AI response.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ChatActivity.this, "Failed to parse AI response.", Toast.LENGTH_LONG).show();
                             });
                         }
                     } else {
                         runOnUiThread(() -> {
                             tvResponse.setText("Error " + response.code() + ": " + responseData);
-                            Toast.makeText(GeminiActivity.this, "API Error: " + response.code(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ChatActivity.this, "API Error: " + response.code(), Toast.LENGTH_LONG).show();
                         });
                     }
                 }
@@ -135,7 +135,7 @@ public class GeminiActivity extends AppCompatActivity {
         } catch (JSONException e) {
             runOnUiThread(() -> {
                 tvResponse.setText("JSON error: " + e.getMessage());
-                Toast.makeText(GeminiActivity.this, " error.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChatActivity.this, " error.", Toast.LENGTH_LONG).show();
             });
         }
     }

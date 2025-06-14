@@ -128,7 +128,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_chat) {
-            Intent intent = new Intent(this, GeminiActivity.class);
+            Intent intent = new Intent(this, ChatActivity.class);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.menu_item_alarm) {
