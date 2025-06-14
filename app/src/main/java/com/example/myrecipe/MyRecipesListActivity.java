@@ -34,7 +34,6 @@ public class MyRecipesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_recipes_list);
-        //setContentView(R.layout.activity_recipe_list);
 
         recipesRecyclerView = findViewById(R.id.recipesRecyclerView);
         recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));// מסדרת את הרשימה לאורך
