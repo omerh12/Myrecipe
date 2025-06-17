@@ -65,7 +65,7 @@ public class ChatActivity extends AppCompatActivity {
             JSONObject content = new JSONObject();//יוצר
             content.put("role", "user");// מגדיר שהמשתמש הוא הדובר
 
-            JSONArray parts = new JSONArray();// חלקים של התוכן
+            JSONArray parts = new JSONArray();// מערך של הודעות שההודעה של המשתמש נכנסת באחד מהם
             JSONObject part = new JSONObject();// חלק אחד של הטקסט
             part.put("text", message);// מכניס את ההודעה של המשתמש
             parts.put(part);// מוסיף למערך החלקים
@@ -89,7 +89,7 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();// אם הבקשה נכשלה
-                    runOnUiThread(() -> {// מריץ את הפעולה על ת'רד ראשי
+                    runOnUiThread(() -> {// מריץ את הפעולה על ת'רד ראשי,בזמן פעולות כבדות צריך שיהיה UiThread כדי לא להיתקע. זה כמו להעביר בקשה, לעדכן את המצג על המסך.
                         tvResponse.setText("Network Error: " + e.getMessage());// מציג שגיאת רשת
                         Toast.makeText(ChatActivity.this, "Network error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     });
