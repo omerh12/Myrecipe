@@ -57,7 +57,7 @@ public class RecipeViewActivity extends AppCompatActivity {
         uid=FirebaseAuth.getInstance().getUid();
 
         // מאחסנת את רשימת המתכונים המועדפים והמבושלים בזיכרון של הטלפון
-        favoritePrefs = getSharedPreferences(FAVORITES_PREF,MODE_PRIVATE);
+        favoritePrefs = getSharedPreferences(FAVORITES_PREF+""+uid,MODE_PRIVATE);
         cookingPref = getSharedPreferences(COOKING_PREF, MODE_PRIVATE);
 
         // קבלת הנתונים שנשלחו מהמסך קודם
